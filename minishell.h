@@ -3,28 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/05 15:51:03 by hlyshchu         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:04:29 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 #define MINISHELL_H
 
+#include <libft.h>
+#include <stdbool.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+// Declare the global variable
+extern int is_interactive;
+
+typedef struct s_exec
+{
+	char *path_to_exec;
+	char **args;
+	const char *stdin_list;
+	const char *stdout_list;
+	unsigned char is_heredoc;
+	// enum stdout_;
+} t_exec;
+
 typedef struct s_info
 {
-    t_builtin_ptr   builtins[7];
-    char            reserved_words[7];
-    char **envp;
-    t_llist     envp_list;
-    bool        envp_f; //flag: need to update  envp_list (if no operation envp_list was executed -> no need to update)
-    bool        exit_f; //flag: to exit -> need to free resources
-    int         status; // need to handle $? (advantage: no need to be a global var)
-    //all commands executed in subprocess except builtins
-    
+	int status;
+	const char *error_msg;
+	t_exec *cmd;
+	const size_t cmds_size;
 } t_info;
+
+// Declare signal handling setup function
+void setup_signals(void);
 
 
 

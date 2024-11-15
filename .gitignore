@@ -1,0 +1,11 @@
+# Vim files
+.vimrc
+*.swp
+
+# Binary, object files, dependency files, compiled libraries.
+a.out
+minishell
+*.o
+*.d
+*.a
+*.so
