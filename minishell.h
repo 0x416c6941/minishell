@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/25 19:04:29 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/25 19:05:30 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ typedef struct s_info
 	t_exec *cmd;
 	const size_t cmds_size;
 } t_info;
+
+typedef struct s_command
+{
+	char **args;			// Array of arguments
+	size_t arg_count;		// Number of arguments
+	char *input_file;		// Input redirection file
+	char *output_file;		// Output redirection file
+	int append;				// Append mode (1 if `>>`, 0 otherwise)
+	struct s_command *next; // Pointer to the next command (for pipes)
+} t_command;
+
+// Function prototypes
+t_command *parse_input(const char *input);
+void free_command(t_command *cmd);
 
 // Declare signal handling setup function
 void setup_signals(void);

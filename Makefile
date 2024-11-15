@@ -4,7 +4,7 @@ CFLAGS = -Wall -Wextra -Wsign-conversion -Werror -lreadline -pedantic 			\
 		 -I$(HEADS_DIR) -I$(LIBFT_HEAD_DIR) -g -fsanitize=address
 
 # Source files
-SRC_FILES = main.c signal_handle.c
+SRC_FILES = main.c signal_handle.c parse.c
 
 # Headers directories.
 HEADS_DIR = ./
