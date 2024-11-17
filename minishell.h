@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/25 19:05:30 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:00:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,14 @@ void free_command(t_command *cmd);
 // Declare signal handling setup function
 void setup_signals(void);
 
+<<<<<<< HEAD
 
 
 #endif
+=======
+// utils.c
+bool ft_isspace(const char c);
+bool check_unclosed_quotes(const char *str)
+
+#endif /* MINISHELL_H */
+>>>>>>> fdc67c1 (Adding utils.c with check_unclosed_quotes and ft_isspace)

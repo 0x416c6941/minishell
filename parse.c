@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 11:28:53 by root              #+#    #+#             */
-/*   Updated: 2024/11/15 14:38:13 by root             ###   ########.fr       */
+/*   Updated: 2024/11/17 18:50:24 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char **tokenize_input(const char *input, size_t *token_count)
 				operator[1] = '>';
 				i++;
 			}
-			tokens[count++] = strdup(operator);
+			tokens[count++] = ft_strdup(operator);
 			i++;
 		}
 		else
@@ -79,12 +79,11 @@ char **tokenize_input(const char *input, size_t *token_count)
 
 			size_t length = i - start;
 			tokens[count] = malloc(length + 1);
-			strncpy(tokens[count], input + start, length);
+			ft_strncpy(tokens[count], input + start, length);
 			tokens[count][length] = '\0';
 			count++;
 		}
 	}
-
 	tokens[count] = NULL; // Null-terminate the array
 	*token_count = count;
 	return tokens;
@@ -124,13 +123,13 @@ char *handle_quotes(const char *input, int *i)
 char *expand_variables(const char *arg)
 {
 	if (arg[0] != '$')
-		return strdup(arg); // Not a variable, return as is
+		return ft_strdup(arg); // Not a variable, return as is
 
-	char *var_name = strdup(arg + 1);
+	char *var_name = ft_strdup(arg + 1);
 	char *value = getenv(var_name); // Get environment variable value
 	free(var_name);
 
-	return value ? strdup(value) : strdup(""); // Return value or empty string
+	return value ? ft_strdup(value) : ft_strdup(""); // Return value or empty string
 }
 
 t_command *parse_input(const char *input)
@@ -180,7 +179,7 @@ t_command *parse_input(const char *input)
 		{
 			// Input redirection
 			if (i + 1 < token_count)
-				cmd->input_file = strdup(tokens[++i]);
+				cmd->input_file = ft_strdup(tokens[++i]);
 			else
 				fprintf(stderr, "Error: Missing input file after '<'\n");
 		}
@@ -189,7 +188,7 @@ t_command *parse_input(const char *input)
 			// Output redirection
 			if (i + 1 < token_count)
 			{
-				cmd->output_file = strdup(tokens[++i]);
+				cmd->output_file = ft_strdup(tokens[++i]);
 				cmd->append = 0; // Not append mode
 			}
 			else
@@ -200,7 +199,7 @@ t_command *parse_input(const char *input)
 			// Append redirection
 			if (i + 1 < token_count)
 			{
-				cmd->output_file = strdup(tokens[++i]);
+				cmd->output_file = ft_strdup(tokens[++i]);
 				cmd->append = 1; // Append mode
 			}
 			else
@@ -213,13 +212,10 @@ t_command *parse_input(const char *input)
 			cmd->args[cmd->arg_count++] = expanded;
 		}
 	}
-
-	cmd->args[cmd->arg_count] = NULL; // Null-terminate the args array
-
+	cmd->args[cmd->arg_count] = NULL;
 	// Free tokens
 	for (size_t i = 0; i < token_count; i++)
 		free(tokens[i]);
 	free(tokens);
-
 	return cmd;
 }

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:51:42 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/25 19:05:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/17 19:02:54 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void handle_interactive_mode(void)
 			printf("Parsed command:\n");
 			for (size_t i = 0; i < cmd->arg_count; i++)		 // Use size_t for the loop variable
 				printf("  arg[%zu]: %s\n", i, cmd->args[i]); // Use %zu for size_t
-
 			if (cmd->input_file)
 				printf("  Input redirection: %s\n", cmd->input_file);
 			if (cmd->output_file)
@@ -60,7 +59,6 @@ void handle_interactive_mode(void)
 
 				next_cmd = next_cmd->next;
 			}
-
 			free_command(cmd);
 		}
 		free(input);
@@ -84,7 +82,6 @@ void handle_non_interactive_mode(void)
 				printf("Error: Failed to parse input.\n");
 				continue;
 			}
-
 			printf("Parsed command:\n");
 			for (size_t i = 0; i < cmd->arg_count; i++)		 // Use size_t for the loop variable
 				printf("  arg[%zu]: %s\n", i, cmd->args[i]); // Use %zu for size_t
@@ -109,7 +106,6 @@ void handle_non_interactive_mode(void)
 
 				next_cmd = next_cmd->next;
 			}
-
 			free_command(cmd);
 		}
 	}
