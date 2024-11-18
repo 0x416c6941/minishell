@@ -6,7 +6,7 @@
 /*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/18 15:22:01 by hlyshchu         ###   ########.fr       */
+/*   Updated: 2024/11/18 16:11:41 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,9 @@ typedef struct s_ret_check
 
 typedef struct s_stdin_file
 {
-	const char *stdin_file;		// If $is_heredoc isn't 0, this will be ending word for heredoc
+	const char *stdin_file;
 	unsigned short is_heredoc;	// 0 - not heredoc, everything else - heredoc
+	const char *heredoc_delim;
 	t_stdin_file *next;
 }	t_stdin_file;
 
