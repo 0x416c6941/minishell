@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/17 19:00:15 by root             ###   ########.fr       */
+/*   Updated: 2024/11/18 13:34:15 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void setup_signals(void);
 =======
 // utils.c
 bool ft_isspace(const char c);
-bool check_unclosed_quotes(const char *str)
+bool check_unclosed_quotes(const char *str);
 
 #endif /* MINISHELL_H */
 >>>>>>> fdc67c1 (Adding utils.c with check_unclosed_quotes and ft_isspace)

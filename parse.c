@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 11:28:53 by root              #+#    #+#             */
-/*   Updated: 2024/11/17 18:50:24 by root             ###   ########.fr       */
+/*   Updated: 2024/11/18 13:34:45 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ char **tokenize_input(const char *input, size_t *token_count)
 
 			size_t length = i - start;
 			tokens[count] = malloc(length + 1);
-			ft_strncpy(tokens[count], input + start, length);
+			strncpy(tokens[count], input + start, length);
 			tokens[count][length] = '\0';
 			count++;
 		}
