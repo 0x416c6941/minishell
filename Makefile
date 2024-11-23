@@ -1,45 +1,49 @@
 # Compiler options.
 CC = cc
-CFLAGS = -Wall -Wextra -Wsign-conversion -Werror -lreadline -pedantic 			\
-		 -I$(HEADS_DIR) -I$(LIBFT_HEAD_DIR) -g -fsanitize=address
+CFLAGS = -I$(INC_DIR) -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
+		 -g -fsanitize=address
 
-# Source files
+# Headers.
+INC_DIR = include
+
+# Source files.
+SRC_DIR = src
 SRC_FILES = main.c signal_handle.c parse.c utils.c
-
-# Headers directories.
-HEADS_DIR = ./
-LIBFT_HEAD_DIR = Libft/
+SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
 # Object files.
-OBJ_FILES = $(patsubst %.c,%.o,$(SRC_FILES))
+OBJ_DIR = obj
+OBJ_FILES = $(patsubst $(SRC_DIR)/%.c,$(OBJ_DIR)/%.o,$(SRC_FILES))
 
 # Name of the resulting binary file.
 NAME = minishell
 
 # For other Makefiles.
+EXTERNAL_DIR = external
 MAKE = make
 
 # Libft.
-LIBFT_DIR = Libft
-LIBFT_A = $(LIBFT_DIR)/libft.a
-LIBFT_BUILD_TARGET = all
+LIBFT_DIR = $(EXTERNAL_DIR)/Libft
+LIBFT_NAME = libft.a
+LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME)
 LIBFT_CLEAN = fclean
 
 # Targets.
 all: $(NAME)
 
-$(NAME): $(LIBFT_A) $(OBJ_FILES)
+$(NAME): $(LIBFT) $(OBJ_FILES)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $@ -L$(LIBFT_DIR) -lft
 
-%.o: %.c
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(dir $@)			# Create the $(OBJ_DIR) if it doesn't exist.
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT_A):
-	$(MAKE) -C $(LIBFT_DIR) $(LIBFT_BUILD_TARGET)
+$(LIBFT):
+	$(MAKE) -C $(LIBFT_DIR) $(LIBFT_NAME)
 
 .PHONY: clean
 clean:
-	rm -f $(OBJ_FILES)
+	rm -rf $(OBJ_DIR)
 	$(MAKE) -C $(LIBFT_DIR) $(LIBFT_CLEAN)
 
 .PHONY: fclean
