@@ -6,7 +6,7 @@
 /*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/05 15:34:55 by hlyshchu          #+#    #+#             */
-/*   Updated: 2024/11/18 16:11:41 by hlyshchu         ###   ########.fr       */
+/*   Updated: 2024/11/24 11:51:20 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,34 +87,73 @@ bool check_unclosed_quotes(const char *str);
 
 
 
-typedef struct s_ret_check
+/**
+ * Wrapper primarily to catch malloc() fails.
+ * ret may be whatever, including e.g. ints casted to uintptr_t.
+ */
+typedef struct s_ret
 {
-	int status;	// -1 in case of an error
-	void *ret;	// Obmazatsya: ukazatel na cho ugodno
-}	t_ret_check;
+	int		status;	/* -1 in case of a crucial error. */
+	void	*ret;
+}	t_ret;
 
-typedef struct s_stdin_file
+enum e_stdin_redir_type
 {
-	const char *stdin_file;
-	unsigned short is_heredoc;	// 0 - not heredoc, everything else - heredoc
-	const char *heredoc_delim;
-	t_stdin_file *next;
-}	t_stdin_file;
+	file,
+	heredoc,
+};
 
-typedef struct s_stdout_file
+union u_stdin_redir
 {
-	char *output_file;
-	int append;
-	t_stdout_file *next;
-}	t_stdout_file;
+	const char	*stdin_file;
+	const char	*heredoc_eof;
+};
 
+/**
+ * A list of stdin redirections.
+ */
+typedef struct s_stdin_redir
+{
+	enum e_stdin_redir_type	redir_type;
+	union u_stdin_redir		redir_data;
+	t_stdin_redir			*next;
+}	t_stdin_redir;
+
+enum e_stdout_redir_type
+{
+	overwrite,
+	append,
+};
+
+/**
+ * A list of stdout redirections.
+ */
+typedef struct s_stdout_redir
+{
+	enum e_stdout_redir_type	redir_type;
+	const char					*output_file;
+	t_stdout_redir				*next;
+}	t_stdout_redir;
+
+/**
+ * A helper structure. During parsing, arguments will be saved here,
+ * the final result will be then moved to $args in t_exec.
+ */
+typedef struct t_arg
+{
+	char	*arg;
+	t_arg	*next;
+}	t_arg;
+
+/**
+ * A list of parsed commands.
+ */
 typedef struct t_exec
 {
-
-	char *path_to_exec; //asagymba task
-	char **args;
-	t_stdin_file *stdin_file;
-	t_stdout_file *stdout_file;	// 0 - '>'
+	const char		*path_to_exec;
+	char			**args;
+	t_stdin_redir	*stdin_redirs;
+	t_stdout_redir	*stdout_redirs;
 	t_exec *next;
 }	t_exec;
 
