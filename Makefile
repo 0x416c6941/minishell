@@ -1,6 +1,7 @@
 # Compiler options.
 CC = cc
-CFLAGS = -I$(INC_DIR) -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
+CFLAGS = -I$(INC_DIR) -lreadline							\
+		 -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
 		 -g -fsanitize=address
 
 # Headers.
@@ -8,7 +9,7 @@ INC_DIR = include
 
 # Source files.
 SRC_DIR = src
-SRC_FILES = main.c signal_handle.c parse.c utils.c
+SRC_FILES = tmp_main.c
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
 # Object files.
