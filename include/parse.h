@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 19:30:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:53:54 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ enum e_stdout_redir_type
  * ---------------------------------------------------------------------------
  */
 /**
- * Unused.
+ * Unused. It'd be madness to bypass Norminette if we try to use this.
  */
 union u_stdin_redir
 {
@@ -77,7 +77,7 @@ typedef struct s_ret
 
 /**
  * stdin redirection.
- * In order to bypass Norminette, data may contain either
+ * In order to bypass Norminette, $data may contain either
  * a pathname for a file, or a heredoc EOF string.
  */
 typedef struct s_stdin_redir
