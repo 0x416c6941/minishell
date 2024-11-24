@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_part1.c                                      :+:      :+:    :+:   */
+/*   ft_get_next_token.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:00:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 12:26:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:28:38 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse_utils.h>
+#include <parse.h>
 #include <stddef.h>
 #include <utils.h>
 

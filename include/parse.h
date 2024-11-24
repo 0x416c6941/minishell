@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 12:12:11 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:28:13 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,18 @@ typedef struct t_exec
  * Functions.
  * ---------------------------------------------------------------------------
  */
+/**
+ * A modified version of ft_strtok_r(), which tokenizes prompt
+ * by '|' delimiters and doesn't clear consecutive delimiters.
+ *
+ * Usage is similar to ft_strtok_r(): in each subsequent call that
+ * parses the same prompt, $prompt must be NULL.
+ * @brief	Tokenizes prompt by '|' delimiters.
+ * @param	prompt	The string to tokenize.
+ * @param	saveptr	Where to save the current position.
+ * @return	The next token;
+ * 			NULL if there are no more tokens.
+ */
+char	*ft_get_next_token(char *prompt, char **saveptr);
 
 #endif	/* PARSE_H */

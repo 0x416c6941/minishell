@@ -6,13 +6,13 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 12:14:02 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 12:28:44 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <libft.h>
-#include <parse_utils.h>
+#include <parse.h>
 #include <stddef.h>
 
 #define REQUIRED_ARGC	2
