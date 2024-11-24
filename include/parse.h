@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 13:00:15 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 14:21:54 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_stdin_redir
 {
 	enum e_stdin_redir_type	redir_type;
 	union u_stdin_redir		redir_data;
-	struct t_stdin_redir	*next;
+	struct s_stdin_redir	*next;
 }	t_stdin_redir;
 
 /**
@@ -80,29 +80,30 @@ typedef struct s_stdout_redir
 {
 	enum e_stdout_redir_type	redir_type;
 	const char					*output_file;
-	struct t_stdout_redir		*next;
+	struct s_stdout_redir		*next;
 }	t_stdout_redir;
 
 /**
  * A helper list. During parsing, arguments will be saved here,
  * the final result will be then moved to $args in t_exec.
  */
-typedef struct t_arg
+typedef struct s_arg
 {
 	char			*arg;
-	struct t_arg	*next;
+	struct s_arg	*next;
 }	t_arg;
 
 /**
  * A list of parsed commands.
  */
-typedef struct t_exec
+typedef struct s_exec
 {
 	const char		*path_to_exec;
-	char			**args;
+	t_arg			*args;
+	char			**args_for_execve;
 	t_stdin_redir	*stdin_redirs;
 	t_stdout_redir	*stdout_redirs;
-	struct t_exec	*next;
+	struct s_exec	*next;
 }	t_exec;
 
 /**
@@ -146,5 +147,62 @@ void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
  * 			NULL if there are no more arguments.
  */
 char	*ft_get_next_arg(char *token, char **saveptr);
+
+/**
+ * Checks if all quotes in $arg are properly closed or not.
+ * @param	arg	Argument to check.
+ * @return	Some non-negative value, if yes;
+ * 			(-1) otherwise.
+ */
+int		ft_check_arg_quotes(const char *arg);
+
+/**
+ * Frees a list of t_args.
+ * @param	arg	Pointer to head of t_args' list.
+ */
+void	ft_free_t_args(t_arg **arg);
+
+/**
+ * Frees arguments for execve
+ * (transformed from list of t_args to array of strings). 
+ * @param	arg_for_execve	Pointer to an array of strings,
+ * 							transformed from list of t_args.
+ */
+void	ft_free_args_for_execve(char ***arg_for_execve);
+
+/**
+ * Frees a list of t_stdin_redirs.
+ * @param	stdin_redir	Pointer to head of t_stdin_redirs' list.
+ */
+void	ft_free_t_stdin_redirs(t_stdin_redir **stdin_redir);
+
+/**
+ * Frees a list of t_stdout_redirs.
+ * @param	stdout_redir	Pointer to head of t_stdout_redirs' list.
+ */
+void	ft_free_t_stdout_redirs(t_stdout_redir **stdout_redir);
+
+/**
+ * Frees a list of t_execs.
+ * @param	exec	Pointer to head of t_execs' list.
+ */
+void	ft_free_t_execs(t_exec **exec);
+
+/**
+ * Processes token gotten by ft_get_next_token() and returns raw t_exec,
+ * in which quotes aren't expanded.
+ * @breif	Extracts raw t_exec from token gotten by ft_get_next_token().
+ * @param	token	Token to process.
+ * @return	If malloc() failed somewhere, $status is set to (-1) and
+ * 				$ret is set to NULL;
+ * 			if $status is set to 0 and $ret is set to NULL,
+ * 				then user's input was invalid;
+ * 			if $status is set to 0 and $ret is set to non-NULL value,
+ * 				then we have a correct executable
+ * 				and shell's syntax was valid
+ * 				(nothing else is checked however, i.e. e.g. some file
+ * 				to redirect stdin may be inaccessible).
+ */
+t_ret	ft_get_cmd_raw_quotes(char *token);
 
 #endif	/* PARSE_H */

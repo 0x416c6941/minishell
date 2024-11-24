@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 13:04:55 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:17:42 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	main(int argc, char **argv)
 		while (next_arg != NULL)
 		{
 			ft_printf("%s\n", next_arg);
+			if (ft_check_arg_quotes(next_arg) == -1)
+				ft_printf("\tSomething gone wrong :p\n");
 			next_arg = ft_get_next_arg(NULL, &last_arg);
 		}
 		next_token = ft_get_next_token(NULL, &last_token);
