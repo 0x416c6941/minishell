@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 17:53:05 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 18:06:02 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,8 +172,8 @@ void	ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
 void	ft_free_t_exec(t_exec *exec);
 
 /**
- * Processes token gotten by ft_get_next_token() and returns raw t_exec,
- * in which quotes aren't expanded.
+ * Processes token gotten by ft_get_next_token() and returns
+ * a t_list node with a raw t_exec, in which quotes aren't expanded.
  * @breif	Extracts raw t_exec from token gotten by ft_get_next_token().
  * @param	token	Token to process.
  * @return	If malloc() failed somewhere, $status is set to (-1) and
@@ -181,10 +181,9 @@ void	ft_free_t_exec(t_exec *exec);
  * 			if $status is set to 0 and $ret is set to NULL,
  * 				then user's input was invalid;
  * 			if $status is set to 0 and $ret is set to non-NULL value,
- * 				then we have a correct executable
- * 				and shell's syntax was valid
- * 				(nothing else is checked however, i.e. e.g. some file
- * 				to redirect stdin may be inaccessible).
+ * 				then shell command's syntax was valid
+ * 				(nothing else is checked at this stage however,
+ * 				i.e. e.g. some file to redirect stdin may be inaccessible).
  */
 t_ret	ft_get_cmd_raw_quotes(char *token);
 
