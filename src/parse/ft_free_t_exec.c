@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:53:09 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 18:00:52 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:07:04 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	ft_free_t_exec(t_exec *exec)
 {
+	if (exec == NULL)
+		return ;
 	free((char *)(exec->path_to_exec));
 	ft_lstclear(&(exec->args), free);
 	ft_free_args_for_execve(&(exec->args_for_execve));

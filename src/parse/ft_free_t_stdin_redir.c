@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:53:09 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 19:12:13 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:07:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 void	ft_free_t_stdin_redir(t_stdin_redir *stdin_redir)
 {
+	if (stdin_redir == NULL)
+		return ;
 	free((char *)(stdin_redir->data));
 	free(stdin_redir);
 }

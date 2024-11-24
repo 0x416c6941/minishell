@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 19:33:04 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 20:05:25 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,24 @@
 /**
  * Bypasses Norminette.
  * Processes stdin redirection argument and returns it as a node of t_list.
- * To be used only by ft_process_arg().
+ * @warning	To be used only by ft_process_arg().
  * @param	arg			A pointer to a string containg current argument;
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
- * @return	(-1), if something went really bad;
- * 			0, if argument is invalid;
- * 			Some positive value otherwise.
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status == 0) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			$status will be some positive value otherwise,
+ * 				and $ret will be a node of t_list containing
+ * 				stdin redirection argument.
  */
 static t_ret	ft_process_stdin_redir_arg(char **arg, char **arg_next)
 {
 	t_stdin_redir	*stdin_redir_arg;
 	t_list			*ret;
 
-	stdin_redir_arg = (t_stdin_redir *)malloc(sizeof(t_stdin_redir));
+	stdin_redir_arg = (t_stdin_redir *)ft_calloc(1, sizeof(t_stdin_redir));
 	if (stdin_redir_arg == NULL)
 		return ((t_ret){(-1), NULL});
 	ret = ft_lstnew(stdin_redir_arg);
@@ -55,20 +59,24 @@ static t_ret	ft_process_stdin_redir_arg(char **arg, char **arg_next)
 /**
  * Bypasses Norminette.
  * Processes stdout redirection argument and returns it as a node of t_list.
- * To be used only by ft_process_arg().
+ * @warning	To be used only by ft_process_arg().
  * @param	arg			A pointer to a string containg current argument;
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
- * @return	(-1), if something went really bad;
- * 			0, if argument is invalid;
- * 			Some positive value otherwise.
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status == 0) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			$status will be some positive value otherwise,
+ * 				and $ret will be a node of t_list containing
+ * 				stdout redirection argument.
  */
 static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
 {
 	t_stdout_redir	*stdout_redir_arg;
 	t_list			*ret;
 
-	stdout_redir_arg = (t_stdout_redir *)malloc(sizeof(t_stdout_redir));
+	stdout_redir_arg = (t_stdout_redir *)ft_calloc(1, sizeof(t_stdout_redir));
 	if (stdout_redir_arg == NULL)
 		return ((t_ret){(-1), NULL});
 	ret = ft_lstnew(stdout_redir_arg);
@@ -89,6 +97,20 @@ static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
 	return ((t_ret){1, ret});
 }
 
+/**
+ * Bypasses Norminette.
+ * Processes regular argument and returns it as a node of t_list.
+ * @warning	To be used only by ft_process_arg().
+ * @param	arg			A pointer to a string containg current argument;
+ * @param	arg_next	A pointer for further processing by
+ * 						ft_get_next_arg().
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status == 0) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			$status will be some positive value otherwise,
+ * 				and $ret will be a node of t_list containing regular argument.
+ */
 static t_ret	ft_process_regular_arg(char **arg)
 {
 	t_list	*ret;
@@ -150,7 +172,7 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 	char	*arg_next;
 	int		ft_process_arg_status;
 
-	ret = ft_calloc(1, sizeof(t_exec));
+	ret = (t_exec *)ft_calloc(1, sizeof(t_exec));
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
 	arg = ft_get_next_arg(token, &arg_next);
