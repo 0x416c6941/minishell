@@ -9,7 +9,8 @@ INC_DIR = include
 
 # Source files.
 SRC_DIR = src
-SRC_FILES = tmp_main.c parse/ft_get_next_token.c utils_part1.c
+SRC_FILES = tmp_main.c parse/ft_get_next_token.c parse/ft_handle_quotes.c	\
+			parse/ft_get_next_arg.c utils_part1.c
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
 # Object files.

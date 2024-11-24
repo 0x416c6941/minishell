@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_token.c                                :+:      :+:    :+:   */
+/*   ft_get_next_arg.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 12:00:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 12:32:18 by asagymba         ###   ########.fr       */
+/*   Created: 2024/11/24 12:48:55 by asagymba          #+#    #+#             */
+/*   Updated: 2024/11/24 13:03:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,23 @@
 #include <stddef.h>
 #include <utils.h>
 
-char	*ft_get_next_token(char *prompt, char **saveptr)
+char	*ft_get_next_arg(char *token, char **saveptr)
 {
-	char	*ret;
+	enum e_quotes_type	quotes;
+	char				*ret;
 
-	if (prompt != NULL)
-		*saveptr = prompt;
+	quotes = no_quotes;
+	if (token != NULL)
+		*saveptr = token;
+	ft_skip_spaces((const char **)saveptr);
 	ret = *saveptr;
 	if (*ret == '\0')
 		return (NULL);
 	while (**saveptr != '\0')
 	{
-		if (**saveptr == '|')
+		if (**saveptr == '\'' || **saveptr == '\"')
+			ft_handle_quotes(**saveptr, &quotes);
+		else if (**saveptr == ' ' && quotes == no_quotes)
 		{
 			*(*saveptr)++ = '\0';
 			break ;

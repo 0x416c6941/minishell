@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 12:28:44 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 13:04:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 int	main(int argc, char **argv)
 {
 	char	*next_token;
-	char	*last;
+	char	*last_token;
+	char	*next_arg;
+	char	*last_arg;
 
 	if (argc != REQUIRED_ARGC)
 	{
@@ -32,11 +34,16 @@ int	main(int argc, char **argv)
 	(void)ft_printf("Hello!\n");
 	(void)ft_printf("Testing parser...\n");
 	(void)ft_printf("\n");
-	next_token = ft_get_next_token(*(++argv), &last);
+	next_token = ft_get_next_token(*(++argv), &last_token);
 	while (next_token != NULL)
 	{
-		ft_printf("%s\n", next_token);
-		next_token = ft_get_next_token(NULL, &last);
+		next_arg = ft_get_next_arg(next_token, &last_arg);
+		while (next_arg != NULL)
+		{
+			ft_printf("%s\n", next_arg);
+			next_arg = ft_get_next_arg(NULL, &last_arg);
+		}
+		next_token = ft_get_next_token(NULL, &last_token);
 	}
 	return (0);
 }
