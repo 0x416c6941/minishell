@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:53:09 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 14:11:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:37:07 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,15 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void	ft_free_args_for_execve(char ***arg_for_execve)
+void	ft_free_args_for_execve(char ***args_for_execve)
 {
 	size_t	i;
 
+	if (*args_for_execve == NULL)
+		return ;
 	i = 0;
-	while (*(*arg_for_execve + i) != NULL)
-		free(*(*arg_for_execve + i++));
-	free(*arg_for_execve);
-	*arg_for_execve = NULL;
+	while (*(*args_for_execve + i) != NULL)
+		free(*(*args_for_execve + i++));
+	free(*args_for_execve);
+	*args_for_execve = NULL;
 }

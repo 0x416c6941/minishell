@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 18:06:02 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:30:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ enum e_stdout_redir_type
  * unions.
  * ---------------------------------------------------------------------------
  */
+/**
+ * Unused.
+ */
 union u_stdin_redir
 {
 	const char	*stdin_file;
@@ -61,17 +64,27 @@ union u_stdin_redir
  */
 typedef struct s_ret
 {
-	int		status;	/* -1 in case of an error. */
+	/**
+	 * $status values meaning:
+	 * 	(-1): error that should lead to exit of minishell;
+	 * 	Non-negative value: can proceed as normal.
+	 * 		Those however can be further adjusted
+	 * 		depending on the indivial functions.
+	 */
+	int		status;
 	void	*ret;
 }	t_ret;
 
 /**
  * stdin redirection.
+ * In order to bypass Norminette, data may contain either
+ * a pathname for a file, or a heredoc EOF string.
  */
 typedef struct s_stdin_redir
 {
 	enum e_stdin_redir_type	redir_type;
-	union u_stdin_redir		redir_data;
+	const char				*data;
+	/* union u_stdin_redir	redir_data; */
 }	t_stdin_redir;
 
 /**
@@ -173,8 +186,8 @@ void	ft_free_t_exec(t_exec *exec);
 
 /**
  * Processes token gotten by ft_get_next_token() and returns
- * a t_list node with a raw t_exec, in which quotes aren't expanded.
- * @breif	Extracts raw t_exec from token gotten by ft_get_next_token().
+ * a raw t_exec (only one command!), in which quotes aren't expanded.
+ * @brief	Extracts raw t_exec from token gotten by ft_get_next_token().
  * @param	token	Token to process.
  * @return	If malloc() failed somewhere, $status is set to (-1) and
  * 				$ret is set to NULL;

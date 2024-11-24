@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 13:17:42 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/24 19:46:15 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,15 @@
 #define USAGE_MSG		"Usage: ./a.out $ARG\n"
 #define INVALID_ARGS	1
 
+#define BAD_MSG		"Something went really wrong.\n"
+#define MESSED_UP	2
+
 int	main(int argc, char **argv)
 {
+	char	*token;
 	char	*next_token;
-	char	*last_token;
-	char	*next_arg;
-	char	*last_arg;
+	t_ret	status;
+	t_exec	*cmd;
 
 	if (argc != REQUIRED_ARGC)
 	{
@@ -34,18 +37,18 @@ int	main(int argc, char **argv)
 	(void)ft_printf("Hello!\n");
 	(void)ft_printf("Testing parser...\n");
 	(void)ft_printf("\n");
-	next_token = ft_get_next_token(*(++argv), &last_token);
-	while (next_token != NULL)
+	token = ft_get_next_token(*(++argv), &next_token);
+	while (token != NULL)
 	{
-		next_arg = ft_get_next_arg(next_token, &last_arg);
-		while (next_arg != NULL)
+		status = ft_get_cmd_raw_quotes(token);
+		if (status.status == -1)
 		{
-			ft_printf("%s\n", next_arg);
-			if (ft_check_arg_quotes(next_arg) == -1)
-				ft_printf("\tSomething gone wrong :p\n");
-			next_arg = ft_get_next_arg(NULL, &last_arg);
+			(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
+			return (MESSED_UP);
 		}
-		next_token = ft_get_next_token(NULL, &last_token);
+		cmd = status.ret;
+		ft_free_t_exec(cmd);
+		token = ft_get_next_token(NULL, &next_token);
 	}
 	return (0);
 }
