@@ -4,6 +4,6 @@ Well, that's a minishell.
 <br>
 Written by:
 <ul>
-    <li>[hlyshchu](https://github.com/hlib-lyshchuk)</li>
-    <li>[asagymba](https://github.com/0x416c6941)</li>
+    <li><a href="https://github.com/hlib-lyshchuk">hlyshchu</a></li>
+    <li><a href="https://github.com/0x416c6941">asagymba</a></li>
 </ul>
