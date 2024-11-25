@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 19:53:54 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/25 17:16:12 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
  * gotten from ft_get_next_token() into arguments.
  *
  * Usage is similar to ft_strtok_r(): in each subsequent call that
- * parses the same tokem, $token must be NULL.
+ * parses the same token, $token must be NULL.
  * @brief	Divides token into single arguments.
  * @warning	Returned argument's quotes may not be closed.
  * @param	token	Token to divide.
