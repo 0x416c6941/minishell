@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/24 20:05:25 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 09:20:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
  * Bypasses Norminette.
  * Processes stdin redirection argument and returns it as a node of t_list.
  * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
  * @param	arg			A pointer to a string containg current argument;
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
@@ -60,6 +61,7 @@ static t_ret	ft_process_stdin_redir_arg(char **arg, char **arg_next)
  * Bypasses Norminette.
  * Processes stdout redirection argument and returns it as a node of t_list.
  * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
  * @param	arg			A pointer to a string containg current argument;
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
@@ -101,6 +103,7 @@ static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
  * Bypasses Norminette.
  * Processes regular argument and returns it as a node of t_list.
  * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
  * @param	arg			A pointer to a string containg current argument;
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
