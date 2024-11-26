@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 09:54:55 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:36:53 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,8 +203,10 @@ void	ft_free_t_exec(t_exec *exec);
  * 				then user's input was invalid;
  * 			if $status is set to 0 and $ret is set to non-NULL value,
  * 				then shell command's syntax was valid
- * 				(nothing else is checked at this stage however,
- * 				i.e. e.g. some file to redirect stdin may be inaccessible).
+ * 					(HOWEVER $path_to_exec may be empty in the returned t_exec,
+ * 					in which case the command is invalid,
+ * 					and also nothing else is checked at this stage,
+ * 					i.e. e.g. some file to redirect stdin may be inaccessible).
  */
 t_ret	ft_get_cmd_raw_quotes(char *token);
 

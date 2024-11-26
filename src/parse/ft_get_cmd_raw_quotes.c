@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 10:49:34 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:07:53 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 				(t_ret){(-1), NULL});
-	else if (ft_check_arg_quotes(arg->ret) == -1)
+	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 				(t_ret){0, NULL});
 	((t_stdin_redir *)ret->content)->data = ft_strdup(arg->ret);
@@ -95,7 +95,7 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 				(t_ret){(-1), NULL});
-	else if (ft_check_arg_quotes(arg->ret) == -1)
+	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 				(t_ret){0, NULL});
 	((t_stdout_redir *)ret->content)->output_file = ft_strdup(arg->ret);
@@ -122,7 +122,7 @@ static t_ret	ft_process_regular_arg(t_ret *arg)
 {
 	t_list	*ret;
 
-	if (ft_check_arg_quotes(arg->ret) == -1)
+	if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
 		return ((t_ret){0, NULL});
 	ret = ft_lstnew(NULL);
 	if (ret == NULL)
