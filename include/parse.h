@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 09:20:49 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 09:54:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
  * 			if $status is set to 0 and $ret is set to non-NULL value,
  * 				then that's the next argument.
  */
-t_ret	*ft_get_next_arg(char *token, char **saveptr);
+t_ret	ft_get_next_arg(char *token, char **saveptr);
 
 /**
  * Checks if all quotes in $arg are properly closed or not.

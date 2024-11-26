@@ -6,13 +6,14 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:55 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 09:51:41 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 09:55:06 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parse.h>
 #include <libft.h>
 #include <stddef.h>
+#include <stdlib.h>
 #include <utils.h>
 
 /**
@@ -107,18 +108,17 @@ static t_ret	ft_get_next_arg_proceed_as_usual(char **saveptr)
 	return (ft_get_next_arg_just_strdup_remaining(saveptr));
 }
 
-t_ret	*ft_get_next_arg(char *token, char **saveptr)
+t_ret	ft_get_next_arg(char *token, char **saveptr)
 {
 	char				*ret;
-	t_ret				*strdup_redir_ret;
+	t_ret				strdup_redir_ret;
 
-	quotes = no_quotes;
 	if (token != NULL)
 		*saveptr = token;
 	ft_skip_spaces((const char **)saveptr);
 	ret = *saveptr;
 	if (*ret == '\0')
-		return (NULL);
+		return ((t_ret){0, NULL});
 	else if (*ret == '<' || *ret == '>')
 	{
 		strdup_redir_ret = ft_get_next_arg_strdup_redir(ret);
