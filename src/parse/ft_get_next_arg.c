@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:48:55 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 09:55:06 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:03:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ static t_ret	ft_get_next_arg_strdup_redir(char *token)
 	t_ret	ret;
 
 	ret.status = 0;
-	if (ft_strncmp(token, "<<", sizeof("<<")) == 0)
+	if (ft_strncmp(token, "<<", sizeof("<<") - 1) == 0)
 		ret.ret = ft_strdup("<<");
-	else if (ft_strncmp(token, "<", sizeof("<")) == 0)
+	else if (ft_strncmp(token, "<", sizeof("<") - 1) == 0)
 		ret.ret = ft_strdup("<");
-	else if (ft_strncmp(token, ">>", sizeof(">>")) == 0)
+	else if (ft_strncmp(token, ">>", sizeof(">>") - 1) == 0)
 		ret.ret = ft_strdup(">>");
 	else
 		ret.ret = ft_strdup(">");
@@ -91,9 +91,10 @@ static t_ret	ft_get_next_arg_proceed_as_usual(char **saveptr)
 	ret_str_len = 0;
 	while ((*saveptr)[ret_str_len] != '\0')
 	{
-		if (**saveptr == '\'' || **saveptr == '\"')
-			ft_handle_quotes(**saveptr, &quotes);
-		else if ((**saveptr == ' ' || **saveptr == '<' || **saveptr == '>')
+		if ((*saveptr)[ret_str_len] == '\'' || (*saveptr)[ret_str_len] == '\"')
+			ft_handle_quotes((*saveptr)[ret_str_len], &quotes);
+		else if (((*saveptr)[ret_str_len] == ' '
+			|| (*saveptr)[ret_str_len] == '<' || (*saveptr)[ret_str_len] == '>')
 			&& quotes == no_quotes)
 		{
 			ret = (char *)malloc(ret_str_len + 1);
