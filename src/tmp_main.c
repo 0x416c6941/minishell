@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 11:34:44 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:39:25 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	main(void)
 				return (MESSED_UP);
 			}
 			ft_write_cmd_content(status.ret);
+			(void)ft_printf("\n");
 			ft_free_t_exec(status.ret);
 			token = ft_get_next_token(NULL, &next_token);
 		}
