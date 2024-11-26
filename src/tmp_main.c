@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 11:39:25 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 11:47:01 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	main(void)
 		if (input == NULL)
 		{
 			(void)ft_printf("Exit...\n");
+			rl_clear_history();
 			return (0);
 		}
 		add_history(input);

@@ -1,0 +1,4 @@
+parse/ft_get_cmd_raw_quotes.c: If $ret == NULL and $status != -1,
+	adjust $status to show exactly what went wrong:
+		if a redirecting file (or heredoc's EOF) was missing,
+		if some quote wasn't closed (and if so, what quote exactly), etc.
