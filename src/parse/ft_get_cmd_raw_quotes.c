@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 09:20:57 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/26 10:49:34 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,31 @@
  * 				and $ret will be a node of t_list containing
  * 				stdin redirection argument.
  */
-static t_ret	ft_process_stdin_redir_arg(char **arg, char **arg_next)
+static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 {
-	t_stdin_redir	*stdin_redir_arg;
-	t_list			*ret;
+	t_list	*ret;
 
-	stdin_redir_arg = (t_stdin_redir *)ft_calloc(1, sizeof(t_stdin_redir));
-	if (stdin_redir_arg == NULL)
-		return ((t_ret){(-1), NULL});
-	ret = ft_lstnew(stdin_redir_arg);
+	ret = ft_lstnew(NULL);
 	if (ret == NULL)
-		return (ft_free_t_stdin_redir(stdin_redir_arg), (t_ret){(-1), NULL});
-	if (ft_strcmp(*arg, "<<") == 0)
-		stdin_redir_arg->redir_type = heredoc;
+		return ((t_ret){(-1), NULL});
+	ret->content = ft_calloc(1, sizeof(t_stdin_redir));
+	if (ret->content == NULL)
+		return (ft_lstdelone(ret, free), (t_ret){(-1), NULL});
+	if (ft_strcmp(arg->ret, "<<") == 0)
+		((t_stdin_redir *)ret->content)->redir_type = heredoc;
 	else
-		stdin_redir_arg->redir_type = file;
+		((t_stdin_redir *)ret->content)->redir_type = file;
+	free(arg->ret);
 	*arg = ft_get_next_arg(NULL, arg_next);
-	if (ft_check_arg_quotes(*arg) == -1)
-		return (ft_lstclear(&ret, (void (*)(void *))ft_free_t_stdin_redir),
+	if (arg->status == -1)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
+				(t_ret){(-1), NULL});
+	else if (ft_check_arg_quotes(arg->ret) == -1)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 				(t_ret){0, NULL});
-	*((char **)&(stdin_redir_arg->data)) = ft_strdup(*arg);
-	if (stdin_redir_arg->data == NULL)
-		return (ft_lstclear(&ret, (void (*)(void *))ft_free_t_stdin_redir),
+	((t_stdin_redir *)ret->content)->data = ft_strdup(arg->ret);
+	if (((t_stdin_redir *)ret->content)->data == NULL)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 				(t_ret){(-1), NULL});
 	return ((t_ret){1, ret});
 }
@@ -73,28 +76,31 @@ static t_ret	ft_process_stdin_redir_arg(char **arg, char **arg_next)
  * 				and $ret will be a node of t_list containing
  * 				stdout redirection argument.
  */
-static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
+static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 {
-	t_stdout_redir	*stdout_redir_arg;
-	t_list			*ret;
+	t_list	*ret;
 
-	stdout_redir_arg = (t_stdout_redir *)ft_calloc(1, sizeof(t_stdout_redir));
-	if (stdout_redir_arg == NULL)
-		return ((t_ret){(-1), NULL});
-	ret = ft_lstnew(stdout_redir_arg);
+	ret = ft_lstnew(NULL);
 	if (ret == NULL)
-		return (ft_free_t_stdout_redir(stdout_redir_arg), (t_ret){(-1), NULL});
-	if (ft_strcmp(*arg, ">>") == 0)
-		stdout_redir_arg->redir_type = append;
+		return ((t_ret){(-1), NULL});
+	ret->content = ft_calloc(1, sizeof(t_stdout_redir));
+	if (ret->content == NULL)
+		return (ft_lstdelone(ret, free), (t_ret){(-1), NULL});
+	if (ft_strcmp(arg->ret, ">>") == 0)
+		((t_stdout_redir *)ret->content)->redir_type = append;
 	else
-		stdout_redir_arg->redir_type = overwrite;
+		((t_stdout_redir *)ret->content)->redir_type = overwrite;
+	free(arg->ret);
 	*arg = ft_get_next_arg(NULL, arg_next);
-	if (ft_check_arg_quotes(*arg) == -1)
-		return (ft_lstclear(&ret, (void (*)(void *))ft_free_t_stdout_redir),
+	if (arg->status == -1)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
+				(t_ret){(-1), NULL});
+	else if (ft_check_arg_quotes(arg->ret) == -1)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 				(t_ret){0, NULL});
-	*((char **)&(stdout_redir_arg->output_file)) = ft_strdup(*arg);
-	if (stdout_redir_arg->output_file == NULL)
-		return (ft_lstclear(&ret, (void (*)(void *))ft_free_t_stdout_redir),
+	((t_stdout_redir *)ret->content)->output_file = ft_strdup(arg->ret);
+	if (((t_stdout_redir *)ret->content)->output_file == NULL)
+		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 				(t_ret){(-1), NULL});
 	return ((t_ret){1, ret});
 }
@@ -104,9 +110,7 @@ static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
  * Processes regular argument and returns it as a node of t_list.
  * @warning	To be used only by ft_process_arg().
  * @warning	Dynamic memory allocation is used.
- * @param	arg			A pointer to a string containg current argument;
- * @param	arg_next	A pointer for further processing by
- * 						ft_get_next_arg().
+ * @param	arg			A pointer to value returned by ft_get_next_arg().
  * @return	($status == (-1)) => something went really bad
  * 				($ret is NULL in this case);
  * 			($status == 0) => argument is invalid
@@ -114,14 +118,16 @@ static t_ret	ft_process_stdout_redir_arg(char **arg, char **arg_next)
  * 			$status will be some positive value otherwise,
  * 				and $ret will be a node of t_list containing regular argument.
  */
-static t_ret	ft_process_regular_arg(char **arg)
+static t_ret	ft_process_regular_arg(t_ret *arg)
 {
 	t_list	*ret;
 
+	if (ft_check_arg_quotes(arg->ret) == -1)
+		return ((t_ret){0, NULL});
 	ret = ft_lstnew(NULL);
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
-	ret->content = ft_strdup(*arg);
+	ret->content = ft_strdup(arg->ret);
 	if (ret->content == NULL)
 		return (ft_lstdelone(ret, free), (t_ret){(-1), NULL});
 	return ((t_ret){1, ret});
@@ -133,25 +139,25 @@ static t_ret	ft_process_regular_arg(char **arg)
  * $stdin_redirs, $stdout_redirs or $args in $raw_cmd,
  * based on the type of argument.
  * @param	raw_cmd		A pointer to t_exec containing raw command.
- * @param	arg			A pointer to a string containg current argument;
+ * @param	arg			A pointer to value returned by ft_get_next_arg().
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
  * @return	(-1), if something went really bad;
  * 			0, if argument is invalid;
  * 			Some positive value otherwise.
  */
-static int	ft_process_arg(t_exec *raw_cmd, char **arg, char **arg_next)
+static int	ft_process_arg(t_exec *raw_cmd, t_ret *arg, char **arg_next)
 {
 	t_ret	to_append;
 
-	if (ft_strcmp(*arg, "<<") == 0 || ft_strcmp(*arg, "<") == 0)
+	if (ft_strcmp(arg->ret, "<<") == 0 || ft_strcmp(arg->ret, "<") == 0)
 	{
 		to_append = ft_process_stdin_redir_arg(arg, arg_next);
 		if (!(to_append.status > 0))
 			return (to_append.status);
 		ft_lstadd_back(&(raw_cmd->stdin_redirs), to_append.ret);
 	}
-	else if (ft_strcmp(*arg, ">>") == 0 || ft_strcmp(*arg, ">") == 0)
+	else if (ft_strcmp(arg->ret, ">>") == 0 || ft_strcmp(arg->ret, ">") == 0)
 	{
 		to_append = ft_process_stdout_redir_arg(arg, arg_next);
 		if (!(to_append.status > 0))
@@ -171,22 +177,27 @@ static int	ft_process_arg(t_exec *raw_cmd, char **arg, char **arg_next)
 t_ret	ft_get_cmd_raw_quotes(char *token)
 {
 	t_exec	*ret;
-	char	*arg;
-	char	*arg_next;
+	t_ret	arg;
+	char	*saveptr_for_next_arg;
 	int		ft_process_arg_status;
 
 	ret = (t_exec *)ft_calloc(1, sizeof(t_exec));
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
-	arg = ft_get_next_arg(token, &arg_next);
-	while (arg != NULL)
+	arg = ft_get_next_arg(token, &saveptr_for_next_arg);
+	if (arg.status == -1)
+		return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
+	while (arg.ret != NULL)
 	{
-		if (ft_check_arg_quotes(arg) == -1)
-			return (ft_free_t_exec(ret), (t_ret){0, NULL});
-		ft_process_arg_status = ft_process_arg(ret, &arg, &arg_next);
+		ft_process_arg_status = ft_process_arg(ret,
+				&arg, &saveptr_for_next_arg);
+		free(arg.ret);
 		if (!(ft_process_arg_status > 0))
-			return (ft_free_t_exec(ret), (t_ret){ft_process_arg_status, NULL});
-		arg = ft_get_next_arg(NULL, &arg_next);
+			return (ft_free_t_exec(ret),
+				(t_ret){ft_process_arg_status, NULL});
+		arg = ft_get_next_arg(NULL, &saveptr_for_next_arg);
+		if (arg.status == -1)
+			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
 	return ((t_ret){0, ret});
 }
