@@ -1,4 +1,4 @@
-# Compiler options.
+# Compiler options. 
 CC = cc
 CFLAGS = -I$(INC_DIR) -lreadline							\
 		 -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
