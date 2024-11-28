@@ -24,4 +24,4 @@
  */
 void	ft_skip_spaces(const char **str);
 
-#endif	/* UTILS_H */
+#endif /* UTILS_H */

@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   tmp_main.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 11:47:01 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/28 11:56:26 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <input_validation.h>
 #include <libft.h>
+#include <parse.h>
+#include <readline/history.h>
+#include <readline/readline.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <parse.h>
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -64,8 +65,8 @@ static void	ft_write_cmd_content(t_exec *cmd)
 	}
 }
 
-#define BAD_MSG		"Something went really wrong.\n"
-#define MESSED_UP	1
+#define BAD_MSG "Something went really wrong.\n"
+#define MESSED_UP 1
 
 int	main(void)
 {
@@ -83,20 +84,26 @@ int	main(void)
 			rl_clear_history();
 			return (0);
 		}
-		add_history(input);
-		token = ft_get_next_token(input, &next_token);
-		while (token != NULL)
+		if (input_issspace((const char *)input) == 0)
 		{
-			status = ft_get_cmd_raw_quotes(token);
-			if (status.status == -1)
+			add_history(input);
+			if (validate_input((const char *)input) == 0)
 			{
-				(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
-				return (MESSED_UP);
+				token = ft_get_next_token(input, &next_token);
+				while (token != NULL)
+				{
+					status = ft_get_cmd_raw_quotes(token);
+					if (status.status == -1)
+					{
+						(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
+						return (MESSED_UP);
+					}
+					ft_write_cmd_content(status.ret);
+					(void)ft_printf("\n");
+					ft_free_t_exec(status.ret);
+					token = ft_get_next_token(NULL, &next_token);
+				}
 			}
-			ft_write_cmd_content(status.ret);
-			(void)ft_printf("\n");
-			ft_free_t_exec(status.ret);
-			token = ft_get_next_token(NULL, &next_token);
 		}
 		free(input);
 	}

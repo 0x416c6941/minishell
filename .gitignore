@@ -1,3 +1,5 @@
+#Vscode files
+.vscode
 # Vim files
 .vimrc
 *.swp

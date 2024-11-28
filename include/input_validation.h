@@ -1,29 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_arg_quotes.c                              :+:      :+:    :+:   */
+/*   input_validation.h                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 13:09:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 11:56:19 by root             ###   ########.fr       */
+/*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
+/*   Updated: 2024/11/28 11:54:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
-
-int	ft_check_arg_quotes(const char *arg)
-{
-	enum e_quotes_type	quotes_type;
-
-	quotes_type = no_quotes;
-	while (arg && *arg != '\0')
-	{
-		if (*arg == '\'' || *arg == '\"')
-			ft_handle_quotes(*arg, &quotes_type);
-		arg++;
-	}
-	if (quotes_type != no_quotes)
-		return (-1);
-	return (0);
-}
+int	input_issspace(const char *str);
+int	validate_input(const char *str);
