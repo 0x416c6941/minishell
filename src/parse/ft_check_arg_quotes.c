@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_check_arg_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:09:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 11:56:19 by root             ###   ########.fr       */
+/*   Updated: 2024/11/28 20:20:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_check_arg_quotes(const char *arg)
 	enum e_quotes_type	quotes_type;
 
 	quotes_type = no_quotes;
-	while (arg && *arg != '\0')
+	while (*arg != '\0')
 	{
 		if (*arg == '\'' || *arg == '\"')
 			ft_handle_quotes(*arg, &quotes_type);
