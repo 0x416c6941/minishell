@@ -1,7 +1,7 @@
-# Compiler options.
+# Compiler options.  -Werror (temporaly disable)
 CC = cc
 CFLAGS = -I$(INC_DIR) -lreadline							\
-		 -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
+		 -Wall -Wextra  -Wsign-conversion -pedantic -Werror 	\
 		 -g -fsanitize=address
 
 # Headers.
