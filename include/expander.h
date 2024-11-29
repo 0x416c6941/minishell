@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/11/30 00:19:53 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:20:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ size_t		replace_var_with_value(const char *var_name, char **buffer,
 /**
  * @brief	Removes outer quotes from the string and copies the content
  *			into `dest`.
- *
  * @param	dest	Pointer to the destination buffer.
  * @param	src		Pointer to the source string.
  */
