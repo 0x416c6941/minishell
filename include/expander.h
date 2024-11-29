@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/11/30 00:20:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:22:10 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char		*ft_getenv(const char *name);
 
 /**
  * @brief	Extracts the variable name starting at `read_ptr`.
- *
  * @param	read_ptr	Pointer to the variable name.
  * @param	var_name	Pointer to store the allocated variable name.
  * @return	Length of the variable name;
@@ -53,7 +52,6 @@ size_t		extract_var_name(const char *read_ptr, char **var_name);
 
 /**
  * @brief	Replaces a variable with its value in the output buffer.
- *
  * @param	var_name		The name of the variable to replace.
  * @param	buffer			Pointer to the output buffer.
  * @param	write_offset	Pointer to the current write offset in the buffer.
