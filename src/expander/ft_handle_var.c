@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 09:13:50 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 15:03:50 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 15:32:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,44 +25,25 @@
 // Global variable to store the last exit code
 int				g_exit_code = 0;
 
-// Copies up to `n` characters, null-terminating the result
-char	*ft_strncpy(char *dest, const char *src, size_t n)
-{
-	size_t	i;
-
-	i = 0;
-	if (!dest || !src)
-		return (NULL);
-	while (i < n && src[i] != '\0')
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	while (i < n)
-	{
-		dest[i] = '\0';
-		i++;
-	}
-	return (dest);
-}
-
 // Retrieves the environment variable or special `$?`
 char	*ft_getenv(const char *name)
 {
 	char	*res;
-	char	*exit_code_str;
+	char	*itoa_result;
 
 	if (!name)
 		return (ft_strdup(""));
 	if (ft_strcmp(name, "?") == 0)
 	{
-		exit_code_str = ft_itoa(g_exit_code);
-		return (ft_strdup(exit_code_str));
+		itoa_result = ft_itoa(g_exit_code);
+		if (!itoa_result)
+			return (NULL);
+		res = ft_strdup(itoa_result); // Copy the result to a new buffer
+		free(itoa_result);            // Free the original memory
+		return (res);
 	}
 	res = getenv(name);
-	if (!res)
-		return (ft_strdup(""));
-	return (ft_strdup(res));
+	return (ft_strdup(res ? res : ""));
 }
 
 // Extracts variable name from a string starting at `$`
@@ -116,11 +97,13 @@ static size_t	extract_var_name(const char *read_ptr, char **var_name)
 static size_t	replace_var_with_value(const char *var_name, char **buffer,
 		size_t *write_offset, size_t *buffer_size)
 {
+	char	*env_value;
 	size_t	env_value_len;
 	size_t	new_size;
 	char	*new_buffer;
 
-	char *env_value = ft_getenv(var_name); // Retrieve variable value
+	// Retrieve the environment variable value
+	env_value = ft_getenv(var_name);
 	if (!env_value)
 	{
 		fprintf(stderr,
@@ -129,17 +112,10 @@ static size_t	replace_var_with_value(const char *var_name, char **buffer,
 		return (0);
 	}
 	env_value_len = strlen(env_value);
-	// Check for empty environment values
-	if (env_value_len == 0)
-	{
-		fprintf(stderr,
-			"replace_var_with_value: Variable '%s' has an empty value\n",
-			var_name);
-	}
 	// Resize buffer if necessary
 	if (*write_offset + env_value_len >= *buffer_size)
 	{
-		new_size = *buffer_size * 2 + env_value_len;
+		new_size = *buffer_size + env_value_len + (*buffer_size / 2);
 		new_buffer = realloc(*buffer, new_size);
 		if (!new_buffer)
 		{
@@ -154,9 +130,9 @@ static size_t	replace_var_with_value(const char *var_name, char **buffer,
 	}
 	// Copy the environment value into the buffer
 	memcpy(*buffer + *write_offset, env_value, env_value_len);
-	free(env_value);
-	// Free the dynamically allocated value returned by ft_getenv
 	*write_offset += env_value_len;
+	// Free the dynamically allocated environment value
+	free(env_value);
 	return (env_value_len);
 }
 
@@ -239,23 +215,3 @@ int	expand_var(char *str)
 	free(buffer);
 	return (EXPAND_VAR_SUCCESS);
 }
-
-// int	main(void)
-// {
-// 	char	*input;
-
-// 	input = ft_strdup("Hello $USER, welcome to $HOME. $PATH $? |");
-// 	if (!input)
-// 	{
-// 		fprintf(stderr, "Failed to allocate memory for input\n");
-// 		return (1);
-// 	}
-// 	g_exit_code = 42;
-// 	printf("Input string: %s\n", input);
-// 	if (expand_var(input) == EXPAND_VAR_SUCCESS)
-// 		printf("Expanded string: %s\n", input);
-// 	else
-// 		fprintf(stderr, "Error in expand_var\n");
-// 	free(input);
-// 	return (0);
-// }

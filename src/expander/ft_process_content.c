@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:58:26 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 15:04:25 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 15:05:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,29 +16,6 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-/**
- * @brief Copies a null-terminated string from `src` to `dest`.
- *
- * Copies the characters from `src` into `dest`, including the null terminator.
-
-	* The caller must ensure that `dest` has enough space to hold the copied string.
- *
- * @param dest Pointer to the destination buffer.
- * @param src Pointer to the source string.
- * @return char* Pointer to the destination buffer (`dest`).
- */
-char	*ft_strcpy(char *dest, const char *src)
-{
-	char	*dest_start;
-
-	dest_start = dest;
-	if (!dest || !src)
-		return (NULL);
-	while ((*dest++ = *src++) != '\0')
-		; // Copy each character, including the null terminator
-	return (dest_start);
-}
 
 /**
  * @brief Processes unquoted content to calculate length, detect quotes,
