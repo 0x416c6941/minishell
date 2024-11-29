@@ -16,7 +16,9 @@ SRC_FILES = tmp_main.c parse/ft_get_next_token.c parse/ft_handle_quotes.c	\
 			parse/ft_get_cmd_raw_quotes.c utils_part1.c					 	\
 			input_validation/input_validation.c expander/expander.c			\
 			expander/ft_process_content.c expander/ft_handle_var.c			\
-			expander/libft_utils.c
+			expander/libft_utils.c expander/ft_getenv.c expander/ft_print_error.c \
+			expander/extract_var_name.c expander/replace_var_with_value.c	 \
+			expander/remove_quotes.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:59:06 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 15:01:33 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 16:33:03 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
  *
  * Copies the characters from `src` into `dest`, including the null terminator.
 
-	* The caller must ensure that `dest` has enough space to hold the copied string.
+ * The caller must ensure that `dest` has enough space to hold the
+ *copied string.
  *
  * @param dest Pointer to the destination buffer.
  * @param src Pointer to the source string.
@@ -25,20 +26,25 @@
  */
 char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*dest_start;
+	char	*start;
 
-	dest_start = dest;
 	if (!dest || !src)
 		return (NULL);
-	while ((*dest++ = *src++) != '\0')
-		; // Copy each character, including the null terminator
-	return (dest_start);
+	start = dest;
+	while (*src)
+	{
+		*dest = *src;
+		dest++;
+		src++;
+	}
+	*dest = '\0';
+	return (start);
 }
 
 // Copies up to `n` characters, null-terminating the result
 char	*ft_strncpy(char *dest, const char *src, size_t n)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!dest || !src)

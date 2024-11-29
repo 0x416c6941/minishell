@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 14:58:26 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 15:05:45 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 16:44:34 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,127 +78,96 @@ static size_t	count_len_set_bool(const char *content, bool *envar,
 		}
 	}
 	else
-	{
 		len = process_unquoted_content(content, envar, quotes);
-	}
 	return (len);
 }
 
 /**
-
-	* @brief Removes outer quotes from the string and copies the content into `dest`.
+ * @brief Prepares the string for processing by removing quotes and
+ *allocating memory.
  *
- * @param dest Pointer to the destination buffer.
- * @param src Pointer to the source string.
+ * @param content The input string to process.
+ * @param result Pointer to the t_ret structure to store the processed string.
+ * @param envar Pointer to a boolean to flag if the string contains env var.
+ * @param quotes Pointer to a boolean to flag if the string contains quotes.
+ * @return int Returns 1 on success, -1 on failure.
  */
-void	remove_quotes(char *dest, const char *src)
+static int	prepare_string_for_processing(const char *content, t_ret *result,
+		bool *envar, bool *quotes)
 {
-	char	outer_quote;
+	size_t	str_len;
+	char	*str_ret;
 
-	if (!src || !dest)
-		return ;
-	outer_quote = *src;
-	if (outer_quote != '\'' && outer_quote != '\"')
-	{
-		// If no quotes, copy as-is
-		ft_strcpy(dest, src);
-		return ;
-	}
-	src++; // Skip the opening quote
-	while (*src && *src != outer_quote)
-		*dest++ = *src++;
-	*dest = '\0'; // Null-terminate the string
+	str_len = count_len_set_bool(content, envar, quotes);
+	str_ret = ft_calloc(str_len + 1, sizeof(char));
+	if (!str_ret)
+		return (-1);
+	if (*quotes)
+		remove_quotes(str_ret, content);
+	else
+		ft_strcpy(str_ret, content);
+	result->ret = str_ret;
+	result->status = 1;
+	return (1);
 }
 
 /**
+ * @brief Processes the string to expand environment variables if applicable.
+ * @param result Pointer to the t_ret structure containing the string to
+ *	process.
+ * @param envar Boolean indicating if the string contains environment variables.
+ * @return int Returns 1 on success, -1 on failure.
+ */
+static int	process_expansion(t_ret *result, bool envar)
+{
+	char	*expanded;
 
-	* @brief Processes a string to remove outer quotes and expand environment variables.
+	if (envar)
+	{
+		expanded = ft_strdup(result->ret);
+		if (!expanded)
+			return (-1);
+		if (expand_var(expanded) != EXPAND_VAR_SUCCESS)
+		{
+			free(expanded);
+			return (-1);
+		}
+		free(result->ret);
+		result->ret = expanded;
+	}
+	return (1);
+}
+
+/**
  *
- * Allocates memory for a new string where:
- * - Outer quotes are removed.
- * - Environment variables are expanded (if not inside single quotes).
+ * @brief Processes a string to remove outer quotes and expand env variables.
  *
  * @param content Pointer to the input string.
-
-	* @return t_ret* Pointer to a t_ret struct containing the status and the processed string.
+ *
+ * @return t_ret* Pointer to a t_ret struct containing the status and the
+ *     processed string.
  */
 t_ret	*ft_process_args(const char *content)
 {
+	t_ret	*result;
 	bool	quotes;
 	bool	envar;
-	t_ret	*result;
-	size_t	str_len;
-	char	*expanded;
-	char	*str_ret;
 
 	quotes = false;
 	envar = false;
 	result = ft_calloc(1, sizeof(t_ret));
 	if (!result)
 		return (NULL);
-	str_len = count_len_set_bool(content, &envar, &quotes);
-	str_ret = ft_calloc(str_len + 1, sizeof(char));
-	if (!str_ret)
+	if (prepare_string_for_processing(content, result, &envar, &quotes) == -1)
 	{
 		free(result);
 		return (NULL);
 	}
-	if (quotes)
-		remove_quotes(str_ret, content);
-	else
-		ft_strcpy(str_ret, content);
-	if (envar)
+	if (process_expansion(result, envar) == -1)
 	{
-		expanded = ft_strdup(str_ret);
-		if (!expanded)
-		{
-			free(str_ret);
-			free(result);
-			return (NULL);
-		}
-		expand_var(expanded);
-		free(str_ret);
-		str_ret = expanded;
+		free(result->ret);
+		free(result);
+		return (NULL);
 	}
-	result->status = 1;
-	result->ret = str_ret;
 	return (result);
 }
-
-// /**
-//  * @brief Entry point to test the `ft_process_args` function.
-//  *
-//  * Reads input strings, processes them using `ft_process_args`,
-//  * and prints the results.
-//  */
-// int	main(void)
-// {
-// 	const char	**current_input;
-// 	t_ret		*result;
-// 	const char	*test_inputs[] = {"Hello $USER, welcome to '$HOME'.",
-// 			"No quotes and $PATH variable.",
-// 			"'Single-quoted $should_not_expand'",
-// 			"\"Double-quoted $should_expand\"",
-// 			"Plain string without variables.", "$?", NULL};
-
-// 	current_input = test_inputs;
-// 	printf("Testing `ft_process_args`:\n");
-// 	while (*current_input)
-// 	{
-// 		printf("\nInput: %s\n", *current_input);
-// 		result = ft_process_args(*current_input);
-// 		if (result)
-// 		{
-// 			printf("Processed string: %s\n", (char *)result->ret);
-// 			printf("Status: %d\n", result->status);
-// 			free(result->ret);
-// 			free(result);
-// 		}
-// 		else
-// 		{
-// 			printf("Error: Processing failed!\n");
-// 		}
-// 		current_input++;
-// 	}
-// 	return (0);
-// }

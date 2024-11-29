@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handle_var_utils.c                              :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 14:03:05 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 14:04:29 by root             ###   ########.fr       */
+/*   Created: 2024/11/29 15:55:25 by root              #+#    #+#             */
+/*   Updated: 2024/11/29 15:56:49 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include <expander.h>
 
+/**
+ * @brief Retrieves the value of an environment variable or `$?` for exit code.
+ *
+ * @param name The variable name, `$?` returns the last exit code.
+ * @return char* Dynamically allocated string of the variable's value, or NULL.
+ */
 char	*ft_getenv(const char *name)
 {
 	char	*res;
-	char	*exit_code_str;
+	char	*itoa_result;
 
-	if (!name)
+	if (name == NULL)
 		return (ft_strdup(""));
 	if (ft_strcmp(name, "?") == 0)
 	{
-		exit_code_str = ft_itoa(g_exit_code);
-		return (ft_strdup(exit_code_str));
+		itoa_result = ft_itoa(g_exit_code);
+		if (itoa_result == NULL)
+			return (NULL);
+		res = ft_strdup(itoa_result);
+		free(itoa_result);
+		return (res);
 	}
 	res = getenv(name);
-	if (!res)
+	if (res == NULL)
 		return (ft_strdup(""));
 	return (ft_strdup(res));
 }

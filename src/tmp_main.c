@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 21:01:29 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 16:03:27 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+
+int			g_exit_code = 0;
 
 /**
  * A temporary helper function to write the content of $cmd.
