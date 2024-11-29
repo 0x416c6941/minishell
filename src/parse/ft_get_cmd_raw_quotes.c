@@ -6,32 +6,15 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 21:21:40 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 23:32:19 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <expander.h>
-#include <libft.h>
 #include <parse.h>
-#include <stddef.h>
+#include <libft.h>
 #include <stdlib.h>
+#include <stddef.h>
 
-/**
- * Bypasses Norminette.
- * Processes stdin redirection argument and returns it as a node of t_list.
- * @warning	To be used only by ft_process_arg().
- * @warning	Dynamic memory allocation is used.
- * @param	arg			A pointer to a string containg current argument;
- * @param	arg_next	A pointer for further processing by
- * 						ft_get_next_arg().
- * @return	($status == (-1)) => something went really bad
- * 				($ret is NULL in this case);
- * 			($status == 0) => argument is invalid
- * 				($ret is NULL in this case);
- * 			$status will be some positive value otherwise,
- * 				and $ret will be a node of t_list containing
- * 				stdin redirection argument.
- */
 static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 {
 	t_list	*ret;
@@ -61,22 +44,6 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 	return ((t_ret){1, ret});
 }
 
-/**
- * Bypasses Norminette.
- * Processes stdout redirection argument and returns it as a node of t_list.
- * @warning	To be used only by ft_process_arg().
- * @warning	Dynamic memory allocation is used.
- * @param	arg			A pointer to a string containg current argument;
- * @param	arg_next	A pointer for further processing by
- * 						ft_get_next_arg().
- * @return	($status == (-1)) => something went really bad
- * 				($ret is NULL in this case);
- * 			($status == 0) => argument is invalid
- * 				($ret is NULL in this case);
- * 			$status will be some positive value otherwise,
- * 				and $ret will be a node of t_list containing
- * 				stdout redirection argument.
- */
 static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 {
 	t_list	*ret;
@@ -106,19 +73,6 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 	return ((t_ret){1, ret});
 }
 
-/**
- * Bypasses Norminette.
- * Processes regular argument and returns it as a node of t_list.
- * @warning	To be used only by ft_process_arg().
- * @warning	Dynamic memory allocation is used.
- * @param	arg			A pointer to value returned by ft_get_next_arg().
- * @return	($status == (-1)) => something went really bad
- * 				($ret is NULL in this case);
- * 			($status == 0) => argument is invalid
- * 				($ret is NULL in this case);
- * 			$status will be some positive value otherwise,
- * 				and $ret will be a node of t_list containing regular argument.
- */
 static t_ret	ft_process_regular_arg(t_ret *arg)
 {
 	t_list	*ret;
@@ -134,19 +88,6 @@ static t_ret	ft_process_regular_arg(t_ret *arg)
 	return ((t_ret){1, ret});
 }
 
-/**
- * Bypasses Norminette.
- * Processes argument. Appends it either to
- * $stdin_redirs, $stdout_redirs or $args in $raw_cmd,
- * based on the type of argument.
- * @param	raw_cmd		A pointer to t_exec containing raw command.
- * @param	arg			A pointer to value returned by ft_get_next_arg().
- * @param	arg_next	A pointer for further processing by
- * 						ft_get_next_arg().
- * @return ((-1), if something went really bad);
- * 			0, if argument is invalid;
- * 			Some positive value otherwise.
- */
 static int	ft_process_arg(t_exec *raw_cmd, t_ret *arg, char **arg_next)
 {
 	t_ret	to_append;
@@ -199,7 +140,5 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 		if (arg.status == -1)
 			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
-	if (expand(ret) == -1)
-		return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	return ((t_ret){0, ret});
 }
