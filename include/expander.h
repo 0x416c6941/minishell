@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/11/30 00:22:10 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:28:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,11 @@
 
 # include <libft.h>
 # include <parse.h>
-# include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
 # include <unistd.h>
 
 # define EXPAND_VAR_ERROR	-1
 # define EXPAND_VAR_SUCCESS	1
-
-extern int	g_exit_code;
 
 t_ret		*ft_process_args(const char *content);
 int			expand_var(char *str);
