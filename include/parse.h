@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/29 23:05:30 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/29 23:56:33 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,20 @@
 # define PARSE_H
 
 # include <libft.h>
+
+/**
+ * ---------------------------------------------------------------------------
+ * Constants.
+ * ---------------------------------------------------------------------------
+ */
+# define ARG_IS_EMPTY				0
+# define UNCLOSED_SINGLE_QUOTE		1
+# define UNCLOSED_DOUBLE_QUOTES		2
+# define UNFINISHED_STDIN_REDIR		3
+# define UNFINISHED_STDOUT_REDIR	4
+# define INAPPROPRIATE_STDIN_REDIR	5
+# define INAPPROPRIATE_STDOUT_REDIR	6
+# define ARG_OK						7
 
 /**
  * ---------------------------------------------------------------------------
@@ -37,6 +51,13 @@ enum							e_stdout_redir_type
 {
 	overwrite,
 	append,
+};
+
+enum							e_arg_type
+{
+	normal_arg,
+	stdin_redir_arg,
+	stdout_redir_arg,
 };
 
 /**
@@ -166,6 +187,19 @@ t_ret							ft_get_next_arg(char *token, char **saveptr);
 int								ft_check_arg_quotes(const char *arg);
 
 /**
+ * Checks if $arg is a valid argument: if it's not NULL,
+ * if all brackers are closed,
+ * and if $arg contains some file in case if $arg_type != normal_arg.
+ * @brief	Checks if $arg is valid, depending on $arg_type.
+ * @param	arg			Argument to check.
+ * @param	arg_type	Type of the argument.
+ * @return ((Some non-negative value), if yes);
+ * 			(-1) otherwise.
+ */
+int								ft_check_arg(const char *arg,
+									enum e_arg_type arg_type);
+
+/**
  * Frees arguments for execve in t_exec
  * (transformed from $args to $args_for_execve in t_exec).
  * @param	arg_for_execve	Pointer to an array of strings,
@@ -192,6 +226,26 @@ void							ft_free_t_stdout_redir(
  * @param	exec			Pointer to t_exec to free.
  */
 void							ft_free_t_exec(t_exec *exec);
+
+/**
+ * @brief	Generates error code for $arg, depending on $arg_type.
+ * @param	arg			Argument to check.
+ * @param	arg_type	Type of the argument.
+ * @return	(ARG_EMPTY), if $arg is empty and $arg_type is normal_arg;
+ * 			(UNCLOSED_SINGLE_QUOTE), if $arg has unclosed single quotes;
+ * 			(UNCLOSED_DOUBLE_QUOTES), if $arg has unclosed double quotes;
+ * 			(ARG_UNFINISHED_STDIN_REDIR), if $arg_type is stdin_redir_arg
+ * 				and $arg is empty;
+ * 			(ARG_UNFINISHED_STDOUT_REDIR), if $arg_type is stdout_redir_arg
+ * 				and $arg is empty;
+ * 			(ARG_INAPPROPRIATE_STDIN_REDIR), if $arg_type != normal_arg
+ * 				and $arg contains stdin redirection;
+ * 			(ARG_INAPPROPRIATE_STDOUT_REDIR), if $arg_type != normal_arg
+ * 				and $arg contains stdout redirection;
+ * 			(ARG_OK), if no errors mentioned above were found.
+ */
+int								ft_gen_errcode(const char *arg,
+									enum e_arg_type arg_type);
 
 /**
  * Processes token gotten by ft_get_next_token() and returns
