@@ -1,18 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   input_validation.h                                 :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/11/28 20:28:46 by root             ###   ########.fr       */
+/*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
+/*   Updated: 2024/11/29 14:25:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef INPUT_VALIDATION_H
-# define INPUT_VALIDATION_H
-int	input_issspace(const char *str);
-int	validate_input(const char *str);
+#ifndef EXPANDER_H
+# define EXPANDER_H
 
-#endif /* INPUT_VALIDATION_H */
+# include <parse.h>
+# include <stdlib.h>
+
+t_ret	*ft_process_args(const char *content);
+int		expand_var(char *str);
+#endif /* EXPANDER_H */

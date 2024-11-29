@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_cmd_raw_quotes.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/26 11:07:53 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/28 21:21:40 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
+#include <expander.h>
 #include <libft.h>
-#include <stdlib.h>
+#include <parse.h>
 #include <stddef.h>
+#include <stdlib.h>
 
 /**
  * Bypasses Norminette.
@@ -49,14 +50,14 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 	*arg = ft_get_next_arg(NULL, arg_next);
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
-				(t_ret){(-1), NULL});
+			(t_ret){(-1), NULL});
 	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
-				(t_ret){0, NULL});
+			(t_ret){0, NULL});
 	((t_stdin_redir *)ret->content)->data = ft_strdup(arg->ret);
 	if (((t_stdin_redir *)ret->content)->data == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
-				(t_ret){(-1), NULL});
+			(t_ret){(-1), NULL});
 	return ((t_ret){1, ret});
 }
 
@@ -94,14 +95,14 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 	*arg = ft_get_next_arg(NULL, arg_next);
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
-				(t_ret){(-1), NULL});
+			(t_ret){(-1), NULL});
 	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
-				(t_ret){0, NULL});
+			(t_ret){0, NULL});
 	((t_stdout_redir *)ret->content)->output_file = ft_strdup(arg->ret);
 	if (((t_stdout_redir *)ret->content)->output_file == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
-				(t_ret){(-1), NULL});
+			(t_ret){(-1), NULL});
 	return ((t_ret){1, ret});
 }
 
@@ -142,7 +143,7 @@ static t_ret	ft_process_regular_arg(t_ret *arg)
  * @param	arg			A pointer to value returned by ft_get_next_arg().
  * @param	arg_next	A pointer for further processing by
  * 						ft_get_next_arg().
- * @return	(-1), if something went really bad;
+ * @return ((-1), if something went really bad);
  * 			0, if argument is invalid;
  * 			Some positive value otherwise.
  */
@@ -189,15 +190,16 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 		return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	while (arg.ret != NULL)
 	{
-		ft_process_arg_status = ft_process_arg(ret,
-				&arg, &saveptr_for_next_arg);
+		ft_process_arg_status = ft_process_arg(ret, &arg,
+				&saveptr_for_next_arg);
 		free(arg.ret);
 		if (!(ft_process_arg_status > 0))
-			return (ft_free_t_exec(ret),
-				(t_ret){ft_process_arg_status, NULL});
+			return (ft_free_t_exec(ret), (t_ret){ft_process_arg_status, NULL});
 		arg = ft_get_next_arg(NULL, &saveptr_for_next_arg);
 		if (arg.status == -1)
 			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
+	if (expand(ret) == -1)
+		return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	return ((t_ret){0, ret});
 }

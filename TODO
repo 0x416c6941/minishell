@@ -8,6 +8,7 @@
 	if there is unclosed "" or '' 
 	if starts with a pipe: "bash: syntax error near unexpected token `|'"  
 	if ends with a pipe: bash wait for the rest of command, but we just throw error  
+	Handle *
 2. output file should be created before executing the command 
 
 parse/ft_get_cmd_raw_quotes.c: If $ret == NULL and $status != -1,

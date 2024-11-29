@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 11:56:26 by root             ###   ########.fr       */
+/*   Updated: 2024/11/28 21:01:29 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 static void	ft_write_cmd_content(t_exec *cmd)
 {
 	t_list	*i;
+	size_t	j;
 
 	(void)ft_printf("\n");
 	if (cmd == NULL)
@@ -40,6 +41,13 @@ static void	ft_write_cmd_content(t_exec *cmd)
 	{
 		(void)ft_printf("\t%s\n", (const char *)i->content);
 		i = i->next;
+	}
+	(void)ft_printf("args_for_execve:\n");
+	j = 0;
+	while (cmd->args_for_execve[j])
+	{
+		printf("\t%s\n", (const char *)cmd->args_for_execve[j]);
+		j++;
 	}
 	(void)ft_printf("stdin_redirs:\n");
 	i = cmd->stdin_redirs;
