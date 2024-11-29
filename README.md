@@ -1,11 +1,9 @@
 # minishell
 Well, that's a minishell.
+## About minishell
+**minishell** is a stripped-down version of POSIX shell.
+<br>
+It's a student project in a *42 School*.
 <br>
 <br>
-Written by:
-<ul>
-<i>
-    <li><a href="https://github.com/hlib-lyshchuk">hlyshchu</a></li>
-    <li><a href="https://github.com/0x416c6941">asagymba</a></li>
-</i>
-</ul>
+minishell implements only a ***subset of the POSIX shell standard***.
