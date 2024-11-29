@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:55:25 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 15:56:49 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 22:09:15 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,11 @@
 char	*ft_getenv(const char *name)
 {
 	char	*res;
-	char	*itoa_result;
 
 	if (name == NULL)
 		return (ft_strdup(""));
 	if (ft_strcmp(name, "?") == 0)
-	{
-		itoa_result = ft_itoa(g_exit_code);
-		if (itoa_result == NULL)
-			return (NULL);
-		res = ft_strdup(itoa_result);
-		free(itoa_result);
-		return (res);
-	}
+		return (ft_itoa(g_exit_code));
 	res = getenv(name);
 	if (res == NULL)
 		return (ft_strdup(""));
