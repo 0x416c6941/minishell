@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/29 21:38:17 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 23:05:30 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,13 +177,15 @@ void							ft_free_args_for_execve(char ***arg_for_execve);
  * Frees a t_stdin_redir.
  * @param	stdin_redir		Pointer to t_stdin_redir to free.
  */
-void							ft_free_t_stdin_redir(t_stdin_redir *stdin_redir);
+void							ft_free_t_stdin_redir(
+									t_stdin_redir *stdin_redir);
 
 /**
  * Frees a t_stdout_redir.
  * @param	stdout_redir	Pointer to t_stdout_redir to free.
  */
-void							ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
+void							ft_free_t_stdout_redir(
+									t_stdout_redir *stdout_redir);
 
 /**
  * Frees a t_exec.
