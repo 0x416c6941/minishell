@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/29 16:46:10 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 21:38:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ typedef struct s_stdin_redir
 {
 	enum e_stdin_redir_type		redir_type;
 	const char					*data;
-	/* union u_stdin_redir	redir_data; */
+	/* union u_stdin_redir		redir_data; */
 }								t_stdin_redir;
 
 /**
@@ -95,14 +95,6 @@ typedef struct s_stdout_redir
 	enum e_stdout_redir_type	redir_type;
 	const char					*output_file;
 }								t_stdout_redir;
-
-/*
-typedef struct s_list
-{
-	void						*content;
-	struct s_list				*next;
-}								t_list;
-*/
 
 /**
  * Parsed command.
@@ -130,8 +122,8 @@ typedef struct s_exec
  * @brief	Tokenizes prompt by '|' delimiters.
  * @param	prompt	The string to tokenize.
  * @param	saveptr	Where to save the current position.
- * @return (The next token);
- * 			NULL if there are no more tokens.
+ * @return	(The next token);
+ * 			(NULL), if there are no more tokens.
  */
 char							*ft_get_next_token(char *prompt,
 									char **saveptr);
@@ -156,8 +148,6 @@ void							ft_handle_quotes(char quote,
  * @warning	Some quotes of returned argument may be unclosed.
  * @param	token	Token to divide.
  * @param	saveptr	Where to save the current position.
- * @return (Next argument);
- * 			NULL if there are no more arguments.
  * @return	If malloc() failed somewhere, $status is set to (-1) and
  * 				$ret is set to NULL;
  * 			if $status is set to 0 and $ret is set to NULL,
@@ -170,7 +160,7 @@ t_ret							ft_get_next_arg(char *token, char **saveptr);
 /**
  * Checks if all quotes in $arg are properly closed or not.
  * @param	arg	Argument to check.
- * @return (Some non-negative value, if yes);
+ * @return ((Some non-negative value), if yes);
  * 			(-1) otherwise.
  */
 int								ft_check_arg_quotes(const char *arg);
@@ -185,7 +175,7 @@ void							ft_free_args_for_execve(char ***arg_for_execve);
 
 /**
  * Frees a t_stdin_redir.
- * @param	stdin_redir	Pointer to t_stdin_redir to free.
+ * @param	stdin_redir		Pointer to t_stdin_redir to free.
  */
 void							ft_free_t_stdin_redir(t_stdin_redir *stdin_redir);
 
@@ -197,7 +187,7 @@ void							ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
 
 /**
  * Frees a t_exec.
- * @param	exec	Pointer to t_exec to free.
+ * @param	exec			Pointer to t_exec to free.
  */
 void							ft_free_t_exec(t_exec *exec);
 
