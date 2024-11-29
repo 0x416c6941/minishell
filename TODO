@@ -12,17 +12,6 @@ SEGFAULT if envvar is too bid -> bad dynamic buffer
 	if ends with a pipe: bash wait for the rest of command, but we just throw error  
 	Handle *
 
-	handle this weird stuff:
-		cat >> >>
-			Most likely I'll just add some function like
-			ft_check_arg(const char *arg, const enum e_arg_type arg_type)
-			and replace ft_check_arg_quotes() on e.g. line 98 in
-			ft_get_cmd_raw_quotes.c to properly handle it.
-
-	return values should be further adjusted e.g. in ft_process_stdout_redir_arg,
-	see line 100: replace 0 with a function, that would generate
-	an errcode.
-
 2. output file should be created before executing the command 
 
 parse/ft_get_cmd_raw_quotes.c: If $ret == NULL and $status != -1,
