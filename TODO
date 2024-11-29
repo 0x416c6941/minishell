@@ -1,6 +1,8 @@
 -Werror disable in both Makefiles!!!!!!
 
 
+SEGFAULT if envvar is too bid -> bad dynamic buffer
+
 1. we can add basic input validation before parse to check: 
 
 	if input if only spaces -> do not add to history 
