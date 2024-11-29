@@ -2,8 +2,6 @@
 This project was developed by:
 <br>
 <ul>
-<i>
-    <li><a href="https://github.com/hlib-lyshchuk">hlyshchu</a>, Hleb Lyshchuk "hleb-lyshchuk";</li>
-    <li><a href="https://github.com/0x416c6941">asagymba</a>, Asset Sagymbayev "0x416c6941".</li>
-</i>
+    <li><i><a href="https://github.com/hlib-lyshchuk">hlyshchu</a></i>, Hleb Lyshchuk "hleb-lyshchuk";</li>
+    <li><i><a href="https://github.com/0x416c6941">asagymba</a></i>, Asset Sagymbayev "0x416c6941".</li>
 </ul>
