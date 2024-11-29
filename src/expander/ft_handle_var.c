@@ -6,12 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 09:13:50 by root              #+#    #+#             */
-/*   Updated: 2024/11/29 14:21:40 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 15:03:50 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // #include <expander.h>
-#include "libft.h"
+#include <expander.h>
+#include <libft.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

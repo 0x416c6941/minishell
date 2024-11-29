@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:26:45 by root              #+#    #+#             */
-/*   Updated: 2024/11/28 21:36:40 by root             ###   ########.fr       */
+/*   Updated: 2024/11/29 14:53:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int	expand(t_exec *cmd)
 		i++;
 	}
 	cmd->args_for_execve[i] = NULL;
-	if ((ft_process_stdin_redirs(cmd->stdin_redirs) == -1)
-		|| (ft_process_stdout_redirs(cmd->stdout_redirs) == -1))
-		return (-1);
+	// if ((ft_process_stdin_redirs(cmd->stdin_redirs) == -1)
+	// 	|| (ft_process_stdout_redirs(cmd->stdout_redirs) == -1))
+	// 	return (-1);
 	return (1);
 }

@@ -1,28 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_process_content.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/29 14:58:26 by root              #+#    #+#             */
+/*   Updated: 2024/11/29 15:04:25 by root             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <expander.h>
 #include <libft.h>
 #include <parse.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-// Handle quotes to toggle the quote status
-void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type)
-{
-	if (quote == '\'')
-	{
-		if (*quotes_type == no_quotes)
-			*quotes_type = single_quote;
-		else if (*quotes_type == single_quote)
-			*quotes_type = no_quotes;
-	}
-	else if (quote == '\"')
-	{
-		if (*quotes_type == no_quotes)
-			*quotes_type = double_quotes;
-		else if (*quotes_type == double_quotes)
-			*quotes_type = no_quotes;
-	}
-}
 
 /**
  * @brief Copies a null-terminated string from `src` to `dest`.
@@ -195,40 +188,40 @@ t_ret	*ft_process_args(const char *content)
 	return (result);
 }
 
-/**
- * @brief Entry point to test the `ft_process_args` function.
- *
- * Reads input strings, processes them using `ft_process_args`,
- * and prints the results.
- */
-int	main(void)
-{
-	const char	**current_input;
-	t_ret		*result;
-	const char	*test_inputs[] = {"Hello $USER, welcome to '$HOME'.",
-			"No quotes and $PATH variable.",
-			"'Single-quoted $should_not_expand'",
-			"\"Double-quoted $should_expand\"",
-			"Plain string without variables.", "$?", NULL};
+// /**
+//  * @brief Entry point to test the `ft_process_args` function.
+//  *
+//  * Reads input strings, processes them using `ft_process_args`,
+//  * and prints the results.
+//  */
+// int	main(void)
+// {
+// 	const char	**current_input;
+// 	t_ret		*result;
+// 	const char	*test_inputs[] = {"Hello $USER, welcome to '$HOME'.",
+// 			"No quotes and $PATH variable.",
+// 			"'Single-quoted $should_not_expand'",
+// 			"\"Double-quoted $should_expand\"",
+// 			"Plain string without variables.", "$?", NULL};
 
-	current_input = test_inputs;
-	printf("Testing `ft_process_args`:\n");
-	while (*current_input)
-	{
-		printf("\nInput: %s\n", *current_input);
-		result = ft_process_args(*current_input);
-		if (result)
-		{
-			printf("Processed string: %s\n", (char *)result->ret);
-			printf("Status: %d\n", result->status);
-			free(result->ret);
-			free(result);
-		}
-		else
-		{
-			printf("Error: Processing failed!\n");
-		}
-		current_input++;
-	}
-	return (0);
-}
+// 	current_input = test_inputs;
+// 	printf("Testing `ft_process_args`:\n");
+// 	while (*current_input)
+// 	{
+// 		printf("\nInput: %s\n", *current_input);
+// 		result = ft_process_args(*current_input);
+// 		if (result)
+// 		{
+// 			printf("Processed string: %s\n", (char *)result->ret);
+// 			printf("Status: %d\n", result->status);
+// 			free(result->ret);
+// 			free(result);
+// 		}
+// 		else
+// 		{
+// 			printf("Error: Processing failed!\n");
+// 		}
+// 		current_input++;
+// 	}
+// 	return (0);
+// }
