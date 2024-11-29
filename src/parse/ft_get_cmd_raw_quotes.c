@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/29 23:32:19 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 00:08:25 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 			(t_ret){(-1), NULL});
-	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
+	else if (arg->ret == NULL || ft_check_arg(arg->ret, stdin_redir_arg) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
-			(t_ret){0, NULL});
+			(t_ret){ft_gen_errcode(arg->ret, stdin_redir_arg), NULL});
 	((t_stdin_redir *)ret->content)->data = ft_strdup(arg->ret);
 	if (((t_stdin_redir *)ret->content)->data == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
 			(t_ret){(-1), NULL});
-	return ((t_ret){1, ret});
+	return ((t_ret){ARG_OK, ret});
 }
 
 static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
@@ -63,29 +63,29 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 	if (arg->status == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 			(t_ret){(-1), NULL});
-	else if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
+	else if (arg->ret == NULL || ft_check_arg(arg->ret, stdout_redir_arg) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
-			(t_ret){0, NULL});
+			(t_ret){ft_gen_errcode(arg->ret, stdout_redir_arg), NULL});
 	((t_stdout_redir *)ret->content)->output_file = ft_strdup(arg->ret);
 	if (((t_stdout_redir *)ret->content)->output_file == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
 			(t_ret){(-1), NULL});
-	return ((t_ret){1, ret});
+	return ((t_ret){ARG_OK, ret});
 }
 
 static t_ret	ft_process_regular_arg(t_ret *arg)
 {
 	t_list	*ret;
 
-	if (arg->ret == NULL || ft_check_arg_quotes(arg->ret) == -1)
-		return ((t_ret){0, NULL});
+	if (arg->ret == NULL || ft_check_arg(arg->ret, normal_arg) == -1)
+		return ((t_ret){ft_gen_errcode(arg->ret, normal_arg), NULL});
 	ret = ft_lstnew(NULL);
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
 	ret->content = ft_strdup(arg->ret);
 	if (ret->content == NULL)
 		return (ft_lstdelone(ret, free), (t_ret){(-1), NULL});
-	return ((t_ret){1, ret});
+	return ((t_ret){ARG_OK, ret});
 }
 
 static int	ft_process_arg(t_exec *raw_cmd, t_ret *arg, char **arg_next)
@@ -95,25 +95,25 @@ static int	ft_process_arg(t_exec *raw_cmd, t_ret *arg, char **arg_next)
 	if (ft_strcmp(arg->ret, "<<") == 0 || ft_strcmp(arg->ret, "<") == 0)
 	{
 		to_append = ft_process_stdin_redir_arg(arg, arg_next);
-		if (!(to_append.status > 0))
+		if (to_append.status != ARG_OK)
 			return (to_append.status);
 		ft_lstadd_back(&(raw_cmd->stdin_redirs), to_append.ret);
 	}
 	else if (ft_strcmp(arg->ret, ">>") == 0 || ft_strcmp(arg->ret, ">") == 0)
 	{
 		to_append = ft_process_stdout_redir_arg(arg, arg_next);
-		if (!(to_append.status > 0))
+		if (to_append.status != ARG_OK)
 			return (to_append.status);
 		ft_lstadd_back(&(raw_cmd->stdout_redirs), to_append.ret);
 	}
 	else
 	{
 		to_append = ft_process_regular_arg(arg);
-		if (!(to_append.status > 0))
+		if (to_append.status != ARG_OK)
 			return (to_append.status);
 		ft_lstadd_back(&(raw_cmd->args), to_append.ret);
 	}
-	return (1);
+	return (ARG_OK);
 }
 
 t_ret	ft_get_cmd_raw_quotes(char *token)
@@ -134,11 +134,11 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 		ft_process_arg_status = ft_process_arg(ret, &arg,
 				&saveptr_for_next_arg);
 		free(arg.ret);
-		if (!(ft_process_arg_status > 0))
+		if (ft_process_arg_status != ARG_OK)
 			return (ft_free_t_exec(ret), (t_ret){ft_process_arg_status, NULL});
 		arg = ft_get_next_arg(NULL, &saveptr_for_next_arg);
 		if (arg.status == -1)
 			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
-	return ((t_ret){0, ret});
+	return ((t_ret){ARG_OK, ret});
 }
