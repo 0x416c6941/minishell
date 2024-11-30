@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 01:31:09 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 23:43:14 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSE_H
 
 # include <libft.h>
+# include <utils.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -85,23 +86,6 @@ union							u_stdin_redir
  * structs.
  * ---------------------------------------------------------------------------
  */
-/**
- * Wrapper primarily to catch malloc() fails.
- * $ret may be whatever, including e.g. ints casted to uintptr_t.
- */
-typedef struct s_ret
-{
-	/**
-		* $status values meaning:
-		* 	(-1): error that should lead to exit of minishell;
-		* 	Non-negative value: can proceed as normal.
-		* 		Those however can be further adjusted
-		* 		depending on the indivial functions.
-		*/
-	int							status;
-	void						*ret;
-}								t_ret;
-
 /**
  * stdin redirection.
  * In order to bypass Norminette, $data may contain either
