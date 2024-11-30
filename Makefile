@@ -9,12 +9,13 @@ INC_DIR = include
 
 # Source files.
 SRC_DIR = src
-SRC_FILES = tmp_main.c parse/ft_get_next_token.c parse/ft_handle_quotes.c	\
+SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
+		   	parse/ft_get_next_token.c parse/ft_handle_quotes.c				\
 			parse/ft_get_next_arg.c parse/ft_check_arg_quotes.c				\
 			parse/ft_check_arg.c parse/ft_free_args_for_execve.c			\
 			parse/ft_free_t_stdin_redir.c parse/ft_free_t_stdout_redir.c	\
 			parse/ft_free_t_exec.c parse/ft_gen_errcode.c					\
-			parse/ft_get_cmd_raw_quotes.c utils_part1.c					 	\
+			parse/ft_get_cmd_raw_quotes.c									\
 			input_validation/input_validation.c expander/expander.c			\
 			expander/ft_process_content.c expander/ft_handle_var.c			\
 			expander/libft_utils.c expander/ft_getenv.c						\
