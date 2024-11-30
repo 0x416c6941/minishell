@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 23:43:14 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 23:49:04 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,26 @@
  * enums.
  * ---------------------------------------------------------------------------
  */
-enum							e_quotes_type
+enum	e_quotes_type
 {
 	no_quotes,
 	single_quote,
 	double_quotes,
 };
 
-enum							e_stdin_redir_type
+enum	e_stdin_redir_type
 {
 	file,
 	heredoc,
 };
 
-enum							e_stdout_redir_type
+enum	e_stdout_redir_type
 {
 	overwrite,
 	append,
 };
 
-enum							e_arg_type
+enum	e_arg_type
 {
 	normal_arg,
 	stdin_redir_arg,
@@ -75,10 +75,10 @@ enum							e_arg_type
 /**
  * Unused. It'd be madness to bypass Norminette if we try to use this.
  */
-union							u_stdin_redir
+union	u_stdin_redir
 {
-	const char					*stdin_file;
-	const char					*heredoc_eof;
+	const char	*stdin_file;
+	const char	*heredoc_eof;
 };
 
 /**
@@ -96,7 +96,7 @@ typedef struct s_stdin_redir
 	enum e_stdin_redir_type		redir_type;
 	const char					*data;
 	/* union u_stdin_redir		redir_data; */
-}								t_stdin_redir;
+}	t_stdin_redir;
 
 /**
  * stdout redirection.
@@ -105,19 +105,19 @@ typedef struct s_stdout_redir
 {
 	enum e_stdout_redir_type	redir_type;
 	const char					*output_file;
-}								t_stdout_redir;
+}	t_stdout_redir;
 
 /**
  * Parsed command.
  */
 typedef struct s_exec
 {
-	const char					*path_to_exec;
-	t_list						*args;
-	char						**args_for_execve;
-	t_list						*stdin_redirs;
-	t_list						*stdout_redirs;
-}								t_exec;
+	const char	*path_to_exec;
+	t_list		*args;
+	char		**args_for_execve;
+	t_list		*stdin_redirs;
+	t_list		*stdout_redirs;
+}	t_exec;
 
 /**
  * ---------------------------------------------------------------------------
@@ -136,8 +136,7 @@ typedef struct s_exec
  * @return	(The next token);
  * 			(NULL), if there are no more tokens.
  */
-char							*ft_get_next_token(char *prompt,
-									char **saveptr);
+char	*ft_get_next_token(char *prompt, char **saveptr);
 
 /**
  * Depending on the quote in $quote,
@@ -145,8 +144,7 @@ char							*ft_get_next_token(char *prompt,
  * @param	quote		Quote to handle.
  * @param	quotes_type	A pointer to the current quote type.
  */
-void							ft_handle_quotes(char quote,
-									enum e_quotes_type *quotes_type);
+void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
 
 /**
  * A modified version of ft_strtok_r(), which divides token
@@ -166,15 +164,15 @@ void							ft_handle_quotes(char quote,
  * 			if $status is set to 0 and $ret is set to non-NULL value,
  * 				then that's the next argument.
  */
-t_ret							ft_get_next_arg(char *token, char **saveptr);
+t_ret	ft_get_next_arg(char *token, char **saveptr);
 
 /**
  * Checks if all quotes in $arg are properly closed or not.
  * @param	arg	Argument to check.
- * @return ((Some non-negative value), if yes);
+ * @return (Some non-negative value), if yes;
  * 			(-1) otherwise.
  */
-int								ft_check_arg_quotes(const char *arg);
+int		ft_check_arg_quotes(const char *arg);
 
 /**
  * Checks if $arg is a valid argument: if it's not NULL,
@@ -183,11 +181,10 @@ int								ft_check_arg_quotes(const char *arg);
  * @brief	Checks if $arg is valid, depending on $arg_type.
  * @param	arg			Argument to check.
  * @param	arg_type	Type of the argument.
- * @return ((Some non-negative value), if yes);
+ * @return (Some non-negative value), if yes;
  * 			(-1) otherwise.
  */
-int								ft_check_arg(const char *arg,
-									enum e_arg_type arg_type);
+int		ft_check_arg(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Frees arguments for execve in t_exec
@@ -195,27 +192,25 @@ int								ft_check_arg(const char *arg,
  * @param	arg_for_execve	Pointer to an array of strings,
  * 							transformed from list of arguments (strings).
  */
-void							ft_free_args_for_execve(char ***arg_for_execve);
+void	ft_free_args_for_execve(char ***arg_for_execve);
 
 /**
  * Frees a t_stdin_redir.
  * @param	stdin_redir		Pointer to t_stdin_redir to free.
  */
-void							ft_free_t_stdin_redir(
-									t_stdin_redir *stdin_redir);
+void	ft_free_t_stdin_redir(t_stdin_redir *stdin_redir);
 
 /**
  * Frees a t_stdout_redir.
  * @param	stdout_redir	Pointer to t_stdout_redir to free.
  */
-void							ft_free_t_stdout_redir(
-									t_stdout_redir *stdout_redir);
+void	ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
 
 /**
  * Frees a t_exec.
  * @param	exec			Pointer to t_exec to free.
  */
-void							ft_free_t_exec(t_exec *exec);
+void	ft_free_t_exec(t_exec *exec);
 
 /**
  * @brief	Generates error code for $arg, depending on $arg_type.
@@ -234,8 +229,7 @@ void							ft_free_t_exec(t_exec *exec);
  * 				and $arg contains stdout redirection;
  * 			(ARG_OK), if no errors mentioned above were found.
  */
-int								ft_gen_errcode(const char *arg,
-									enum e_arg_type arg_type);
+int		ft_gen_errcode(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Processes token gotten by ft_get_next_token() and returns
@@ -254,7 +248,7 @@ int								ft_gen_errcode(const char *arg,
  * 					and also nothing else is checked at this stage,
  * 					i.e. e.g. some file to redirect stdin may be inaccessible).
  */
-t_ret							ft_get_cmd_raw_quotes(char *token);
+t_ret	ft_get_cmd_raw_quotes(char *token);
 
 /**
  * Parses the command: the same command will be returned, if it's a builtin
@@ -268,6 +262,6 @@ t_ret							ft_get_cmd_raw_quotes(char *token);
  * 			Otherwise $status will reflect it's error code,
  * 				and $ret will be (NULL).
  */
-t_ret							ft_get_pathname_for_execve(const char *arg);
+t_ret	ft_get_pathname_for_execve(const char *arg);
 
 #endif /* PARSE_H */
