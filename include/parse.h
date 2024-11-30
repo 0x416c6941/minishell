@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 23:49:04 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:46:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,11 @@
 # define PATHNAME_IS_DIR			11
 # define PATHNAME_ISNT_ACCESSIBLE	12
 # define EXEC_ISNT_IN_PATH			13
-# define PATHNAME_OK				14
+/**
+ * Kinda specific case of PATHNAME_OK.
+ */
+# define PATHNAME_IS_BUILTIN		14
+# define PATHNAME_OK				15
 
 /**
  * ---------------------------------------------------------------------------
