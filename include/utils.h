@@ -6,12 +6,19 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 23:46:33 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:12:46 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+/**
+ * ---------------------------------------------------------------------------
+ * Constants.
+ * ---------------------------------------------------------------------------
+ */
+# define MINISHELL_PREFIX	"minishell: "
 
 /**
  * ---------------------------------------------------------------------------
@@ -45,5 +52,21 @@ typedef struct s_ret
  * @param	str	A pointer to string.
  */
 void	ft_skip_spaces(const char **str);
+
+/**
+ * Writes an error message to stderr.
+ * @param	msg	The message to write.
+ * @return	(-1) if got some I/O error;
+ * 			(Some non-negative value) otherwise.
+ */
+int		ft_errmsg(const char *msg);
+
+/**
+ * @brief	Checks if the string contains only whitespace characters.
+ * @param	str	Input to check.
+ * @return	(Some positive value) if yes;
+ * 			(0) otherwise.
+ */
+int		ft_input_issspace(const char *str);
 
 #endif /* UTILS_H */
