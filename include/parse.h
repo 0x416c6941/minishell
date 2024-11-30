@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:46:50 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:53:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,14 +255,23 @@ int		ft_gen_errcode(const char *arg, enum e_arg_type arg_type);
 t_ret	ft_get_cmd_raw_quotes(char *token);
 
 /**
+ * @brief	Checks if provided $arg is a builtin.
+ * @param	arg	Argument to check.
+ * @return	(Some non-zero value) if it is;
+ * 			(0) otherwise.
+ */
+int		ft_is_builtin(const char *arg);
+
+/**
  * Parses the command: the same command will be returned, if it's a builtin
  * or if it starts with '/' or '.' (and it exists as an executable file);
  * otherwise the first path from $PATH, that contains
  * 	the specified binary (arg), will be returned.
  * @brief	Parses the command.
  * @warning	Dynamic memory allocation is always used.
- * @param	If $status == PATHNAME_OK, then $ret
- * 				will contain an executable file (or builtin) to execute.
+ * @param	If ($status == PATHNAME_IS_BUILTIN || $status == PATHNAME_OK),
+ * 				then $ret will contain an executable file
+ * 				(or builtin) to execute.
  * 			Otherwise $status will reflect it's error code,
  * 				and $ret will be (NULL).
  */
