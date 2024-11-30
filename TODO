@@ -1,15 +1,20 @@
 -Werror disable in both Makefiles!!!!!!
 
 
-SEGFAULT if envvar is too bid -> bad dynamic buffer <--- fix this stuff
+SEGFAULT if envvar is too bid -> bad dynamic buffer
 
-Input validation:
+1. we can add basic input validation before parse to check: 
+
 	if input if only spaces -> do not add to history 
-		not only that, but in that case we don't even want to do anything
-		with such an input - just skip it
+	if || or && ; \ -> do not supported 
+	if there is unclosed "" or '' 
+	if starts with a pipe: "bash: syntax error near unexpected token `|'"  
+	if ends with a pipe: bash wait for the rest of command, but we just throw error  
+	Handle *
 
-	||, & (and && of course), ;, \, * -> not supported
+2. output file should be created before executing the command 
 
-	Every other possible stuff will be handled and parser.
-
-output file should be created before executing the command
+parse/ft_get_cmd_raw_quotes.c: If $ret == NULL and $status != -1,
+	adjust $status to show exactly what went wrong:
+		if a redirecting file (or heredoc's EOF) was missing,
+		if some quote wasn't closed (and if so, what quote exactly), etc.
