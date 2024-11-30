@@ -6,13 +6,14 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:49:21 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 01:29:07 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/11/30 01:32:56 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parse.h>
 #include <stddef.h>
 #include <libft.h>
+#include <stdlib.h>
 
 t_ret	ft_get_pathname_for_execve(const char *arg)
 {
