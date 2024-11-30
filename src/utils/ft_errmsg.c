@@ -6,12 +6,12 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/01 00:04:47 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:07:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:09:25 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <utils.h>
-#include <stdlib.h>
+#include <unistd.h>
 #include <libft.h>
 
 int	ft_errmsg(const char *msg)
