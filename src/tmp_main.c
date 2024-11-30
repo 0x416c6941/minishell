@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:20:35 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:38:47 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ static void	ft_write_cmd_content(t_exec *cmd)
 int	main(void)
 {
 	char	*input;
+	int		check_unsupported_status;
 	char	*token;
 	char	*next_token;
 	t_ret	status;
@@ -95,25 +96,31 @@ int	main(void)
 			rl_clear_history();
 			return (0);
 		}
-		if (input_issspace((const char *)input) == 0)
+		if (ft_input_issspace(input) > 0)
 		{
 			add_history(input);
-			if (validate_input((const char *)input) == 0)
+			check_unsupported_status = ft_check_unsupported(input);
+			if (check_unsupported_status == -1
+				|| check_unsupported_status == 0)
 			{
-				token = ft_get_next_token(input, &next_token);
-				while (token != NULL)
+				free(input);
+				if (check_unsupported_status == -1)
+					return (MESSED_UP);
+				continue ;
+			}
+			token = ft_get_next_token(input, &next_token);
+			while (token != NULL)
+			{
+				status = ft_get_cmd_raw_quotes(token);
+				if (status.status == -1)
 				{
-					status = ft_get_cmd_raw_quotes(token);
-					if (status.status == -1)
-					{
-						(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
-						return (MESSED_UP);
-					}
-					ft_write_cmd_content(status.ret);
-					(void)ft_printf("\n");
-					ft_free_t_exec(status.ret);
-					token = ft_get_next_token(NULL, &next_token);
+					(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
+					return (MESSED_UP);
 				}
+				ft_write_cmd_content(status.ret);
+				(void)ft_printf("\n");
+				ft_free_t_exec(status.ret);
+				token = ft_get_next_token(NULL, &next_token);
 			}
 		}
 		free(input);
