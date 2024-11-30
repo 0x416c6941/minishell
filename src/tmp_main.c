@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:38:47 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:45:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	main(void)
 			rl_clear_history();
 			return (0);
 		}
-		if (ft_input_issspace(input) > 0)
+		if (ft_input_issspace(input))
 		{
 			add_history(input);
 			check_unsupported_status = ft_check_unsupported(input);

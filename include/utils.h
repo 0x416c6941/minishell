@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:12:46 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/01 00:45:03 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int		ft_errmsg(const char *msg);
 /**
  * @brief	Checks if the string contains only whitespace characters.
  * @param	str	Input to check.
- * @return	(Some positive value) if yes;
+ * @return	(Some non-zero value) if yes;
  * 			(0) otherwise.
  */
 int		ft_input_issspace(const char *str);
