@@ -10,14 +10,15 @@ INC_DIR = include
 # Source files.
 SRC_DIR = src
 SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
-			utils/ft_input_issspace.c parse/ft_get_next_token.c				\
+			utils/ft_input_issspace.c utils/ft_free_t_env.c					\
+			utils/ft_initialize_envs.c parse/ft_get_next_token.c			\
 			parse/ft_handle_quotes.c parse/ft_get_next_arg.c				\
 			parse/ft_check_arg_quotes.c parse/ft_check_arg.c				\
 			parse/ft_free_args_for_execve.c parse/ft_free_t_stdin_redir.c	\
 			parse/ft_free_t_stdout_redir.c parse/ft_free_t_exec.c			\
 			parse/ft_gen_errcode.c parse/ft_get_cmd_raw_quotes.c			\
-			parse/ft_is_builtin.c parse/ft_get_pathname_for_execve.c		\
-			input_validation/ft_check_unsupported.c
+			parse/ft_is_builtin.c input_validation/ft_check_unsupported.c
+# parse/ft_get_pathname_for_execve.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
