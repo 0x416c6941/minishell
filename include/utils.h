@@ -6,12 +6,14 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:45:03 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:33:04 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+
+# include <libft.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -32,15 +34,38 @@
 typedef struct s_ret
 {
 	/**
-		* $status values meaning:
-		* 	(-1): error that should lead to exit of minishell;
-		* 	Non-negative value: can proceed as normal.
-		* 		Those however can be further adjusted
-		* 		depending on the indivial functions.
-		*/
+	 * $status values meaning:
+	 * 	(-1): error that should lead to exit of minishell;
+	 * 	Non-negative value: can proceed as normal.
+	 * 		Those however can be further adjusted
+	 * 		depending on the indivial functions.
+	 */
 	int		status;
 	void	*ret;
 }	t_ret;
+
+/**
+ * Basically a map-like structure, however only for one key-value pair.
+ */
+typedef struct s_env
+{
+	char	*key;
+	char	*value;
+}	t_env;
+
+/**
+ * Main data structure.
+ *
+ * Unfortunalely, since neither $environ nor putenv() can be used,
+ * we need to use an $envp, which isn't a universally accepted standard,
+ * and later divide it to a structure we'd be able to manipulate with.
+ */
+typedef struct s_minishell_data
+{
+	t_list	*envs;				/* $content is a t_env in each node. */
+	int		last_exit_status;
+	t_list	*parsed_args;
+}	t_minishell_data;
 
 /**
  * ---------------------------------------------------------------------------
@@ -68,5 +93,23 @@ int		ft_errmsg(const char *msg);
  * 			(0) otherwise.
  */
 int		ft_input_issspace(const char *str);
+
+/**
+ * Basically transforms $envp to a linked list, all node of which
+ * can be freed, including it's content (which is an t_env).
+ * @brief	Transforms $envp to a linked list.
+ * @param	envp	Environment pointer.
+ * @return	If $status is (-1), then malloc() failed and $ret will be NULL;
+ * 			in all other cases $status is a non-negative value,
+ * 				and $ret contains a head of the linked list
+ * 				with each environment variable saved as t_env.
+ */
+t_ret	ft_initialize_envs(const char **envp);
+
+/**
+ * Frees a t_env.
+ * @param	t_env	Pointer to t_env to free.
+ */
+void	ft_free_t_env(t_env *env);
 
 #endif /* UTILS_H */

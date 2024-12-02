@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:45:17 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:30:28 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,23 +79,26 @@ static void	ft_write_cmd_content(t_exec *cmd)
 #define BAD_MSG "Something went really wrong.\n"
 #define MESSED_UP 1
 
-int	main(void)
+int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
-	int		check_unsupported_status;
-	char	*token;
-	char	*next_token;
-	t_ret	status;
+	t_minishell_data	data;
+	t_ret				status;
+	char				*input;
+	int					check_unsupported_status;
+	char				*token;
+	char				*next_token;
 
+	(void)argc;
+	(void)argv;
+	status = ft_initialize_envs((const char **)envp);
+	if (status.status == -1)
+		return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
+	data.envs = status.ret;
 	while (42)
 	{
 		input = readline("parser test> ");
 		if (input == NULL)
-		{
-			(void)ft_printf("Exit...\n");
-			rl_clear_history();
-			return (0);
-		}
+			break ;
 		if (ft_input_issspace(input))
 		{
 			add_history(input);
@@ -113,10 +116,7 @@ int	main(void)
 			{
 				status = ft_get_cmd_raw_quotes(token);
 				if (status.status == -1)
-				{
-					(void)write(STDERR_FILENO, BAD_MSG, sizeof(BAD_MSG));
-					return (MESSED_UP);
-				}
+					return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
 				ft_write_cmd_content(status.ret);
 				(void)ft_printf("\n");
 				ft_free_t_exec(status.ret);
@@ -125,4 +125,8 @@ int	main(void)
 		}
 		free(input);
 	}
+	(void)ft_printf("Exit...\n");
+	rl_clear_history();
+	ft_lstclear(&data.envs, (void (*)(void *))ft_free_t_env);
+	return (0);
 }
