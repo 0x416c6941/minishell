@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/11/30 00:28:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:37:34 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_ret		*ft_process_args(const char *content);
 int			expand_var(char *str);
 char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strncpy(char *dest, const char *src, size_t n);
-void		ft_print_error(const char *error_message);
 
 /**
  * @brief	Retrieves the value of an environment variable or `$?` for exit
