@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/02 23:33:04 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:35:43 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ int		ft_input_issspace(const char *str);
  * Basically transforms $envp to a linked list, all node of which
  * can be freed, including it's content (which is an t_env).
  * @brief	Transforms $envp to a linked list.
+ * @warning	Dynamic memory allocation is used.
  * @param	envp	Environment pointer.
  * @return	If $status is (-1), then malloc() failed and $ret will be NULL;
  * 			in all other cases $status is a non-negative value,

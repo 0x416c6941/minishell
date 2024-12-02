@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 23:01:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/02 23:31:54 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:35:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 /**
  * Initialize a single node contaning t_env with environment variable.
+ * @warning	Dyamic memory allocation is used.
  * @param	env	Environment variable.
  * @return	If $status is (-1), then malloc() failed and $ret is NULL;
  * 			Otherwise $status is non-negative value, and $ret
