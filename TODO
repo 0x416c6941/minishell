@@ -1,6 +1,5 @@
 -Werror disable in both Makefiles!!!!!!
 
-
 SEGFAULT if envvar is too bid -> bad dynamic buffer <--- fix this stuff
 
 Input validation:
@@ -13,3 +12,7 @@ Input validation:
 	Every other possible stuff will be handled and parser.
 
 output file should be created before executing the command
+
+We will NOT use any global variables.
+They are allowed only for signal processing, but even for that
+they're not required.
