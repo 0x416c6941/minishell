@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_errmsg.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: hlyshchu <hlyshchu@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/01 00:04:47 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:09:25 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/01 00:04:47 by hlyshchu          #+#    #+#             */
+/*   Updated: 2024/12/02 23:38:35 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
