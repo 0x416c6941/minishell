@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 11:21:19 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 12:23:16 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,11 @@
 # include <libft.h>
 # include <stddef.h>
 
-# define EXPAND_VAR_ERROR	-1
-# define EXPAND_VAR_SUCCESS	1
-
-t_ret		*ft_process_args(const char *content);
-int			expand_var(char *str);
-char		*ft_strcpy(char *dest, const char *src);
-char		*ft_strncpy(char *dest, const char *src, size_t n);
-
 /**
- * @brief	Retrieves the value of an environment variable or "$?" for exit
- *			code.
- * @warning	Dynamic memory allocation is used.
- * @param	vars	Pointer to structure containing last exit status 
- * 					and environment variables in a key-pair structure.
- * @param	key		The variable name, "$?" returns the last exit code.
- * @return	Dynamically allocated string of the variable's value,
- * 			(NULL) if some malloc() went awfully wrong.
+ * ---------------------------------------------------------------------------
+ * Functions.
+ * ---------------------------------------------------------------------------
  */
-char		*ft_getenv(const t_vars *vars, const char *key);
-
 /**
  * @brief	Extracts the variable name starting at $read_ptr.
  * @warning	Dynamic memory allocation is used.
@@ -48,6 +33,39 @@ char		*ft_getenv(const t_vars *vars, const char *key);
  * 				and $ret will contain a variable name as a string.
  */
 t_ret		ft_extract_var_name(const char *read_ptr);
+
+/**
+ * @brief	Retrieves the value of an environment variable
+ * 			or exit code for "$?".
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars	Pointer to structure containing last exit status 
+ * 					and environment variables in a key-pair structure.
+ * @param	key		The variable name, "$?" returns the last exit code.
+ * @return	Dynamically allocated string of the variable's value,
+ * 			(NULL) if some malloc() went awfully wrong.
+ */
+char		*ft_getenv(const t_vars *vars, const char *key);
+
+/**
+ * Since we don't work with normal resizeable strings,
+ * let's first calculate the length of the buffer where we will
+ * write expanded argument.
+ * @brief	Calculates length of the buffer for expanded argument.
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars	Pointer to structure containing last exit status 
+ * 					and environment variables in a key-pair structure.
+ * @param	arg		Argument to be expanded.
+ * @return	If $status == (-1), then some malloc() failed;
+ * 			otherwise $status will be non-negative value and
+ * 				$ret will contain a size_t with the buffer's calculated length.
+ */
+t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
+
+/**
+ */
+t_ret		ft_expand_arg(const char *arg);
+
+t_ret		*ft_process_args(const char *content);
 
 /**
  * @brief	Replaces a variable with its value in the output buffer.
