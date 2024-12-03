@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:08:45 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:12:26 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	ft_expand_stdin_redirs_in_t_exec(const t_vars *vars,
 		((t_stdin_redir *)stdin_redir->content)->data = e_status.ret;
 		stdin_redir = stdin_redir->next;
 	}
-	return (CMD_OK);
+	return (ARG_OK);
 }
 
 /**
@@ -120,7 +120,7 @@ static int	ft_expand_stdout_redirs_in_t_exec(const t_vars *vars,
 		((t_stdout_redir *)stdout_redir->content)->output_file = e_status.ret;
 		stdout_redir = stdout_redir->next;
 	}
-	return (CMD_OK);
+	return (ARG_OK);
 }
 
 /**
@@ -138,10 +138,10 @@ int	ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand)
 		return (-1);
 	ft_lstclear(&exec_to_expand->args, free);
 	status = ft_expand_stdin_redirs_in_t_exec(vars, exec_to_expand);
-	if (status != CMD_OK)
+	if (status != ARG_OK)
 		return (status);
 	status = ft_expand_stdout_redirs_in_t_exec(vars, exec_to_expand);
-	if (status != CMD_OK)
+	if (status != ARG_OK)
 		return (status);
-	return (CMD_OK);
+	return (ARG_OK);
 }

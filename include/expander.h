@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 15:47:55 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:12:40 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,8 @@ int		ft_is_whole_arg_var(const char *arg);
  * 							and environment variables in a key-pair structure.
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if something went wrong;
- * 			(Some non-negative value) otherwise.
+ * 			(AMBIGIOUS_REDIRECT), if some redirections are ambigious;
+ * 			(ARG_OK) if everything went fine.
  */
 int		ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
 
