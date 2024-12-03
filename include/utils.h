@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 11:01:28 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:31:52 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@
  */
 /**
  * Wrapper primarily to catch malloc() fails.
- * $ret may be whatever, including e.g. ints casted to uintptr_t.
+ * Please note, that $ret, if not NULL, should always be freed,
+ * 	otherwise memory leak would occur.
  */
 typedef struct s_ret
 {
