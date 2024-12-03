@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 10:55:21 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:06:59 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define EXPANDER_H
 
 # include <utils.h>
+# include <libft.h>
 # include <stddef.h>
 
 # define EXPAND_VAR_ERROR	-1
@@ -25,14 +26,16 @@ char		*ft_strcpy(char *dest, const char *src);
 char		*ft_strncpy(char *dest, const char *src, size_t n);
 
 /**
- * @brief	Retrieves the value of an environment variable or `$?` for exit
+ * @brief	Retrieves the value of an environment variable or "$?" for exit
  *			code.
  * @warning	Dynamic memory allocation is used.
- * @param	name	The variable name, `$?` returns the last exit code.
+ * @param	vars	Pointer to structure containing environment variables
+ * 					and last exit status.
+ * @param	name	The variable name, "$?" returns the last exit code.
  * @return	Dynamically allocated string of the variable's value,
  * 			(NULL) if some malloc() went awfully wrong.
  */
-char		*ft_getenv(const char *name);
+char		*ft_getenv(const t_vars *vars, const char *name);
 
 /**
  * @brief	Extracts the variable name starting at $read_ptr.
