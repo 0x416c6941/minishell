@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 13:22:45 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:23:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,6 @@ t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
  * 			otherwise $status will be non-negative value and
  * 				$ret will contain a duplicate of $arg with everything expanded.
  */
-t_ret		ft_dup_arg_expanded(const t_vars *vars, const char *arg)
+t_ret		ft_dup_arg_expanded(const t_vars *vars, const char *arg);
 
 #endif /* EXPANDER_H */
