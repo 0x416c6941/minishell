@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 11:31:52 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:25:09 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ typedef struct s_env
 }	t_env;
 
 /**
- * Main data structure.
- *
  * Unfortunalely, since neither $environ nor putenv() can be used,
  * we need to use an $envp, which isn't a universally accepted standard,
  * and later divide it to a structure we'd be able to manipulate with.
