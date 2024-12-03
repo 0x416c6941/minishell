@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gen_errcode.c                                   :+:      :+:    :+:   */
+/*   ft_gen_raw_errorcode.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:50:03 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 00:01:06 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:30:28 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	ft_gen_quotes_status(const char *arg)
 	return (ARG_OK);
 }
 
-int	ft_gen_errcode(const char *arg, enum e_arg_type arg_type)
+int	ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type)
 {
 	if (arg == NULL && arg_type == normal_arg)
 		return (ARG_IS_EMPTY);

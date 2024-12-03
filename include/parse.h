@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:21:05 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:29:14 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,8 @@ void	ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
 void	ft_free_t_exec(t_exec *exec);
 
 /**
+ * Generates raw error code for $arg, depending on $arg_type.
+ * Please note, that only basic checks are performed here.
  * @brief	Generates error code for $arg, depending on $arg_type.
  * @param	arg			Argument to check.
  * @param	arg_type	Type of the argument.
@@ -235,7 +237,7 @@ void	ft_free_t_exec(t_exec *exec);
  * 				and $arg contains stdout redirection;
  * 			(ARG_OK), if no errors mentioned above were found.
  */
-int		ft_gen_errcode(const char *arg, enum e_arg_type arg_type);
+int		ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Processes token gotten by ft_get_next_token() and returns

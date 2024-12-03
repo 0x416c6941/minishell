@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/30 00:08:25 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:31:12 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 			(t_ret){(-1), NULL});
 	else if (arg->ret == NULL || ft_check_arg(arg->ret, stdin_redir_arg) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
-			(t_ret){ft_gen_errcode(arg->ret, stdin_redir_arg), NULL});
+			(t_ret){ft_gen_raw_errcode(arg->ret, stdin_redir_arg), NULL});
 	((t_stdin_redir *)ret->content)->data = ft_strdup(arg->ret);
 	if (((t_stdin_redir *)ret->content)->data == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdin_redir),
@@ -65,7 +65,7 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 			(t_ret){(-1), NULL});
 	else if (arg->ret == NULL || ft_check_arg(arg->ret, stdout_redir_arg) == -1)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
-			(t_ret){ft_gen_errcode(arg->ret, stdout_redir_arg), NULL});
+			(t_ret){ft_gen_raw_errcode(arg->ret, stdout_redir_arg), NULL});
 	((t_stdout_redir *)ret->content)->output_file = ft_strdup(arg->ret);
 	if (((t_stdout_redir *)ret->content)->output_file == NULL)
 		return (ft_lstdelone(ret, (void (*)(void *))ft_free_t_stdout_redir),
@@ -78,7 +78,7 @@ static t_ret	ft_process_regular_arg(t_ret *arg)
 	t_list	*ret;
 
 	if (arg->ret == NULL || ft_check_arg(arg->ret, normal_arg) == -1)
-		return ((t_ret){ft_gen_errcode(arg->ret, normal_arg), NULL});
+		return ((t_ret){ft_gen_raw_errcode(arg->ret, normal_arg), NULL});
 	ret = ft_lstnew(NULL);
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
