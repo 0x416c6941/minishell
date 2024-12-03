@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 15:31:44 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:10:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -264,6 +264,13 @@ t_ret	ft_get_cmd_raw_quotes(char *token);
  */
 int		ft_is_builtin(const char *arg);
 
+/**
+ * Checks, if provided argument exists as an executable file.
+ * @param	arg	Argument to check.
+ * @return	(CMD_OK), if it does;
+ * 			(STAT_FAIL), if stat() call failed for some reason;
+ * 			some other error otherwise.
+ */
 int		ft_check_pathname(const char *arg);
 
 /**
