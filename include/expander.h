@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 13:23:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:35:22 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,21 @@ t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
  * 				$ret will contain a duplicate of $arg with everything expanded.
  */
 t_ret		ft_dup_arg_expanded(const t_vars *vars, const char *arg);
+
+/**
+ * Expands everything in $exec_to_expand:
+ * 	first of all, $args will be expanded to $args_for_execve,
+ * 		and then $args will be freed and to NULL;
+ * 	next all nodes in $stdin_redirs and $stdout_redirs will be expanded
+ * 		(old unexpanded versions will be freed).
+ * @brief	Expands everything in $exec_to_expand.
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars			Pointer to structure containing last exit status 
+ * 							and environment variables in a key-pair structure.
+ * @param	exec_to_expand	"t_exec" parsed command to expand.
+ * @return	(-1), if something went wrong;
+ * 			(Some non-negative value) otherwise.
+ */
+int			ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
 
 #endif /* EXPANDER_H */

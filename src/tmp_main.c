@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:20:17 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:48:47 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <input_validation.h>
 #include <stdlib.h>
 #include <parse.h>
+#include <expander.h>
 
 /**
  * A temporary helper function to write the content of $cmd.
@@ -79,6 +80,11 @@ static void	ft_write_cmd_content(t_exec *cmd)
 #define BAD_MSG		"uwu, s0methin' went bad :333 malloc()-san fa1l???\n"
 #define MESSED_UP	1
 
+/**
+ * In case of some malloc() fail,
+ * 	rl_clear_history() and ft_lstclear() aren't called.
+ * But we'll fix that later.
+ */
 int	main(int argc, char **argv, char **envp)
 {
 	t_vars	vars;
@@ -118,6 +124,9 @@ int	main(int argc, char **argv, char **envp)
 				status = ft_get_cmd_raw_quotes(token);
 				if (status.status == -1)
 					return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
+				else if (status.status == ARG_OK)
+					if (ft_expand_t_exec(&vars, status.ret) == -1)
+						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
 				ft_write_cmd_content(status.ret);
 				(void)ft_printf("\n");
 				ft_free_t_exec(status.ret);

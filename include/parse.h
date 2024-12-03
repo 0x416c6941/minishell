@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:53:17 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:41:58 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct s_stdout_redir
 typedef struct s_exec
 {
 	const char	*path_to_exec;
-	t_list		*args;
+	t_list		*args;				/* List of strings. */
 	char		**args_for_execve;
 	t_list		*stdin_redirs;
 	t_list		*stdout_redirs;
