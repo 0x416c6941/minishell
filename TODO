@@ -1,15 +1,10 @@
--Werror disable in both Makefiles!!!!!!
-
-SEGFAULT if envvar is too bid -> bad dynamic buffer <--- fix this stuff
+-Werror disable in both Makefiles!!!!!! (?)
 
 Input validation:
-	if input if only spaces -> do not add to history 
-		not only that, but in that case we don't even want to do anything
-		with such an input - just skip it
+	check for "|\0".
 
-	||, & (and && of course), ;, \, * -> not supported
-
-	Every other possible stuff will be handled and parser.
+make another function - expander for heredocs:
+	only quotes should be removed, everything else should stay in place.
 
 output file should be created before executing the command
 

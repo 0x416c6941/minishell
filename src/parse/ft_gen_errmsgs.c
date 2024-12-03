@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:54:55 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 19:50:21 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:56:29 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <stddef.h>
 #include <utils.h>
 
-#define UNEXPECTED_PIPE_ERR				"unexpected pipe\n"
-#define UNEXPECTED_EOF_ERR				"unexpected newline\n"
-#define UNCLOSED_SINGLE_QUOTE_ERR		"' isn't closed\n"
-#define UNCLOSED_DOUBLE_QUOTES_ERR		"\" isn't closed\n"
+#define CMD_IS_EMPTY_ERR				"somne command is empty\n"
+#define UNCLOSED_SINGLE_QUOTE_ERR		"some ' isn't closed\n"
+#define UNCLOSED_DOUBLE_QUOTES_ERR		"some \" isn't closed\n"
+#define UNFINISHED_REDIR_ERR			"some redirection is unfinished\n"
 #define INAPPROPRIATE_STDIN_REDIR_ERR	"unexpected < or <<\n"
 #define INAPPROPRIATE_STDOUT_REDIR_ERR	"unexpected > or >>\n"
 #define AMBIGIOUS_REDIR_ERR				"ambigious redirection\n"
@@ -54,24 +54,20 @@ static int	ft_gen_errmsg_part_two(int errcode)
  * Generate an error message depending on value in $errcode.
  * @warning	Code is bad, but I don't care.
  * @param	errcode		Error code.
- * @param	next_node	Next node in the list.
  * @return	(-1), if some write() to stderr failed;
  * 			(some non-negative value) otherwise (i.e. if everything went fine).
  */
-static int	ft_gen_errmsg(int errcode, const t_list *next_node)
+static int	ft_gen_errmsg(int errcode)
 {
-	if ((errcode == ARG_IS_EMPTY
-			|| errcode == UNFINISHED_STDIN_REDIR
-			|| errcode == UNFINISHED_STDOUT_REDIR) && next_node != NULL)
-		return (ft_errmsg(UNEXPECTED_PIPE_ERR));
-	else if ((errcode == ARG_IS_EMPTY
-			|| errcode == UNFINISHED_STDIN_REDIR
-			|| errcode == UNFINISHED_STDOUT_REDIR) && next_node == NULL)
-		return (ft_errmsg(UNEXPECTED_EOF_ERR));
+	if (errcode == ARG_IS_EMPTY)
+		return (ft_errmsg(CMD_IS_EMPTY_ERR));
 	else if (errcode == UNCLOSED_SINGLE_QUOTE)
 		return (ft_errmsg(UNCLOSED_SINGLE_QUOTE_ERR));
 	else if (errcode == UNCLOSED_DOUBLE_QUOTES)
 		return (ft_errmsg(UNCLOSED_DOUBLE_QUOTES_ERR));
+	else if (errcode == UNFINISHED_STDIN_REDIR
+		|| errcode == UNFINISHED_STDOUT_REDIR)
+		return (ft_errmsg(UNFINISHED_REDIR_ERR));
 	else if (errcode == INAPPROPRIATE_STDIN_REDIR)
 		return (ft_errmsg(INAPPROPRIATE_STDIN_REDIR_ERR));
 	else if (errcode == INAPPROPRIATE_STDOUT_REDIR)
@@ -90,7 +86,7 @@ int	ft_gen_errmsgs(const t_list *parsed_cmd)
 		cmd_status = parsed_cmd->content;
 		if (cmd_status->status != PATHNAME_IS_BUILTIN
 			&& cmd_status->status != CMD_OK)
-			if (ft_gen_errmsg(cmd_status->status, parsed_cmd->next) == -1)
+			if (ft_gen_errmsg(cmd_status->status) == -1)
 				return (-1);
 		parsed_cmd = parsed_cmd->next;
 	}

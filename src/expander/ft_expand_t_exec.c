@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 17:08:27 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 20:15:36 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,42 @@ static int	ft_expand_args_in_t_exec(const t_vars *vars,
 }
 
 /**
+ * Expands one $stdin_redir.
+ * 	Old unexpanded string versions will be freed.
+ * @brief	Norminette bypass.
+ * @param	vars			Pointer to structure containing last exit status
+ * 							and environment variables in a key-pair structure.
+ * @param	stdin_redir		"t_stdin_redir" to expand.
+ * @return	(-1), if some malloc() failed;
+ * 			(AMBIGIOUS_REDIRECT), if found ambiguous redirect;
+ * 			(UNCLOSED_SINGLE_QUOTE), if found unclosed single quote
+ * 				in heredoc's delimiter;
+ * 			(UNCLOSED_DOUBLE_QUOTES), if found unclosed single quotes
+ * 				in heredoc's delimiter;
+ * 			(CMD_OK) if everything's fine.
+ */
+static int	ft_expand_stdin_redir_in_t_exec(const t_vars *vars,
+		t_stdin_redir *stdin_redir)
+{
+	t_ret	e_status;
+	int		c_status;
+
+	if (stdin_redir->redir_type == heredoc)
+		return (CMD_OK);
+	e_status = ft_dup_arg_expanded(vars, stdin_redir->data);
+	if (e_status.status == -1)
+		return (-1);
+	c_status = ft_is_whole_arg_var(stdin_redir->data);
+	if (c_status == -1)
+		return (free(e_status.ret), -1);
+	else if (c_status != 0 && ft_input_issspace(e_status.ret))
+		return (free(e_status.ret), AMBIGIOUS_REDIRECT);
+	free((char *)(stdin_redir->data));
+	stdin_redir->data = e_status.ret;
+	return (CMD_OK);
+}
+
+/**
  * Expands $stdin_redirs in $exec_to_expand.
  * 	Old unexpanded string versions will be freed.
  * @brief	Norminette bypass.
@@ -56,33 +92,27 @@ static int	ft_expand_args_in_t_exec(const t_vars *vars,
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if some malloc() failed;
  * 			(AMBIGIOUS_REDIRECT), if found ambiguous redirect;
+ * 			(UNCLOSED_SINGLE_QUOTE), if found unclosed single quote
+ * 				in heredoc's delimiter;
+ * 			(UNCLOSED_DOUBLE_QUOTES), if found unclosed single quotes
+ * 				in heredoc's delimiter;
  * 			(CMD_OK) if everything's fine.
  */
 static int	ft_expand_stdin_redirs_in_t_exec(const t_vars *vars,
 		t_exec *exec_to_expand)
 {
 	t_list	*stdin_redir;
-	t_ret	e_status;
-	int		c_status;
+	int		status;
 
 	stdin_redir = exec_to_expand->stdin_redirs;
 	while (stdin_redir != NULL)
 	{
-		e_status = ft_dup_arg_expanded(vars,
-				((t_stdin_redir *)stdin_redir->content)->data);
-		if (e_status.status == -1)
-			return (-1);
-		c_status = ft_is_whole_arg_var(
-				((t_stdin_redir *)stdin_redir->content)->data);
-		if (c_status == -1)
-			return (free(e_status.ret), -1);
-		else if (c_status != 0 && ft_input_issspace(e_status.ret))
-			return (free(e_status.ret), AMBIGIOUS_REDIRECT);
-		free((char *)(((t_stdin_redir *)stdin_redir->content)->data));
-		((t_stdin_redir *)stdin_redir->content)->data = e_status.ret;
+		status = ft_expand_stdin_redir_in_t_exec(vars, stdin_redir->content);
+		if (status != CMD_OK)
+			return (status);
 		stdin_redir = stdin_redir->next;
 	}
-	return (ARG_OK);
+	return (CMD_OK);
 }
 
 /**
@@ -94,7 +124,7 @@ static int	ft_expand_stdin_redirs_in_t_exec(const t_vars *vars,
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if some malloc() failed;
  * 			(AMBIGIOUS_REDIRECT), if found ambiguous redirect;
- * 			(ARG_OK) if everything's fine.
+ * 			(CMD_OK) if everything's fine.
  */
 static int	ft_expand_stdout_redirs_in_t_exec(const t_vars *vars,
 		t_exec *exec_to_expand)
@@ -120,7 +150,7 @@ static int	ft_expand_stdout_redirs_in_t_exec(const t_vars *vars,
 		((t_stdout_redir *)stdout_redir->content)->output_file = e_status.ret;
 		stdout_redir = stdout_redir->next;
 	}
-	return (ARG_OK);
+	return (CMD_OK);
 }
 
 /**
@@ -138,10 +168,10 @@ int	ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand)
 		return (-1);
 	ft_lstclear(&exec_to_expand->args, free);
 	status = ft_expand_stdin_redirs_in_t_exec(vars, exec_to_expand);
-	if (status != ARG_OK)
+	if (status != CMD_OK)
 		return (status);
 	status = ft_expand_stdout_redirs_in_t_exec(vars, exec_to_expand);
-	if (status != ARG_OK)
+	if (status != CMD_OK)
 		return (status);
 	return (CMD_OK);
 }
