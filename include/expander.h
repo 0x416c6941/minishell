@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 13:35:22 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:59:42 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
  * 			otherwise $status will be some positive value,
  * 				and $ret will contain a variable name as a string.
  */
-t_ret		ft_extract_var_name(const char *read_ptr);
+t_ret	ft_extract_var_name(const char *read_ptr);
 
 /**
  * @brief	Retrieves the value of an environment variable
@@ -42,10 +42,10 @@ t_ret		ft_extract_var_name(const char *read_ptr);
  * @param	vars	Pointer to structure containing last exit status 
  * 					and environment variables in a key-pair structure.
  * @param	key		The variable name, "$?" returns the last exit code.
- * @return	Dynamically allocated string of the variable's value,
+ * @return	Dynamically allocated string of the variable's value;
  * 			(NULL) if some malloc() went awfully wrong.
  */
-char		*ft_getenv(const t_vars *vars, const char *key);
+char	*ft_getenv(const t_vars *vars, const char *key);
 
 /**
  * Since we don't work with normal resizeable strings,
@@ -60,7 +60,7 @@ char		*ft_getenv(const t_vars *vars, const char *key);
  * 			otherwise $status will be non-negative value and
  * 				$ret will contain a size_t with the buffer's calculated length.
  */
-t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
+t_ret	ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
 
 /**
  * Makes a duplicate of $arg with everything expanded.
@@ -72,7 +72,7 @@ t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
  * 			otherwise $status will be non-negative value and
  * 				$ret will contain a duplicate of $arg with everything expanded.
  */
-t_ret		ft_dup_arg_expanded(const t_vars *vars, const char *arg);
+t_ret	ft_dup_arg_expanded(const t_vars *vars, const char *arg);
 
 /**
  * Expands everything in $exec_to_expand:
@@ -88,6 +88,6 @@ t_ret		ft_dup_arg_expanded(const t_vars *vars, const char *arg);
  * @return	(-1), if something went wrong;
  * 			(Some non-negative value) otherwise.
  */
-int			ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
+int		ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
 
 #endif /* EXPANDER_H */
