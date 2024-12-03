@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 16:21:31 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:08:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		ft_is_whole_arg_var(const char *arg);
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if something went wrong;
  * 			(AMBIGIOUS_REDIRECT), if some redirections are ambigious;
- * 			(ARG_OK) if everything went fine.
+ * 			(CMD_OK) if everything went fine.
  */
 int		ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
 

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:22:23 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:08:27 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,5 @@ int	ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand)
 	status = ft_expand_stdout_redirs_in_t_exec(vars, exec_to_expand);
 	if (status != ARG_OK)
 		return (status);
-	return (ARG_OK);
+	return (CMD_OK);
 }
