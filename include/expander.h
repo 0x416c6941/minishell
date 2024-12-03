@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 11:06:59 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:13:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char		*ft_strncpy(char *dest, const char *src, size_t n);
  * @return	Dynamically allocated string of the variable's value,
  * 			(NULL) if some malloc() went awfully wrong.
  */
-char		*ft_getenv(const t_vars *vars, const char *name);
+char		*ft_getenv(const t_list *vars, const char *name);
 
 /**
  * @brief	Extracts the variable name starting at $read_ptr.
