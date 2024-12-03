@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:30:06 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:17:26 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:06:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_var_helper(const t_vars *vars,
 		return (-1);
 	else if (ft_extract_var_name_status.status == 0)
 		return (*((*ret)++) = '$', *arg += 1, 0);
-	var_value = ft_getenv(vars, ft_extract_var_name_status.ret);
+	var_value = ft_get_env_value(vars, ft_extract_var_name_status.ret);
 	if (var_value == NULL)
 		return (free(ft_extract_var_name_status.ret), -1);
 	(void)ft_memcpy(*ret, var_value, ft_strlen(var_value));

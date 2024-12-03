@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:33:14 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:12:18 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:06:10 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	ft_var_helper(const t_vars *vars,
 		(*ret)++;
 		return (0);
 	}
-	var_value = ft_getenv(vars, ft_extract_var_name_status.ret);
+	var_value = ft_get_env_value(vars, ft_extract_var_name_status.ret);
 	if (var_value == NULL)
 		return (free(ft_extract_var_name_status.ret), -1);
 	return (*arg += ft_strlen(ft_extract_var_name_status.ret) + 1,

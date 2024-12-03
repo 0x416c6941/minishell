@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_getenv.c                                        :+:      :+:    :+:   */
+/*   ft_get_env_value.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 15:55:25 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 11:21:00 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:05:53 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static const char	*ft_get_env_value_by_key(const t_list *envs,
 	return (NULL);
 }
 
-char	*ft_getenv(const t_vars *vars, const char *key)
+char	*ft_get_env_value(const t_vars *vars, const char *key)
 {
 	const char	*value;
 

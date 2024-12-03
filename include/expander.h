@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 14:59:42 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:05:03 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_ret	ft_extract_var_name(const char *read_ptr);
  * @return	Dynamically allocated string of the variable's value;
  * 			(NULL) if some malloc() went awfully wrong.
  */
-char	*ft_getenv(const t_vars *vars, const char *key);
+char	*ft_get_env_value(const t_vars *vars, const char *key);
 
 /**
  * Since we don't work with normal resizeable strings,
