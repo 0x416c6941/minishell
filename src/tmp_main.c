@@ -6,19 +6,19 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 11:04:34 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:20:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <input_validation.h>
 #include <libft.h>
-#include <parse.h>
+#include <stddef.h>
+#include <utils.h>
 #include <stdio.h>
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <stddef.h>
+#include <input_validation.h>
 #include <stdlib.h>
-#include <unistd.h>
+#include <parse.h>
 
 /**
  * A temporary helper function to write the content of $cmd.

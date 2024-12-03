@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:33:14 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:03:16 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:12:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ static void	ft_handle_quote_and_update_ret(char quote,
 }
 
 /**
- * If $quotes_type isn't "single_quote", increases *$ret and *$arg by
- * 	the size of the variable's value stored in *$arg.
+ * If $quotes_type isn't "single_quote",\
+ * 	increases *$ret by the size of the variable's value stored in $arg
+ * 	and shifts *$arg by the size of the variable's name stored in $arg.
  * If *$arg doesn't contain a valid variable,
  * 	*$ret and *$arg are increased by 1.
  * If $quotes_type is "single_quote", increases *$ret and *$arg by 1.
@@ -104,5 +105,5 @@ t_ret	ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg)
 		arg++;
 		(*ret)++;
 	}
-	return ((t_ret){0, ret});
+	return ((*ret)++, (t_ret){0, ret});
 }
