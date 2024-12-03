@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 12:23:16 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 13:22:28 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <utils.h>
 # include <libft.h>
 # include <stddef.h>
+# include <parse.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -62,29 +63,15 @@ char		*ft_getenv(const t_vars *vars, const char *key);
 t_ret		ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
 
 /**
+ * Makes a duplicate of $arg with everything expanded.
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars	Pointer to structure containing last exit status 
+ * 					and environment variables in a key-pair structure.
+ * @param	arg		Argument to be expanded.
+ * @return	If $status == (-1), then some malloc() failed;
+ * 			otherwise $status will be non-negative value and
+ * 				$ret will contain a duplicate of $arg with everything expanded.
  */
-t_ret		ft_expand_arg(const char *arg);
-
-t_ret		*ft_process_args(const char *content);
-
-/**
- * @brief	Replaces a variable with its value in the output buffer.
- * @param	var_name		The name of the variable to replace.
- * @param	buffer			Pointer to the output buffer.
- * @param	write_offset	Pointer to the current write offset in the buffer.
- * @param	buffer_size		Pointer to the current size of the buffer.
- * @return	The length of the appended value;
- * 			(0) on failure.
- */
-size_t		replace_var_with_value(const char *var_name, char **buffer,
-				size_t *write_offset, size_t *buffer_size);
-
-/**
- * @brief	Removes outer quotes from the string and copies the content
- *			into `dest`.
- * @param	dest	Pointer to the destination buffer.
- * @param	src		Pointer to the source string.
- */
-void		remove_quotes(char *dest, const char *src);
+t_ret	ft_dup_arg_expanded(const t_vars *vars, const char *arg)
 
 #endif /* EXPANDER_H */
