@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/02 23:30:28 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:04:34 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,24 +76,25 @@ static void	ft_write_cmd_content(t_exec *cmd)
 	}
 }
 
-#define BAD_MSG "Something went really wrong.\n"
-#define MESSED_UP 1
+#define BAD_MSG		"uwu, s0methin' went bad :333 malloc()-san fa1l???\n"
+#define MESSED_UP	1
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_minishell_data	data;
-	t_ret				status;
-	char				*input;
-	int					check_unsupported_status;
-	char				*token;
-	char				*next_token;
+	t_vars	vars;
+	t_ret	status;
+	char	*input;
+	int		check_unsupported_status;
+	char	*token;
+	char	*next_token;
 
 	(void)argc;
 	(void)argv;
+	vars.last_exit_status = 0;
 	status = ft_initialize_envs((const char **)envp);
 	if (status.status == -1)
 		return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
-	data.envs = status.ret;
+	vars.envs = status.ret;
 	while (42)
 	{
 		input = readline("parser test> ");
@@ -127,6 +128,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	(void)ft_printf("Exit...\n");
 	rl_clear_history();
-	ft_lstclear(&data.envs, (void (*)(void *))ft_free_t_env);
+	ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env);
 	return (0);
 }

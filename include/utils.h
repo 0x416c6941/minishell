@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/02 23:35:43 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:01:28 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,11 @@ typedef struct s_env
  * we need to use an $envp, which isn't a universally accepted standard,
  * and later divide it to a structure we'd be able to manipulate with.
  */
-typedef struct s_minishell_data
+typedef struct s_vars
 {
-	t_list	*envs;				/* $content is a t_env in each node. */
 	int		last_exit_status;
-	t_list	*parsed_args;
-}	t_minishell_data;
+	t_list	*envs;				/* $content is a t_env in each node. */
+}	t_vars;
 
 /**
  * ---------------------------------------------------------------------------
@@ -95,8 +94,8 @@ int		ft_errmsg(const char *msg);
 int		ft_input_issspace(const char *str);
 
 /**
- * Basically transforms $envp to a linked list, all node of which
- * can be freed, including it's content (which is an t_env).
+ * Transforms $envp to a linked list, all nodes of which can be freed,
+ * including it's content (which is of "t_env" type).
  * @brief	Transforms $envp to a linked list.
  * @warning	Dynamic memory allocation is used.
  * @param	envp	Environment pointer.
