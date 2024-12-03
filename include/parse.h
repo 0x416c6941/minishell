@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 14:50:29 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:31:44 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 # define UNFINISHED_STDOUT_REDIR	4
 # define INAPPROPRIATE_STDIN_REDIR	5
 # define INAPPROPRIATE_STDOUT_REDIR	6
-# define ARG_OK						7
+# define AMBIGIOUS_REDIRECT			7
+# define ARG_OK						8
 
 # define STAT_FAIL					10
 # define PATHNAME_DOESNT_EXIST		11
@@ -36,10 +37,10 @@
 # define PATHNAME_ISNT_EXECUTABLE	13
 # define EXEC_ISNT_IN_PATH			14
 /**
- * Kinda specific case of PATHNAME_OK.
+ * Kinda specific case of CMD_OK.
  */
 # define PATHNAME_IS_BUILTIN		15
-# define PATHNAME_OK				16
+# define CMD_OK						16
 
 /**
  * ---------------------------------------------------------------------------
@@ -275,7 +276,7 @@ int		ft_check_pathname(const char *arg);
  * @param	vars	Pointer to structure containing last exit status 
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument (command) to parse.
- * @return	If ($status == PATHNAME_IS_BUILTIN || $status == PATHNAME_OK),
+ * @return	If ($status == PATHNAME_IS_BUILTIN || $status == CMD_OK),
  * 				then $ret will contain an executable file
  * 				(or builtin) to execute.
  * 			Otherwise $status will reflect it's error code,

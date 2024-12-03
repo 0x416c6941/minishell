@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 15:05:03 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 15:47:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,15 @@ t_ret	ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
  * 				$ret will contain a duplicate of $arg with everything expanded.
  */
 t_ret	ft_dup_arg_expanded(const t_vars *vars, const char *arg);
+
+/**
+ * Checks, if $arg consists of variables only.
+ * @param	arg	Argument to check.
+ * @return	(-1), if malloc() failed;
+ * 			(0), if $arg consists of something else as well;
+ * 			(Some positive value) if it does.
+ */
+int		ft_is_whole_arg_var(const char *arg);
 
 /**
  * Expands everything in $exec_to_expand:

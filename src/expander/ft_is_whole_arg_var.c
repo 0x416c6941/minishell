@@ -1,30 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_pathname.c                                :+:      :+:    :+:   */
+/*   ft_is_whole_arg_var.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 14:38:46 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 15:15:15 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/03 15:51:45 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/03 16:00:39 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <expander.h>
 #include <parse.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <libft.h>
+#include <stdlib.h>
 
-int	ft_check_pathname(const char *arg)
+int	ft_is_whole_arg_var(const char *arg)
 {
-	struct stat	statbuf;
+	t_ret	status;
 
-	if (access(arg, F_OK) == -1)
-		return (PATHNAME_DOESNT_EXIST);
-	else if (stat(arg, &statbuf) == -1)
-		return (STAT_FAIL);
-	else if (S_ISDIR(statbuf.st_mode))
-		return (PATHNAME_IS_DIR);
-	else if (access(arg, X_OK) == -1)
-		return (PATHNAME_ISNT_EXECUTABLE);
-	return (CMD_OK);
+	while (*arg != '\0')
+	{
+		if (*arg == '$')
+		{
+			status = ft_extract_var_name(arg);
+			if (status.status == -1)
+				return (-1);
+			else if (status.status == 0)
+				return (free(status.ret), 0);
+			arg += ft_strlen(status.ret) + 1;
+			free(status.ret);
+			continue ;
+		}
+		return (0);
+	}
+	return (1);
 }
