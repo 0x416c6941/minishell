@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 17:39:02 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:12:31 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,10 @@ static void	ft_write_cmds_content(t_list *cmds)
 	{
 		current_node = cmds->content;
 		cmds = cmds->next;
-		(void)ft_printf("\n");
-		if (current_node->status != CMD_OK)
-		{
-			(void)ft_printf("Input was incorrent: %d\n", current_node->status);
+		if (current_node->status != PATHNAME_IS_BUILTIN
+			&& current_node->status != CMD_OK)
 			continue ;
-		}
+		(void)ft_printf("\n");
 		cmd = current_node->ret;
 		(void)ft_printf("path_to_exec:\n\t%s\n", cmd->path_to_exec);
 		(void)ft_printf("args_for_execve:\n");
@@ -76,7 +74,7 @@ static void	ft_write_cmds_content(t_list *cmds)
 	}
 }
 
-#define BAD_MSG		"uwu, s0methin' went bad :333 malloc()-san fa1l???\n"
+#define BAD_MSG		"something went really badly.\n"
 #define MESSED_UP	1
 
 /**
@@ -112,16 +110,23 @@ int	main(int argc, char **argv, char **envp)
 			{
 				free(input);
 				if (check_unsupported_status == -1)
-					return (rl_clear_history(),
+					return (ft_errmsg(BAD_MSG), rl_clear_history(),
 						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 						MESSED_UP);
 				continue ;
 			}
 			status = ft_final_parser(&vars, input);
 			if (status.status == -1)
-				return (rl_clear_history(),
+				return (ft_errmsg(BAD_MSG), rl_clear_history(),
 					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 					MESSED_UP);
+			if (ft_are_there_mistakes_in_prompt(status.ret))
+			{
+				if (ft_gen_errmsgs(status.ret) == -1)
+					return (rl_clear_history(),
+						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+						MESSED_UP);
+			}
 			ft_write_cmds_content(status.ret);
 			ft_lstclear((t_list **)&status.ret,
 				(void (*)(void *))ft_free_t_ret_with_t_exec);

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 16:42:44 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 17:36:39 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:51:27 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,10 @@ static t_ret	ft_get_next_cmd(const t_vars *vars, char *token)
 
 	ret = ft_get_cmd_raw_quotes(token);
 	if (ret.status != CMD_OK)
-		return (ret);
+		return (ft_free_t_exec(ret.ret), ret.ret = NULL, ret);
 	ret.status = ft_expand_t_exec(vars, ret.ret);
 	if (ret.status != CMD_OK)
-	{
-		ft_free_t_exec(ret.ret);
-		ret.ret = NULL;
-	}
+		return (ft_free_t_exec(ret.ret), ret.ret = NULL, ret);
 	status = ft_get_pathname_for_execve(vars,
 			*(((t_exec *)ret.ret)->args_for_execve));
 	ret.status = status.status;

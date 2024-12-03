@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 17:29:35 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 19:52:02 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,15 @@ void	ft_free_t_exec(t_exec *exec);
 int		ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
 
 /**
+ * Checks if $args, $stdin_redirs and $stdout_redirs are all NULL in $raw_cmd.
+ * @brief	Dirty Norminette bypass.
+ * @param	raw_cmd	Raw t_exec to check.
+ * @return	(-1), if they are;
+ * 			(some non-negative value) otherwise.
+ */
+int		ft_check_emptiness_raw(const t_exec *raw_cmd);
+
+/**
  * Processes token gotten by ft_get_next_token() and returns
  * a raw t_exec (only one command!), in which quotes aren't expanded.
  * @brief	Extracts raw t_exec from token gotten by ft_get_next_token().
@@ -285,7 +294,9 @@ int		ft_check_pathname(const char *arg);
  * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument (command) to parse.
- * @return	If ($status == PATHNAME_IS_BUILTIN || $status == CMD_OK),
+ * @return	If ($status == CMD_OK) and $ret is NULL,
+ * 				then there was no command to execute;
+ * 			If ($status == PATHNAME_IS_BUILTIN || $status == CMD_OK),
  * 				then $ret will contain an executable file
  * 				(or builtin) to execute.
  * 			Otherwise $status will reflect it's error code,
@@ -316,5 +327,26 @@ void	ft_free_t_ret_with_t_exec(t_ret *t_ret_with_t_exec);
 					otherwise, $status is (some error code), and $ret is NULL.
  */
 t_ret	ft_final_parser(const t_vars *vars, char *prompt);
+
+/**
+ * Checks, if in a list of parsed commands, gotten by ft_final_parser(),
+ * at least one command wasn't entered correctly by user.
+ * @brief	Check if there are no mistakes in what user entered.
+ * @param	parsed_cmd	Head of a list of parsed commands
+ * 						gotten by ft_final_parser().
+ * @return	(0), if there are no mistakes;
+ * 			(some other value) otherwise.
+ */
+int		ft_are_there_mistakes_in_prompt(const t_list *parsed_cmd);
+
+/**
+ * For every command in a list of parsed commands, gotten by ft_final_parser(),
+ * writes an error message to stderr, if there are any mistakes.
+ * @param	parsed_cmd	Head of a list of parsed commands
+ * 						gotten by ft_final_parser().
+ * @return	(-1), if some write() to stderr failed;
+ * 			(some non-negative value) if everything went ok.
+ */
+int		ft_gen_errmsgs(const t_list *parsed_cmd);
 
 #endif /* PARSE_H */

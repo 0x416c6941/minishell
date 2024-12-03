@@ -1,36 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_token.c                                :+:      :+:    :+:   */
+/*   ft_check_emptiness_raw.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 12:00:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 19:46:58 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/03 18:16:45 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/03 18:17:23 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parse.h>
 #include <stddef.h>
-#include <utils.h>
 
-char	*ft_get_next_token(char *prompt, char **saveptr)
+int	ft_check_emptiness_raw(const t_exec *raw_cmd)
 {
-	char	*ret;
-
-	if (prompt != NULL)
-		*saveptr = prompt;
-	ret = *saveptr;
-	if (*ret == '\0')
-		return (NULL);
-	while (**saveptr != '\0')
-	{
-		if (**saveptr == '|')
-		{
-			*(*saveptr)++ = '\0';
-			break ;
-		}
-		(*saveptr)++;
-	}
-	return (ret);
+	if (raw_cmd->args == NULL
+		&& raw_cmd->stdin_redirs == NULL && raw_cmd->stdout_redirs == NULL)
+		return (-1);
+	return (0);
 }

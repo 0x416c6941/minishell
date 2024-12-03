@@ -1,36 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_next_token.c                                :+:      :+:    :+:   */
+/*   ft_are_there_mistakes_in_prompt.c                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 12:00:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 19:46:58 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/03 17:43:56 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/03 18:22:21 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <parse.h>
-#include <stddef.h>
 #include <utils.h>
+#include <stddef.h>
 
-char	*ft_get_next_token(char *prompt, char **saveptr)
+int	ft_are_there_mistakes_in_prompt(const t_list *parsed_cmd)
 {
-	char	*ret;
+	const t_ret	*cmd_status;
 
-	if (prompt != NULL)
-		*saveptr = prompt;
-	ret = *saveptr;
-	if (*ret == '\0')
-		return (NULL);
-	while (**saveptr != '\0')
+	while (parsed_cmd != NULL)
 	{
-		if (**saveptr == '|')
-		{
-			*(*saveptr)++ = '\0';
-			break ;
-		}
-		(*saveptr)++;
+		cmd_status = parsed_cmd->content;
+		if (cmd_status->status != PATHNAME_IS_BUILTIN
+			&& cmd_status->status != CMD_OK)
+			return (1);
+		parsed_cmd = parsed_cmd->next;
 	}
-	return (ret);
+	return (0);
 }

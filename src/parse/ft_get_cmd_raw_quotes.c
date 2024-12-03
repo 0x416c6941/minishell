@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:41:53 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:21:45 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,7 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 		if (arg.status == -1)
 			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
+	if (ft_check_emptiness_raw(ret) == -1)
+		return (ft_free_t_exec(ret), (t_ret){ARG_IS_EMPTY, NULL});
 	return ((t_ret){CMD_OK, ret});
 }

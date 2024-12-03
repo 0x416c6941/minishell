@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:49:21 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:23:20 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 18:23:48 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,9 @@ t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg)
 	t_ret	ret;
 
 	ret.ret = NULL;
-	if (ft_is_builtin(arg))
+	if (arg == NULL)
+		return ((t_ret){CMD_OK, NULL});
+	else if (ft_is_builtin(arg))
 	{
 		ret.ret = ft_strdup(arg);
 		if (ret.ret == NULL)
