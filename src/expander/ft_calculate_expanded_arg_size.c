@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 11:33:14 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 12:25:42 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 12:56:36 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	ft_handle_quote_and_update_ret(char quote,
  * 		*$ret and *$arg are increased by 1.
  * If $quotes_type is "single_quote", increases *$ret and *$arg by 1.
  * @brief	Stupid Norminette bypass.
- * @param	vars		Pointer to structure containing last exit status 
+ * @param	vars		Pointer to structure containing last exit status
  * 						and environment variables in a key-pair structure.
  * @param	arg			Pointer to manipulate current position in the argument.
  * @param	quotes_type	Current quote type.
@@ -95,7 +95,7 @@ t_ret	ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg)
 			arg++;
 			continue ;
 		}
-		else if (*arg == '$' && quotes != single_quote)
+		else if (*arg == '$')
 		{
 			if (ft_var_helper(vars, &arg, quotes, ret) == -1)
 				return (free(ret), (t_ret){(-1), NULL});
