@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:41:58 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:50:29 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@
 # define INAPPROPRIATE_STDOUT_REDIR	6
 # define ARG_OK						7
 
-# define PATHNAME_DOESNT_EXIST		10
-# define PATHNAME_IS_DIR			11
-# define PATHNAME_ISNT_ACCESSIBLE	12
-# define EXEC_ISNT_IN_PATH			13
+# define STAT_FAIL					10
+# define PATHNAME_DOESNT_EXIST		11
+# define PATHNAME_IS_DIR			12
+# define PATHNAME_ISNT_EXECUTABLE	13
+# define EXEC_ISNT_IN_PATH			14
 /**
  * Kinda specific case of PATHNAME_OK.
  */
-# define PATHNAME_IS_BUILTIN		14
-# define PATHNAME_OK				15
+# define PATHNAME_IS_BUILTIN		15
+# define PATHNAME_OK				16
 
 /**
  * ---------------------------------------------------------------------------
@@ -262,6 +263,8 @@ t_ret	ft_get_cmd_raw_quotes(char *token);
  */
 int		ft_is_builtin(const char *arg);
 
+int		ft_check_pathname(const char *arg);
+
 /**
  * Parses the command: the same command will be returned, if it's a builtin
  * or if it starts with '/' or '.' (and it exists as an executable file);
@@ -269,12 +272,15 @@ int		ft_is_builtin(const char *arg);
  * 	the specified binary (arg), will be returned.
  * @brief	Parses the command.
  * @warning	Dynamic memory allocation is always used.
- * @param	If ($status == PATHNAME_IS_BUILTIN || $status == PATHNAME_OK),
+ * @param	vars	Pointer to structure containing last exit status 
+ * 					and environment variables in a key-pair structure.
+ * @param	arg		Argument (command) to parse.
+ * @return	If ($status == PATHNAME_IS_BUILTIN || $status == PATHNAME_OK),
  * 				then $ret will contain an executable file
  * 				(or builtin) to execute.
  * 			Otherwise $status will reflect it's error code,
  * 				and $ret will be (NULL).
  */
-t_ret	ft_get_pathname_for_execve(const char *arg);
+t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg);
 
 #endif /* PARSE_H */

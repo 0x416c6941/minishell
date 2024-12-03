@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 13:48:47 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:48:29 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ static void	ft_write_cmd_content(t_exec *cmd)
 		(void)ft_printf("Got NULL. Input was incorrent.\n");
 		return ;
 	}
+	(void)ft_printf("path_to_exec:\n\t%s\n", cmd->path_to_exec);
 	(void)ft_printf("args:\n");
 	i = cmd->args;
 	while (i != NULL)
@@ -89,6 +90,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_vars	vars;
 	t_ret	status;
+	t_ret	status2;
 	char	*input;
 	int		check_unsupported_status;
 	char	*token;
@@ -125,8 +127,15 @@ int	main(int argc, char **argv, char **envp)
 				if (status.status == -1)
 					return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
 				else if (status.status == ARG_OK)
+				{
 					if (ft_expand_t_exec(&vars, status.ret) == -1)
 						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
+					status2 = ft_get_pathname_for_execve(((t_exec *)status.ret)->args_for_execve[0]);
+					if (status2.status == -1)
+						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
+					((t_exec *)status.ret)->path_to_exec = status2.ret;
+					
+				}
 				ft_write_cmd_content(status.ret);
 				(void)ft_printf("\n");
 				ft_free_t_exec(status.ret);

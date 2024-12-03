@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:49:21 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/01 00:55:35 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 14:49:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,16 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-t_ret	ft_get_pathname_for_execve(const char *arg)
+static t_ret	ft_get_pathname_for_execve_from_path_env(const t_vars *vars,
+		const char *arg)
+{
+}
+
+t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg)
 {
 	t_ret	ret;
 
+	ret.ret = NULL;
 	if (ft_is_builtin(arg))
 	{
 		ret.ret = ft_strdup(arg);
@@ -37,5 +43,5 @@ t_ret	ft_get_pathname_for_execve(const char *arg)
 		}
 		return (ret);
 	}
-	return (ft_get_pathname_for_execve_from_path_env(arg));
+	return (ft_get_pathname_for_execve_from_path_env(vars, arg));
 }
