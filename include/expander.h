@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 11:13:17 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:21:19 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ char		*ft_strncpy(char *dest, const char *src, size_t n);
  * @brief	Retrieves the value of an environment variable or "$?" for exit
  *			code.
  * @warning	Dynamic memory allocation is used.
- * @param	vars	Pointer to structure containing environment variables
- * 					and last exit status.
- * @param	name	The variable name, "$?" returns the last exit code.
+ * @param	vars	Pointer to structure containing last exit status 
+ * 					and environment variables in a key-pair structure.
+ * @param	key		The variable name, "$?" returns the last exit code.
  * @return	Dynamically allocated string of the variable's value,
  * 			(NULL) if some malloc() went awfully wrong.
  */
-char		*ft_getenv(const t_list *vars, const char *name);
+char		*ft_getenv(const t_vars *vars, const char *key);
 
 /**
  * @brief	Extracts the variable name starting at $read_ptr.
