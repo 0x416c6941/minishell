@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/02 23:41:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:55:21 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 # define EXPANDER_H
 
 # include <utils.h>
-# include <libft.h>
-# include <parse.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include <stddef.h>
 
 # define EXPAND_VAR_ERROR	-1
 # define EXPAND_VAR_SUCCESS	1
@@ -38,13 +35,16 @@ char		*ft_strncpy(char *dest, const char *src, size_t n);
 char		*ft_getenv(const char *name);
 
 /**
- * @brief	Extracts the variable name starting at `read_ptr`.
- * @param	read_ptr	Pointer to the variable name.
- * @param	var_name	Pointer to store the allocated variable name.
- * @return	Length of the variable name;
- * 			(0) on failure.
+ * @brief	Extracts the variable name starting at $read_ptr.
+ * @warning	Dynamic memory allocation is used.
+ * @param	read_ptr	Pointer that stores the variable name.
+ * @return	If ($status == (-1)), then malloc() failed and $ret is NULL;
+ * 			if ($status == 0), then user has entered incorrect variable name,
+ * 				$ret will be NULL in this case;
+ * 			otherwise $status will be some positive value,
+ * 				and $ret will contain a variable name as a string.
  */
-size_t		extract_var_name(const char *read_ptr, char **var_name);
+t_ret		ft_extract_var_name(const char *read_ptr);
 
 /**
  * @brief	Replaces a variable with its value in the output buffer.
