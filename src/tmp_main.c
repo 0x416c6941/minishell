@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:04:49 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:36:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	main(int argc, char **argv, char **envp)
 				status = ft_get_cmd_raw_quotes(token);
 				if (status.status == -1)
 					return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
-				else if (status.status == ARG_OK)
+				else if (status.status == CMD_OK)
 				{
 					if (ft_expand_t_exec(&vars, status.ret) == -1)
 						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);

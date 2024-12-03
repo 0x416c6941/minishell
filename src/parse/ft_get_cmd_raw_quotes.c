@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:31:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:41:53 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,21 @@
 #include <stdlib.h>
 #include <stddef.h>
 
+/**
+ * Bypasses Norminette.
+ * Processes stdin redirection argument and returns it as a node of t_list.
+ * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
+ * @param	arg			A pointer to a string containg current argument;
+ * @param	arg_next	A pointer for further processing by
+ * 						ft_get_next_arg().
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status != ARG_OK) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			otherwise $STATUS = ARG_OK and $ret is a node of t_list
+ * 				containing stdin redirection argument.
+ */
 static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 {
 	t_list	*ret;
@@ -44,6 +59,21 @@ static t_ret	ft_process_stdin_redir_arg(t_ret *arg, char **arg_next)
 	return ((t_ret){ARG_OK, ret});
 }
 
+/**
+ * Bypasses Norminette.
+ * Processes stdout redirection argument and returns it as a node of t_list.
+ * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
+ * @param	arg			A pointer to a string containg current argument;
+ * @param	arg_next	A pointer for further processing by
+ * 						ft_get_next_arg().
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status != ARG_OK) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			otherwise $STATUS = ARG_OK and $ret is a node of t_list
+ * 				containing stdin redirection argument.
+ */
 static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 {
 	t_list	*ret;
@@ -73,6 +103,21 @@ static t_ret	ft_process_stdout_redir_arg(t_ret *arg, char **arg_next)
 	return ((t_ret){ARG_OK, ret});
 }
 
+/**
+ * Bypasses Norminette.
+ * Processes normal argument and returns it as a node of t_list.
+ * @warning	To be used only by ft_process_arg().
+ * @warning	Dynamic memory allocation is used.
+ * @param	arg			A pointer to a string containg current argument;
+ * @param	arg_next	A pointer for further processing by
+ * 						ft_get_next_arg().
+ * @return	($status == (-1)) => something went really bad
+ * 				($ret is NULL in this case);
+ * 			($status != ARG_OK) => argument is invalid
+ * 				($ret is NULL in this case);
+ * 			otherwise $STATUS = ARG_OK and $ret is a node of t_list
+ * 				containing stdin redirection argument.
+ */
 static t_ret	ft_process_regular_arg(t_ret *arg)
 {
 	t_list	*ret;
@@ -88,6 +133,19 @@ static t_ret	ft_process_regular_arg(t_ret *arg)
 	return ((t_ret){ARG_OK, ret});
 }
 
+/**
+ * Bypasses Norminette.
+ * Processes argument. Appends it either to
+ * $stdin_redirs, $stdout_redirs or $args in $raw_cmd,
+ * based on the type of argument.
+ * @param	raw_cmd		A pointer to t_exec containing raw command.
+ * @param	arg			A pointer to value returned by ft_get_next_arg().
+ * @param	arg_next	A pointer for further processing by
+ * 						ft_get_next_arg().
+ * @return	((-1), if something went really bad);
+ * 			(ARG_OK), if argument was valid;
+ * 			(some error code) otherwise.
+ */
 static int	ft_process_arg(t_exec *raw_cmd, t_ret *arg, char **arg_next)
 {
 	t_ret	to_append;
@@ -140,5 +198,5 @@ t_ret	ft_get_cmd_raw_quotes(char *token)
 		if (arg.status == -1)
 			return (ft_free_t_exec(ret), (t_ret){(-1), NULL});
 	}
-	return ((t_ret){ARG_OK, ret});
+	return ((t_ret){CMD_OK, ret});
 }

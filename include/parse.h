@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:29:14 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:35:10 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,10 +247,10 @@ int		ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
  * @param	token	Token to process.
  * @return	If malloc() failed somewhere, $status is set to (-1) and
  * 				$ret is set to NULL;
- * 			if $status is set to 0 and $ret is set to NULL,
- * 				then user's input was invalid;
- * 			if $status is set to 0 and $ret is set to non-NULL value,
- * 				then shell command's syntax was valid
+ * 			if $status != (CMD_OK), then $ret is set to NULL
+ * 				and $status is set to some error code;
+ * 			otherwise $ret is set to non-NULL value,
+ * 				and shell command's syntax was valid
  * 					(HOWEVER $path_to_exec may be empty in the returned t_exec,
  * 					in which case the command is invalid,
  * 					and also nothing else is checked at this stage,
