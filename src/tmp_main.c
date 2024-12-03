@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 14:48:29 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:04:49 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("parser test> ");
 		if (input == NULL)
 			break ;
-		if (ft_input_issspace(input))
+		if (!ft_input_issspace(input))
 		{
 			add_history(input);
 			check_unsupported_status = ft_check_unsupported(input);
@@ -130,7 +130,7 @@ int	main(int argc, char **argv, char **envp)
 				{
 					if (ft_expand_t_exec(&vars, status.ret) == -1)
 						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
-					status2 = ft_get_pathname_for_execve(((t_exec *)status.ret)->args_for_execve[0]);
+					status2 = ft_get_pathname_for_execve(&vars, ((t_exec *)status.ret)->args_for_execve[0]);
 					if (status2.status == -1)
 						return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
 					((t_exec *)status.ret)->path_to_exec = status2.ret;
