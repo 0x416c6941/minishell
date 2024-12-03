@@ -16,8 +16,3 @@ output file should be created before executing the command
 We will NOT use any global variables.
 They are allowed only for signal processing, but even for that
 they're not required.
-
-For expansion:
-	After '$' sign, bash interpretes every character as part of a variable name,
-	excluding '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '`', '~', '|',
-	'{', '}', '/', '[', ']', '\', ':', '?', quotes and of course redirections.

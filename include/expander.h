@@ -6,13 +6,14 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/02 23:37:34 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/02 23:41:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXPANDER_H
 # define EXPANDER_H
 
+# include <utils.h>
 # include <libft.h>
 # include <parse.h>
 # include <stdlib.h>
