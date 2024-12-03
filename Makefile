@@ -19,7 +19,9 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
 			parse/ft_gen_raw_errcode.c parse/ft_get_cmd_raw_quotes.c		\
 			parse/ft_is_builtin.c parse/ft_check_pathname.c					\
 			parse/ft_get_pathname_for_execve.c								\
-			expander/ft_get_env_value.c expander/ft_extract_var_name.c		\
+			parse/ft_free_t_ret_with_t_exec.c								\
+			parse/ft_final_parser.c	expander/ft_get_env_value.c				\
+			expander/ft_extract_var_name.c									\
 			expander/ft_calculate_expanded_arg_size.c						\
 			expander/ft_dup_arg_expanded.c expander/ft_is_whole_arg_var.c	\
 			expander/ft_expand_t_exec.c										\

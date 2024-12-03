@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:35:10 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 17:29:35 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,12 @@ int		ft_check_pathname(const char *arg);
 t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg);
 
 /**
+ * Frees a t_ret with t_exec.
+ * @param	t_ret_with_t_exec	Pointer to t_ret with t_exec to free.
+ */
+void	ft_free_t_ret_with_t_exec(t_ret *t_ret_with_t_exec);
+
+/**
  * Finally, it's here.
  * @brief	A parser to get a list of shell commands to execute.
  * @warning	Dynamic memory allocation is used.
@@ -303,12 +309,12 @@ t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg);
  * @return	If $status == (-1), some malloc() failed somewhere and $ret is NULL;
  * 			otherwise $status is (some non-negative value);
  *				$ret in this case contains a list of t_ret structures:
- *					in every node, $status is either (CMD_OK)
- *						or (some error code);
- *						if $status is (CMD_OK), then $ret contains
- *							a t_exec structure,
- *							which is a shell command to execute.
+ *					in every node,
+ *					if $status is (PATHNAME_IS_BUILTIN) or (CMD_OK),
+ *							then $ret contains a t_exec structure,
+							which is a shell command to execute;
+					otherwise, $status is (some error code), and $ret is NULL.
  */
-t_ret	ft_final_parser(const t_vars *vars, const char *prompt);
+t_ret	ft_final_parser(const t_vars *vars, char *prompt);
 
 #endif /* PARSE_H */
