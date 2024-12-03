@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:49:21 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 15:31:45 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:23:20 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_ret	ft_get_pathname_for_execve_find_first_in_path(
  * Wrapper for ft_get_pathname_for_execve_find_first_in_path(),
  * which takes care of getting "PATH" variable and splitting into directories.
  * @brief	Norminette bypass.
- * @param	vars	Pointer to structure containing last exit status 
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument to be expanded.
  * @return	If $status == (CMD_OK), then $ret will contain an executable file;

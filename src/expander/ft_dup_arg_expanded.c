@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 12:30:06 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 15:06:18 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:22:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static int	ft_var_helper(const t_vars *vars,
  * Fills $ret with the expanded version of $arg.
  * Mostly a duplicate of ft_calculate_expanded_arg_size().
  * @brief	Stupid Norminette bypass.
- * @param	vars	Pointer to structure containing last exit status 
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument to be expanded.
  * @param	ret		Pointer to the buffer where the expanded argument

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:10:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:21:05 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,8 +279,8 @@ int		ft_check_pathname(const char *arg);
  * otherwise the first path from $PATH, that contains
  * 	the specified binary (arg), will be returned.
  * @brief	Parses the command.
- * @warning	Dynamic memory allocation is always used.
- * @param	vars	Pointer to structure containing last exit status 
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument (command) to parse.
  * @return	If ($status == PATHNAME_IS_BUILTIN || $status == CMD_OK),
@@ -290,5 +290,23 @@ int		ft_check_pathname(const char *arg);
  * 				and $ret will be (NULL).
  */
 t_ret	ft_get_pathname_for_execve(const t_vars *vars, const char *arg);
+
+/**
+ * Finally, it's here.
+ * @brief	A parser to get a list of shell commands to execute.
+ * @warning	Dynamic memory allocation is used.
+ * @param	vars	Pointer to structure containing last exit status
+ * 					and environment variables in a key-pair structure.
+ * @param	prompt	Prompt to parse.
+ * @return	If $status == (-1), some malloc() failed somewhere and $ret is NULL;
+ * 			otherwise $status is (some non-negative value);
+ *				$ret in this case contains a list of t_ret structures:
+ *					in every node, $status is either (CMD_OK)
+ *						or (some error code);
+ *						if $status is (CMD_OK), then $ret contains
+ *							a t_exec structure,
+ *							which is a shell command to execute.
+ */
+t_ret	ft_final_parser(const t_vars *vars, const char *prompt);
 
 #endif /* PARSE_H */

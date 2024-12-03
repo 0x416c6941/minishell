@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 16:12:40 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:21:31 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_ret	ft_extract_var_name(const char *read_ptr);
  * @brief	Retrieves the value of an environment variable
  * 			or exit code for "$?".
  * @warning	Dynamic memory allocation is used.
- * @param	vars	Pointer to structure containing last exit status 
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	key		The variable name, "$?" returns the last exit code.
  * @return	Dynamically allocated string of the variable's value;
@@ -53,7 +53,7 @@ char	*ft_get_env_value(const t_vars *vars, const char *key);
  * write expanded argument.
  * @brief	Calculates length of the buffer for expanded argument.
  * @warning	Dynamic memory allocation is used.
- * @param	vars	Pointer to structure containing last exit status 
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument to be expanded.
  * @return	If $status == (-1), then some malloc() failed;
@@ -65,7 +65,7 @@ t_ret	ft_calculate_expanded_arg_size(const t_vars *vars, const char *arg);
 /**
  * Makes a duplicate of $arg with everything expanded.
  * @warning	Dynamic memory allocation is used.
- * @param	vars	Pointer to structure containing last exit status 
+ * @param	vars	Pointer to structure containing last exit status
  * 					and environment variables in a key-pair structure.
  * @param	arg		Argument to be expanded.
  * @return	If $status == (-1), then some malloc() failed;
@@ -91,7 +91,7 @@ int		ft_is_whole_arg_var(const char *arg);
  * 		(old unexpanded versions will be freed).
  * @brief	Expands everything in $exec_to_expand.
  * @warning	Dynamic memory allocation is used.
- * @param	vars			Pointer to structure containing last exit status 
+ * @param	vars			Pointer to structure containing last exit status
  * 							and environment variables in a key-pair structure.
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if something went wrong;

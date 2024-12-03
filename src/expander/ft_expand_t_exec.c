@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:12:26 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 16:22:23 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 /**
  * Expands $args in $exec_to_expand to $args_for_execve.
  * @brief	Norminette bypass.
- * @param	vars			Pointer to structure containing last exit status 
+ * @param	vars			Pointer to structure containing last exit status
  * 							and environment variables in a key-pair structure.
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if something went wrong;
@@ -51,7 +51,7 @@ static int	ft_expand_args_in_t_exec(const t_vars *vars,
  * Expands $stdin_redirs in $exec_to_expand.
  * 	Old unexpanded string versions will be freed.
  * @brief	Norminette bypass.
- * @param	vars			Pointer to structure containing last exit status 
+ * @param	vars			Pointer to structure containing last exit status
  * 							and environment variables in a key-pair structure.
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if some malloc() failed;
@@ -89,7 +89,7 @@ static int	ft_expand_stdin_redirs_in_t_exec(const t_vars *vars,
  * Expands $stdout_redirs in $exec_to_expand.
  * 	Old unexpanded string versions will be freed.
  * @brief	Norminette bypass.
- * @param	vars			Pointer to structure containing last exit status 
+ * @param	vars			Pointer to structure containing last exit status
  * 							and environment variables in a key-pair structure.
  * @param	exec_to_expand	"t_exec" parsed command to expand.
  * @return	(-1), if some malloc() failed;
