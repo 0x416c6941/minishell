@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   extract_var_name.c                                 :+:      :+:    :+:   */
+/*   ft_extract_var_name.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 16:01:20 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 10:56:01 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 10:58:17 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ t_ret	ft_extract_var_name(const char *read_ptr)
 			return ((t_ret){(-1), NULL});
 		return ((t_ret){1, ret});
 	}
-	var_len = get_standard_var_len(read_ptr);
+	var_len = ft_get_standard_var_len(read_ptr);
 	if (var_len == 0)
 		return ((t_ret){0, NULL});
 	ret = (char *)malloc(var_len + 1);
 	if (ret == NULL)
 		return ((t_ret){(-1), NULL});
-	(void)strlcpy(ret, read_ptr, var_len + 1);
+	(void)ft_strlcpy(ret, read_ptr, var_len + 1);
 	return ((t_ret){1, ret});
 }

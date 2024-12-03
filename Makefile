@@ -17,7 +17,8 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
 			parse/ft_free_args_for_execve.c parse/ft_free_t_stdin_redir.c	\
 			parse/ft_free_t_stdout_redir.c parse/ft_free_t_exec.c			\
 			parse/ft_gen_errcode.c parse/ft_get_cmd_raw_quotes.c			\
-			parse/ft_is_builtin.c input_validation/ft_check_unsupported.c
+			parse/ft_is_builtin.c expander/ft_extract_var_name.c			\
+			input_validation/ft_check_unsupported.c
 # parse/ft_get_pathname_for_execve.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
