@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 11:06:59 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/03 11:09:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char		*ft_strncpy(char *dest, const char *src, size_t n);
  *			code.
  * @warning	Dynamic memory allocation is used.
  * @param	vars	Pointer to structure containing environment variables
- * 					and last exit status.
+ * 					and last exit code.
  * @param	name	The variable name, "$?" returns the last exit code.
  * @return	Dynamically allocated string of the variable's value,
  * 			(NULL) if some malloc() went awfully wrong.
