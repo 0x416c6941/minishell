@@ -4,6 +4,7 @@ Input validation:
 	check for "|\0".
 
 expander for ~ (home working directory)
+	UPDATE: this is not required by subject.pdf!
 
 output file should be created before executing the command
 
