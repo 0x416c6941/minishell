@@ -3,10 +3,7 @@
 Input validation:
 	check for "|\0".
 
-make another function - expander for heredocs:
-	only quotes should be removed, everything else should stay in place.
-
-	the real expander will be done later in the environment preparaion part
+expander for ~ (home working directory)
 
 output file should be created before executing the command
 
