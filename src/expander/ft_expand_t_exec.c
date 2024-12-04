@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 20:15:36 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 18:52:15 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ static int	ft_expand_stdin_redir_in_t_exec(const t_vars *vars,
 	int		c_status;
 
 	if (stdin_redir->redir_type == heredoc)
-		return (CMD_OK);
+		return (ft_expand_heredoc_delim((char *)(stdin_redir->data)), CMD_OK);
 	e_status = ft_dup_arg_expanded(vars, stdin_redir->data);
 	if (e_status.status == -1)
 		return (-1);

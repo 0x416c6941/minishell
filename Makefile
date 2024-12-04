@@ -25,7 +25,7 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
 			expander/ft_get_env_value.c expander/ft_extract_var_name.c		\
 			expander/ft_calculate_expanded_arg_size.c						\
 			expander/ft_dup_arg_expanded.c expander/ft_is_whole_arg_var.c	\
-			expander/ft_expand_t_exec.c										\
+			expander/ft_expand_t_exec.c expander/ft_expand_heredoc_delim.c	\
 			input_validation/ft_check_unsupported.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 17:08:32 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 18:50:33 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,5 +99,11 @@ int		ft_is_whole_arg_var(const char *arg);
  * 			(CMD_OK) if everything went fine.
  */
 int		ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
+
+/**
+ * Basically just removes all quotes in $heredoc_delim.
+ * @param	heredoc_delim	Heredoc's delimeter in which to remove all quotes.
+ */
+void	ft_expand_heredoc_delim(char *heredoc_delim);
 
 #endif /* EXPANDER_H */
