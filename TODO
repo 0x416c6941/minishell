@@ -9,6 +9,12 @@ expander for ~ (home working directory)
 probably divide parse sources to input_validation?
 	Do I even care?
 
+important thing in input_validation:
+	remake ft_are_there_mistakes_in_parsed_cmd() to
+		ft_are_there_syntax_errors_in_parsed_cmd().
+	If there are, don't run anything else;
+	Also generate errmsgs() before ft_are_there_syntax_errors_in_parsed_cmd().
+
 output file should be created before executing the command
 
 We will NOT use any global variables.
