@@ -6,6 +6,9 @@ Input validation:
 expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!
 
+probably divide parse sources to input_validation?
+	Do I even care?
+
 output file should be created before executing the command
 
 We will NOT use any global variables.
