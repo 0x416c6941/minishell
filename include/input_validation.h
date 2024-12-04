@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/12/03 14:03:21 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:22:40 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
  * Constants.
  * ---------------------------------------------------------------------------
  */
-# define ERR_UNSUPPORTED "owo... ||, &, &&, ; and \\ are n0t suppowwted :ccc\n"
+# define ERR_UNSUPPORTED	"owo... ||, &, &&, ; and \\ are n0t suppowwted :c\n"
+# define ERR_PIPE_START		"i'm sad... got unexpected token '|' :(((\n"
+# define ERR_PIPE_END		"UwU got unexpected EOF (newline) :(((\n"
 
 /**
  * ---------------------------------------------------------------------------
@@ -39,5 +41,13 @@
  * 			(-1), if write to stderr has failed.
  */
 int	ft_check_unsupported(const char *str);
+
+/**
+ * Check for invalid pipe positions in the beginning or in the end of $str.
+ * @param	str	String to check.
+ * @return	(-1) if found invalid pipe;
+ * 			(Some non-negative value) otherwise;
+ */
+int	ft_has_invalid_pipe_position(const char *str);
 
 #endif /* INPUT_VALIDATION_H */
