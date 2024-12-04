@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_are_there_mistakes_in_prompt.c                  :+:      :+:    :+:   */
+/*   ft_are_there_mistakes_in_parsed_cmd.c              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:43:56 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 18:22:21 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:29:54 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
+#include <input_validation.h>
 #include <utils.h>
 #include <stddef.h>
+#include <parse.h>
 
-int	ft_are_there_mistakes_in_prompt(const t_list *parsed_cmd)
+int	ft_are_there_mistakes_in_parsed_cmd(const t_list *parsed_cmd)
 {
 	const t_ret	*cmd_status;
 

@@ -21,13 +21,14 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_errmsg.c				\
 			parse/ft_get_pathname_for_execve.c								\
 			parse/ft_free_t_ret_with_t_exec.c								\
 			parse/ft_check_emptiness_raw.c parse/ft_final_parser.c			\
-			parse/ft_are_there_mistakes_in_prompt.c parse/ft_gen_errmsgs.c	\
 			expander/ft_get_env_value.c expander/ft_extract_var_name.c		\
 			expander/ft_calculate_expanded_arg_size.c						\
 			expander/ft_dup_arg_expanded.c expander/ft_is_whole_arg_var.c	\
 			expander/ft_expand_t_exec.c expander/ft_expand_heredoc_delim.c	\
 			input_validation/ft_check_unsupported.c							\
-			input_validation/ft_has_invalid_pipe_position.c
+			input_validation/ft_has_invalid_pipe_position.c					\
+			input_validation/ft_are_there_mistakes_in_parsed_cmd.c			\
+			input_validation/ft_gen_errmsgs.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 

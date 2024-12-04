@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 19:24:23 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:37:49 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main(int argc, char **argv, char **envp)
 	t_vars	vars;
 	t_ret	status;
 	char	*input;
-	int		check_unsupported_status;
+	int		check_unsupported_and_pipes_status;
 
 	(void)argc;
 	(void)argv;
@@ -104,20 +104,27 @@ int	main(int argc, char **argv, char **envp)
 		if (!ft_input_issspace(input))
 		{
 			add_history(input);
-			check_unsupported_status = ft_check_unsupported(input);
-			if (check_unsupported_status == -1
-				|| check_unsupported_status == 0)
+			check_unsupported_and_pipes_status = ft_check_unsupported(input);
+			if (check_unsupported_and_pipes_status == -1
+				|| check_unsupported_and_pipes_status == 0)
 			{
 				free(input);
-				if (check_unsupported_status == -1)
+				if (check_unsupported_and_pipes_status == -1)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
 						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 						MESSED_UP);
 				continue ;
 			}
-			else if (ft_has_invalid_pipe_position(input) == -1)
+			check_unsupported_and_pipes_status
+				= ft_has_invalid_pipe_position(input);
+			if (check_unsupported_and_pipes_status == -1
+				|| check_unsupported_and_pipes_status == 0)
 			{
 				free(input);
+				if (check_unsupported_and_pipes_status == -1)
+					return (ft_errmsg(BAD_MSG), rl_clear_history(),
+						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+						MESSED_UP);
 				continue ;
 			}
 			status = ft_final_parser(&vars, input);
@@ -125,7 +132,7 @@ int	main(int argc, char **argv, char **envp)
 				return (ft_errmsg(BAD_MSG), rl_clear_history(),
 					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 					MESSED_UP);
-			if (ft_are_there_mistakes_in_prompt(status.ret))
+			if (ft_are_there_mistakes_in_parsed_cmd(status.ret))
 			{
 				if (ft_gen_errmsgs(status.ret) == -1)
 					return (rl_clear_history(),

@@ -6,27 +6,16 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:54:55 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 19:56:29 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:35:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
+#include <input_validation.h>
 #include <libft.h>
 #include <stddef.h>
 #include <utils.h>
+#include <parse.h>
 
-#define CMD_IS_EMPTY_ERR				"somne command is empty\n"
-#define UNCLOSED_SINGLE_QUOTE_ERR		"some ' isn't closed\n"
-#define UNCLOSED_DOUBLE_QUOTES_ERR		"some \" isn't closed\n"
-#define UNFINISHED_REDIR_ERR			"some redirection is unfinished\n"
-#define INAPPROPRIATE_STDIN_REDIR_ERR	"unexpected < or <<\n"
-#define INAPPROPRIATE_STDOUT_REDIR_ERR	"unexpected > or >>\n"
-#define AMBIGIOUS_REDIR_ERR				"ambigious redirection\n"
-#define STAT_FAIL_ERR					"stat() failed\n"
-#define PATHNAME_DOESNT_EXIST_ERR		"some pathname doesn't exist\n"
-#define PATHNAME_IS_DIR_ERR				"some pathname is a directory\n"
-#define PATHNAME_ISNT_EXECUTABLE_ERR	"can't exec some pathname\n"
-#define EXEC_ISNT_IN_PATH_ERR			"some pathname isn't in $PATH\n"
 
 /**
  * Second part of catching error codes and generating error messages.
@@ -51,16 +40,20 @@ static int	ft_gen_errmsg_part_two(int errcode)
 }
 
 /**
- * Generate an error message depending on value in $errcode.
+ * Generate an error message depending on value in $errcode
+ * and if $next_node isn't NULL.
  * @warning	Code is bad, but I don't care.
  * @param	errcode		Error code.
+ * @param	next_node	Next node in the list.
  * @return	(-1), if some write() to stderr failed;
  * 			(some non-negative value) otherwise (i.e. if everything went fine).
  */
-static int	ft_gen_errmsg(int errcode)
+static int	ft_gen_errmsg(int errcode, const t_list *next_node)
 {
-	if (errcode == ARG_IS_EMPTY)
-		return (ft_errmsg(CMD_IS_EMPTY_ERR));
+	if (errcode == ARG_IS_EMPTY && next_node != NULL)
+		return (ft_errmsg(ERR_PIPE_START));
+	else if (errcode == ARG_IS_EMPTY && next_node == NULL)
+		return (ft_errmsg(ERR_PIPE_END));
 	else if (errcode == UNCLOSED_SINGLE_QUOTE)
 		return (ft_errmsg(UNCLOSED_SINGLE_QUOTE_ERR));
 	else if (errcode == UNCLOSED_DOUBLE_QUOTES)
@@ -86,7 +79,7 @@ int	ft_gen_errmsgs(const t_list *parsed_cmd)
 		cmd_status = parsed_cmd->content;
 		if (cmd_status->status != PATHNAME_IS_BUILTIN
 			&& cmd_status->status != CMD_OK)
-			if (ft_gen_errmsg(cmd_status->status) == -1)
+			if (ft_gen_errmsg(cmd_status->status, parsed_cmd->next) == -1)
 				return (-1);
 		parsed_cmd = parsed_cmd->next;
 	}
