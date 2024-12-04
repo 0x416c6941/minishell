@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 19:12:31 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/04 19:24:23 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,11 @@ int	main(int argc, char **argv, char **envp)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
 						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 						MESSED_UP);
+				continue ;
+			}
+			else if (ft_has_invalid_pipe_position(input) == -1)
+			{
+				free(input);
 				continue ;
 			}
 			status = ft_final_parser(&vars, input);
