@@ -13,5 +13,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: make all
+      with:
+        submodules: recursive
+
+    - name: Build test
       run: make all
