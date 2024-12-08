@@ -45,21 +45,21 @@ MAKE = make
 
 # Libft.
 LIBFT_DIR = $(EXTERNAL_DIR)/Libft
-LIBFT_NAME = libft.a
-LIBFT = $(LIBFT_DIR)/$(LIBFT_NAME)
+LIBFT_A = $(LIBFT_DIR)/libft.a
+LIBFT_TARGET = all
 LIBFT_CLEAN = fclean
 
 # Targets.
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ_FILES)
+$(NAME): $(LIBFT_A) $(OBJ_FILES)
 	$(CC) $(CFLAGS) $(OBJ_FILES) -o $@ -L$(LIBFT_DIR) -lft
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)			# Create the $(OBJ_DIR) if it doesn't exist.
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(LIBFT):
+$(LIBFT_A):
 	$(MAKE) -C $(LIBFT_DIR) $(LIBFT_NAME)
 
 .PHONY: clean
