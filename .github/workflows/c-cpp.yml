@@ -18,3 +18,6 @@ jobs:
 
     - name: Build test
       run: make all
+
+    - name: Rebuild test
+      run: make re
