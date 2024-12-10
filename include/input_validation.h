@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/12/10 12:01:56 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:11:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,17 @@ int	ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
  * 			(some other value) otherwise.
  */
 int	ft_are_there_mistakes_in_parsed_cmd(const t_list *parsed_cmd);
+
+/**
+ * Generate an error message depending on value in $errcode
+ * and if $next_node isn't NULL.
+ * @warning	Code is bad, but I don't care.
+ * @param	errcode		Error code.
+ * @param	next_node	Next node in the list.
+ * @return	(-1), if some write() to stderr failed;
+ * 			(some non-negative value) otherwise (i.e. if everything went fine).
+ */
+int	ft_gen_errmsg(int errcode, const t_list *next_node);
 
 /**
  * For every command in a list of parsed commands, gotten by ft_final_parser(),
