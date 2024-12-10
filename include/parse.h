@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 19:27:18 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:01:06 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,6 @@
  * enums.
  * ---------------------------------------------------------------------------
  */
-enum	e_quotes_type
-{
-	no_quotes,
-	single_quote,
-	double_quotes,
-};
-
 enum	e_stdin_redir_type
 {
 	file,
@@ -145,14 +138,6 @@ typedef struct s_exec
 char	*ft_get_next_token(char *prompt, char **saveptr);
 
 /**
- * Depending on the quote in $quote,
- * updates what quote we currently have open.
- * @param	quote		Quote to handle.
- * @param	quotes_type	A pointer to the current quote type.
- */
-void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
-
-/**
  * A modified version of ft_strtok_r(), which divides token
  * gotten from ft_get_next_token() into arguments.
  *
@@ -171,26 +156,6 @@ void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
  * 				then that's the next argument.
  */
 t_ret	ft_get_next_arg(char *token, char **saveptr);
-
-/**
- * Checks if all quotes in $arg are properly closed or not.
- * @param	arg	Argument to check.
- * @return (Some non-negative value), if yes;
- * 			(-1) otherwise.
- */
-int		ft_check_arg_quotes(const char *arg);
-
-/**
- * Checks if $arg is a valid argument: if it's not NULL,
- * if all brackers are closed,
- * and if $arg contains some file in case if $arg_type != normal_arg.
- * @brief	Checks if $arg is valid, depending on $arg_type.
- * @param	arg			Argument to check.
- * @param	arg_type	Type of the argument.
- * @return (Some non-negative value), if yes;
- * 			(-1) otherwise.
- */
-int		ft_check_arg(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Frees arguments for execve in t_exec
@@ -219,36 +184,6 @@ void	ft_free_t_stdout_redir(t_stdout_redir *stdout_redir);
 void	ft_free_t_exec(t_exec *exec);
 
 /**
- * Generates raw error code for $arg, depending on $arg_type.
- * Please note, that only basic checks are performed here.
- * @brief	Generates error code for $arg, depending on $arg_type.
- * @param	arg			Argument to check.
- * @param	arg_type	Type of the argument.
- * @return	(ARG_EMPTY), if $arg is empty and $arg_type is normal_arg;
- * 			(UNCLOSED_SINGLE_QUOTE), if $arg has unclosed single quotes;
- * 			(UNCLOSED_DOUBLE_QUOTES), if $arg has unclosed double quotes;
- * 			(ARG_UNFINISHED_STDIN_REDIR), if $arg_type is stdin_redir_arg
- * 				and $arg is empty;
- * 			(ARG_UNFINISHED_STDOUT_REDIR), if $arg_type is stdout_redir_arg
- * 				and $arg is empty;
- * 			(ARG_INAPPROPRIATE_STDIN_REDIR), if $arg_type != normal_arg
- * 				and $arg contains stdin redirection;
- * 			(ARG_INAPPROPRIATE_STDOUT_REDIR), if $arg_type != normal_arg
- * 				and $arg contains stdout redirection;
- * 			(ARG_OK), if no errors mentioned above were found.
- */
-int		ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
-
-/**
- * Checks if $args, $stdin_redirs and $stdout_redirs are all NULL in $raw_cmd.
- * @brief	Dirty Norminette bypass.
- * @param	raw_cmd	Raw t_exec to check.
- * @return	(-1), if they are;
- * 			(some non-negative value) otherwise.
- */
-int		ft_check_emptiness_raw(const t_exec *raw_cmd);
-
-/**
  * Processes token gotten by ft_get_next_token() and returns
  * a raw t_exec (only one command!), in which quotes aren't expanded.
  * @brief	Extracts raw t_exec from token gotten by ft_get_next_token().
@@ -274,15 +209,6 @@ t_ret	ft_get_cmd_raw_quotes(char *token);
  * 			(0) otherwise.
  */
 int		ft_is_builtin(const char *arg);
-
-/**
- * Checks, if provided argument exists as an executable file.
- * @param	arg	Argument to check.
- * @return	(CMD_OK), if it does;
- * 			(STAT_FAIL), if stat() call failed for some reason;
- * 			some other error otherwise.
- */
-int		ft_check_pathname(const char *arg);
 
 /**
  * Parses the command: the same command will be returned, if it's a builtin

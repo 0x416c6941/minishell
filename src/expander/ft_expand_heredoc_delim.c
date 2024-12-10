@@ -6,11 +6,12 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 18:47:01 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 19:01:08 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:46:06 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <expander.h>
+#include <utils.h>
 #include <parse.h>
 #include <libft.h>
 

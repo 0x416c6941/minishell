@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_pathname.c                                :+:      :+:    :+:   */
+/*   ft_check_emptiness_raw.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 14:38:46 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 15:15:15 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/03 18:16:45 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/10 11:54:48 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
-#include <sys/stat.h>
-#include <unistd.h>
+#include <input_validation.h>
+#include <stddef.h>
 
-int	ft_check_pathname(const char *arg)
+int	ft_check_emptiness_raw(const t_exec *raw_cmd)
 {
-	struct stat	statbuf;
-
-	if (access(arg, F_OK) == -1)
-		return (PATHNAME_DOESNT_EXIST);
-	else if (stat(arg, &statbuf) == -1)
-		return (STAT_FAIL);
-	else if (S_ISDIR(statbuf.st_mode))
-		return (PATHNAME_IS_DIR);
-	else if (access(arg, X_OK) == -1)
-		return (PATHNAME_ISNT_EXECUTABLE);
-	return (CMD_OK);
+	if (raw_cmd->args == NULL
+		&& raw_cmd->stdin_redirs == NULL && raw_cmd->stdout_redirs == NULL)
+		return (-1);
+	return (0);
 }

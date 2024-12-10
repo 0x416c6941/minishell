@@ -1,13 +1,7 @@
 -Werror disable in both Makefiles!!!!!! (?)
 
-Input validation:
-	check for "|\0".
-
 expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!
-
-probably divide parse sources to input_validation?
-	Do I even care?
 
 important thing in input_validation:
 	remake ft_are_there_mistakes_in_parsed_cmd() to

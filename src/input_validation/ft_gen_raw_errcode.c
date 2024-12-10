@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gen_raw_errorcode.c                             :+:      :+:    :+:   */
+/*   ft_gen_raw_errcode.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/29 23:50:03 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:30:28 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:48:46 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
+#include <input_validation.h>
+#include <utils.h>
 #include <stddef.h>
 #include <libft.h>
 

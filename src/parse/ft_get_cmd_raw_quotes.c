@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 13:40:16 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 18:21:45 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:53:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include <libft.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <utils.h>
+#include <input_validation.h>
 
 /**
  * Bypasses Norminette.

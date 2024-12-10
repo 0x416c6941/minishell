@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_arg.c                                     :+:      :+:    :+:   */
+/*   ft_check_pathname.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/29 23:21:13 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/29 23:25:04 by asagymba         ###   ########.fr       */
+/*   Created: 2024/12/03 14:38:46 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/10 11:54:58 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
-#include <stddef.h>
-#include <libft.h>
+#include <input_validation.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
-int	ft_check_arg(const char *arg, enum e_arg_type arg_type)
+int	ft_check_pathname(const char *arg)
 {
-	if (arg == NULL || ft_check_arg_quotes(arg) == -1
-		|| (arg_type != normal_arg
-			&& (ft_strcmp(arg, "<<") == 0
-				|| ft_strcmp(arg, "<") == 0
-				|| ft_strcmp(arg, ">>") == 0
-				|| ft_strcmp(arg, ">") == 0)))
-		return (-1);
-	return (0);
+	struct stat	statbuf;
+
+	if (access(arg, F_OK) == -1)
+		return (PATHNAME_DOESNT_EXIST);
+	else if (stat(arg, &statbuf) == -1)
+		return (STAT_FAIL);
+	else if (S_ISDIR(statbuf.st_mode))
+		return (PATHNAME_IS_DIR);
+	else if (access(arg, X_OK) == -1)
+		return (PATHNAME_ISNT_EXECUTABLE);
+	return (CMD_OK);
 }

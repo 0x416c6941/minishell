@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 16:25:09 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:43:38 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@
  * ---------------------------------------------------------------------------
  */
 # define MINISHELL_PREFIX	"minishell: "
+
+/**
+ * ---------------------------------------------------------------------------
+ * enums.
+ * ---------------------------------------------------------------------------
+ */
+enum	e_quotes_type
+{
+	no_quotes,
+	single_quote,
+	double_quotes,
+};
 
 /**
  * ---------------------------------------------------------------------------
@@ -75,6 +87,14 @@ typedef struct s_vars
  * @param	str	A pointer to string.
  */
 void	ft_skip_spaces(const char **str);
+
+/**
+ * Depending on the quote in $quote,
+ * updates what quote we currently have open.
+ * @param	quote		Quote to handle.
+ * @param	quotes_type	A pointer to the current quote type.
+ */
+void	ft_handle_quotes(char quote, enum e_quotes_type *quotes_type);
 
 /**
  * Writes an error message to stderr.

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/28 12:49:21 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 18:23:48 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:54:15 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <input_validation.h>
 
 /**
  * Returns the string made by the pattern: $path + '/' + $arg.

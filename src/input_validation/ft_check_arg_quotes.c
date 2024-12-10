@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_emptiness_raw.c                           :+:      :+:    :+:   */
+/*   ft_check_arg_quotes.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 18:16:45 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/03 18:17:23 by asagymba         ###   ########.fr       */
+/*   Created: 2024/11/24 13:09:32 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/10 11:47:33 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
-#include <stddef.h>
+#include <input_validation.h>
+#include <utils.h>
 
-int	ft_check_emptiness_raw(const t_exec *raw_cmd)
+int	ft_check_arg_quotes(const char *arg)
 {
-	if (raw_cmd->args == NULL
-		&& raw_cmd->stdin_redirs == NULL && raw_cmd->stdout_redirs == NULL)
+	enum e_quotes_type	quotes_type;
+
+	quotes_type = no_quotes;
+	while (*arg != '\0')
+	{
+		if (*arg == '\'' || *arg == '\"')
+			ft_handle_quotes(*arg, &quotes_type);
+		arg++;
+	}
+	if (quotes_type != no_quotes)
 		return (-1);
 	return (0);
 }

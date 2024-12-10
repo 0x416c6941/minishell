@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_arg_quotes.c                              :+:      :+:    :+:   */
+/*   ft_check_arg.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 13:09:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/11/28 20:20:57 by asagymba         ###   ########.fr       */
+/*   Created: 2024/11/29 23:21:13 by asagymba          #+#    #+#             */
+/*   Updated: 2024/12/10 11:54:33 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <parse.h>
+#include <input_validation.h>
+#include <stddef.h>
+#include <libft.h>
 
-int	ft_check_arg_quotes(const char *arg)
+int	ft_check_arg(const char *arg, enum e_arg_type arg_type)
 {
-	enum e_quotes_type	quotes_type;
-
-	quotes_type = no_quotes;
-	while (*arg != '\0')
-	{
-		if (*arg == '\'' || *arg == '\"')
-			ft_handle_quotes(*arg, &quotes_type);
-		arg++;
-	}
-	if (quotes_type != no_quotes)
+	if (arg == NULL || ft_check_arg_quotes(arg) == -1
+		|| (arg_type != normal_arg
+			&& (ft_strcmp(arg, "<<") == 0
+				|| ft_strcmp(arg, "<") == 0
+				|| ft_strcmp(arg, ">>") == 0
+				|| ft_strcmp(arg, ">") == 0)))
 		return (-1);
 	return (0);
 }

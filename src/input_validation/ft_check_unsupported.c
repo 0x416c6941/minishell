@@ -6,14 +6,13 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 10:50:14 by root              #+#    #+#             */
-/*   Updated: 2024/12/01 00:28:56 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 11:46:38 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <input_validation.h>
-#include <parse.h>
-#include <libft.h>
 #include <utils.h>
+#include <libft.h>
 
 int	ft_check_unsupported(const char *str)
 {

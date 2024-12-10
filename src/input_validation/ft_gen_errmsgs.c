@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 17:54:55 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 19:35:55 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:02:08 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 #include <stddef.h>
 #include <utils.h>
 #include <parse.h>
-
 
 /**
  * Second part of catching error codes and generating error messages.
