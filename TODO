@@ -3,11 +3,9 @@
 expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!
 
-important thing in input_validation:
-	remake ft_are_there_mistakes_in_parsed_cmd() to
-		ft_are_there_syntax_errors_in_parsed_cmd().
-	If there are, don't run anything else;
-	Also generate errmsgs() before ft_are_there_syntax_errors_in_parsed_cmd().
+Remaining stuff:
+	heredoc expander;
+	executioner.
 
 output file should be created before executing the command
 
