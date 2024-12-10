@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/10 12:26:55 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:29:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	ft_write_cmds_content(t_list *cmds)
 	}
 }
 
-#define BAD_MSG		"something went really badly.\n"
+#define BAD_MSG		"owo s0me malloc() or I/O fa1led ;((\n"
 #define MESSED_UP	1
 
 /**
