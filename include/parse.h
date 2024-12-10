@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/10 12:01:06 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 13:27:22 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define PARSE_H
 
 # include <libft.h>
+# include <stdbool.h>
 # include <utils.h>
 
 /**
@@ -106,6 +107,12 @@ typedef struct s_stdout_redir
 	const char					*output_file;
 }	t_stdout_redir;
 
+typedef struct s_fd
+{
+	int		fd;
+	bool	is_initialized;
+}	t_fd;
+
 /**
  * Parsed command.
  */
@@ -115,7 +122,9 @@ typedef struct s_exec
 	t_list		*args;				/* List of strings. */
 	char		**args_for_execve;
 	t_list		*stdin_redirs;
+	t_fd		stdin_redir;
 	t_list		*stdout_redirs;
+	t_fd		stdout_redir;
 }	t_exec;
 
 /**
