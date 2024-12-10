@@ -30,7 +30,7 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_handle_quotes.c		\
 			input_validation/ft_check_pathname.c							\
 			input_validation/ft_check_emptiness_raw.c 						\
 			input_validation/ft_gen_raw_errcode.c							\
-			input_validation/ft_are_there_mistakes_in_parsed_cmd.c			\
+			input_validation/ft_are_there_syntax_errors_in_parsed_cmd.c		\
 			input_validation/ft_gen_errmsg.c								\
 			input_validation/ft_gen_errmsgs.c
 

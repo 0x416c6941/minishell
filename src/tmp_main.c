@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 19:37:49 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:26:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,18 @@ static void	ft_write_cmds_content(t_list *cmds)
 int	main(int argc, char **argv, char **envp)
 {
 	t_vars	vars;
-	t_ret	status;
+	t_ret	parser_status;
+	int		validation_status;
 	char	*input;
-	int		check_unsupported_and_pipes_status;
 
 	(void)argc;
 	(void)argv;
 	vars.last_exit_status = 0;
-	status = ft_initialize_envs((const char **)envp);
-	if (status.status == -1)
+	/* Idc it's not a parser. */
+	parser_status = ft_initialize_envs((const char **)envp);
+	if (parser_status.status == -1)
 		return ((void)ft_errmsg(BAD_MSG), MESSED_UP);
-	vars.envs = status.ret;
+	vars.envs = parser_status.ret;
 	while (42)
 	{
 		input = readline("almost minishell $> ");
@@ -104,43 +105,56 @@ int	main(int argc, char **argv, char **envp)
 		if (!ft_input_issspace(input))
 		{
 			add_history(input);
-			check_unsupported_and_pipes_status = ft_check_unsupported(input);
-			if (check_unsupported_and_pipes_status == -1
-				|| check_unsupported_and_pipes_status == 0)
+			validation_status = ft_check_unsupported(input);
+			if (validation_status == -1
+				|| validation_status == 0)
 			{
 				free(input);
-				if (check_unsupported_and_pipes_status == -1)
+				if (validation_status == -1)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
 						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 						MESSED_UP);
 				continue ;
 			}
-			check_unsupported_and_pipes_status
-				= ft_has_invalid_pipe_position(input);
-			if (check_unsupported_and_pipes_status == -1
-				|| check_unsupported_and_pipes_status == 0)
+			validation_status = ft_has_invalid_pipe_position(input);
+			if (validation_status == -1
+				|| validation_status == 0)
 			{
 				free(input);
-				if (check_unsupported_and_pipes_status == -1)
+				if (validation_status == -1)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
 						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 						MESSED_UP);
 				continue ;
 			}
-			status = ft_final_parser(&vars, input);
-			if (status.status == -1)
+			parser_status = ft_final_parser(&vars, input);
+			if (parser_status.status == -1)
 				return (ft_errmsg(BAD_MSG), rl_clear_history(),
 					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 					MESSED_UP);
-			if (ft_are_there_mistakes_in_parsed_cmd(status.ret))
+			validation_status
+				= ft_are_there_syntax_errors_in_parsed_cmd(parser_status.ret);
+			if (validation_status == -1)
+				return (rl_clear_history(),
+					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+					ft_lstclear((t_list **)&parser_status.ret,
+						(void (*)(void *))ft_free_t_ret_with_t_exec),
+					MESSED_UP);
+			else if (validation_status > 0)
 			{
-				if (ft_gen_errmsgs(status.ret) == -1)
-					return (rl_clear_history(),
-						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
-						MESSED_UP);
+				free(input);
+				ft_lstclear((t_list **)&parser_status.ret,
+					(void (*)(void *))ft_free_t_ret_with_t_exec);
+				continue ;
 			}
-			ft_write_cmds_content(status.ret);
-			ft_lstclear((t_list **)&status.ret,
+			if (ft_gen_errmsgs(parser_status.ret) == -1)
+				return (rl_clear_history(),
+					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+					ft_lstclear((t_list **)&parser_status.ret,
+						(void (*)(void *))ft_free_t_ret_with_t_exec),
+					MESSED_UP);
+			ft_write_cmds_content(parser_status.ret);
+			ft_lstclear((t_list **)&parser_status.ret,
 				(void (*)(void *))ft_free_t_ret_with_t_exec);
 		}
 		free(input);

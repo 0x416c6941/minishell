@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/12/10 12:11:32 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/10 12:18:03 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,10 +130,11 @@ int	ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
  * @brief	Check if there are no mistakes in what user entered.
  * @param	parsed_cmd	Head of a list of parsed commands
  * 						gotten by ft_final_parser().
+ * @return	(-1), if there were some syntax errors and write() to stderr failed;
  * @return	(0), if there are no mistakes;
- * 			(some other value) otherwise.
+ * 			(Some positive value) otherwise.
  */
-int	ft_are_there_mistakes_in_parsed_cmd(const t_list *parsed_cmd);
+int	ft_are_there_syntax_errors_in_parsed_cmd(const t_list *parsed_cmd);
 
 /**
  * Generate an error message depending on value in $errcode
