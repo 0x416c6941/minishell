@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:05 by root              #+#    #+#             */
-/*   Updated: 2024/12/12 17:38:22 by root             ###   ########.fr       */
+/*   Updated: 2024/12/12 21:33:40 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 static const char	**check_flag(const char **args, bool *newline)
 {
 	*newline = true;
-	while (*args && strcmp(*args, "-n") == 0)
+	while (*args && ft_strcmp(*args, "-n") == 0)
 	{
 		*newline = false;
 		args++;

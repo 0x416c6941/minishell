@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/12 16:01:59 by root             ###   ########.fr       */
+/*   Updated: 2024/12/12 21:33:26 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 #include <input_validation.h>
 #include <libft.h>
 #include <parse.h>
+#include <stdio.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <stddef.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <utils.h>
 
