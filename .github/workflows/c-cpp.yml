@@ -16,6 +16,9 @@ jobs:
       with:
         submodules: recursive
 
+    - name: Install libreadline-dev
+      run: sudo apt update && sudo apt -y install libreadline-dev
+
     - name: Build test
       run: make all
 
