@@ -1,4 +1,11 @@
--Werror disable in both Makefiles!!!!!! (?)
+BUILTINS 
+	For now I'm assuming that builtin args is skipped, when passing args to the
+	builtins
+
+exit builtin
+	 with no option should just break while cyclus and exit with the 
+	last exit code or 0. Or I jusr don't know how to use it (it can close child process, 
+	but i guess only with || or something like that)
 
 expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!

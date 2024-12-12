@@ -6,20 +6,21 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/10 13:29:18 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/12 16:01:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <builtins.h>
+#include <expander.h>
+#include <input_validation.h>
 #include <libft.h>
-#include <stddef.h>
-#include <utils.h>
-#include <stdio.h>
+#include <parse.h>
 #include <readline/history.h>
 #include <readline/readline.h>
-#include <input_validation.h>
+#include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <parse.h>
-#include <expander.h>
+#include <utils.h>
 
 /**
  * A temporary helper function to write parsed commands.
@@ -46,6 +47,7 @@ static void	ft_write_cmds_content(t_list *cmds)
 		if (cmd->args_for_execve != NULL)
 		{
 			i = 0;
+			echo_builtin((const char **)cmd->args_for_execve);
 			while (cmd->args_for_execve[i] != NULL)
 				printf("\t%s\n", (const char *)cmd->args_for_execve[i++]);
 		}
@@ -68,14 +70,15 @@ static void	ft_write_cmds_content(t_list *cmds)
 				(void)ft_printf("\toverwrite, ");
 			else
 				(void)ft_printf("\tappend, ");
-			(void)ft_printf("%s\n", ((t_stdout_redir *)j->content)->output_file);
+			(void)ft_printf("%s\n",
+				((t_stdout_redir *)j->content)->output_file);
 			j = j->next;
 		}
 	}
 }
 
-#define BAD_MSG		"owo s0me malloc() or I/O fa1led ;((\n"
-#define MESSED_UP	1
+#define BAD_MSG "owo s0me malloc() or I/O fa1led ;((\n"
+#define MESSED_UP 1
 
 /**
  * In case of some malloc() fail,
@@ -106,25 +109,23 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(input);
 			validation_status = ft_check_unsupported(input);
-			if (validation_status == -1
-				|| validation_status == 0)
+			if (validation_status == -1 || validation_status == 0)
 			{
 				free(input);
 				if (validation_status == -1)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
-						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
-						MESSED_UP);
+						ft_lstclear(&vars.envs,
+							(void (*)(void *))ft_free_t_env), MESSED_UP);
 				continue ;
 			}
 			validation_status = ft_has_invalid_pipe_position(input);
-			if (validation_status == -1
-				|| validation_status == 0)
+			if (validation_status == -1 || validation_status == 0)
 			{
 				free(input);
 				if (validation_status == -1)
 					return (ft_errmsg(BAD_MSG), rl_clear_history(),
-						ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
-						MESSED_UP);
+						ft_lstclear(&vars.envs,
+							(void (*)(void *))ft_free_t_env), MESSED_UP);
 				continue ;
 			}
 			parser_status = ft_final_parser(&vars, input);
@@ -132,11 +133,10 @@ int	main(int argc, char **argv, char **envp)
 				return (ft_errmsg(BAD_MSG), rl_clear_history(),
 					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
 					MESSED_UP);
-			validation_status
-				= ft_are_there_syntax_errors_in_parsed_cmd(parser_status.ret);
+			validation_status = ft_are_there_syntax_errors_in_parsed_cmd(parser_status.ret);
 			if (validation_status == -1)
-				return (rl_clear_history(),
-					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+				return (rl_clear_history(), ft_lstclear(&vars.envs,
+						(void (*)(void *))ft_free_t_env),
 					ft_lstclear((t_list **)&parser_status.ret,
 						(void (*)(void *))ft_free_t_ret_with_t_exec),
 					MESSED_UP);
@@ -148,8 +148,8 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			if (ft_gen_errmsgs(parser_status.ret) == -1)
-				return (rl_clear_history(),
-					ft_lstclear(&vars.envs, (void (*)(void *))ft_free_t_env),
+				return (rl_clear_history(), ft_lstclear(&vars.envs,
+						(void (*)(void *))ft_free_t_env),
 					ft_lstclear((t_list **)&parser_status.ret,
 						(void (*)(void *))ft_free_t_ret_with_t_exec),
 					MESSED_UP);
