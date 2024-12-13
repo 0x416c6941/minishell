@@ -37,7 +37,6 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_handle_quotes.c		\
 			builtins/env_builtin.c											\
 			builtins/echo_builtin.c											\
 			builtins/exit_builtin.c											\
-			# utils/calculate_args_count.c									\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 

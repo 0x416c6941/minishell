@@ -6,17 +6,18 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 15:37:28 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins.h>
+#include <stdio.h>
 
 #define DEC_BASE 10
 #define NUMERIC_ERROR_CODE 2
 #define ARGUMENT_ERROR_CODE 1
 #define LONG_MAX_ERROR_MSG ": numeric argument required\n"
-#define MINI_EXIT_PREFIX "minishell : exit: "
+#define EXIT_PREFIX "minishell : exit: "
 
 static int	ft_exit_error(const char *arg)
 {
@@ -144,15 +145,15 @@ int	exit_builtin(const char *args[], int *last_exit_code)
 		*last_exit_code = ARGUMENT_ERROR_CODE;
 		if (ft_errmsg("exit: too many arguments\n") == -1)
 			return (EXIT_FATAL_ERROR);
-		return (EXIT_SUCC);
+		return (EXIT_OK);
 	}
 	if (args[0] == NULL)
 	{
 		*last_exit_code = 0;
-		return (EXIT_SUCC);
+		return (EXIT_OK);
 	}
 	*last_exit_code = extract_validate_arg(args[0]);
 	if (*last_exit_code == EXIT_FATAL_ERROR)
 		return (EXIT_FATAL_ERROR);
-	return (EXIT_SUCC);
+	return (EXIT_OK);
 }
