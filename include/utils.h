@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/13 17:00:56 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 17:32:17 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,13 @@ typedef struct s_env
  * Unfortunalely, since neither $environ nor putenv() can be used,
  * we need to use an $envp, which isn't a universally accepted standard,
  * and later divide it to a structure we'd be able to manipulate with.
- */
+ * t_list *envs -> $content is a t_env in each node.
+ * */
+
 typedef struct s_vars
 {
 	int		last_exit_status;
-	t_list *envs; /* $content is a t_env in each node. */
+	t_list	*envs;
 }			t_vars;
 
 /**
@@ -134,8 +136,7 @@ void		ft_free_t_env(t_env *env);
 // // Function to calculate the number of elements in const char *args[]
 // size_t		calculate_args_count(const char *args[]);
 
-//Returns the value of the environment variable with the key $key.
-char	*get_env_value(t_vars *vars, const char *key);
-
+// Returns the value of the environment variable with the key $key.
+char		*get_env_value(t_vars *vars, const char *key);
 
 #endif /* UTILS_H */

@@ -38,6 +38,7 @@ SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_handle_quotes.c		\
 			builtins/echo_builtin.c											\
 			builtins/exit_builtin.c											\
 			builtins/pwd_builtin.c											\
+			builtins/unset_builtin.c											\
 			utils/get_env_value.c											\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))

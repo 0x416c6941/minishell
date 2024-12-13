@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 17:00:59 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 17:36:47 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ int	env_builtin(t_vars *vars);
 int	export_no_args_builtin(t_vars *vars);
 int	exit_builtin(const char *args[], int *last_exit_code);
 int	pwd_builtin(t_vars *vars, const char **args);
+int	unset_builtin(t_list **envs, const char **args);
 
 #endif /* BUILTINS_H */
