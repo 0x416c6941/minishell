@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 14:45:37 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 15:15:41 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define BUILTINS_H
 
 # include <libft.h>
+# include <limits.h>
 # include <stdbool.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -23,8 +24,8 @@
 To be consistent with t_ret in case of success will be exot code positive (1)
 and in case of failure will be negative (-1).
 */
-// #define EXIT_SUCCESS 1
-// #define EXIT_FAILURE -1
+# define EXIT_OK 1
+# define EXIT_FATAL_ERROR -1
 
 int	echo_builtin(const char *args[]);
 int	env_builtin(t_vars *vars);

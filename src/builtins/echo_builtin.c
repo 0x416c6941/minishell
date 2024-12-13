@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:05 by root              #+#    #+#             */
-/*   Updated: 2024/12/12 21:33:40 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static const char	**check_flag(const char **args, bool *newline)
  *  	- If the "-n" flag is not present, it appends a newline at the end.
  * @param args Array of arguments passed to the "echo" command,
  * excluding the command itself. (args_for_execve)
- * @return int Returns EXIT_SUCCESS (0) on success or EXIT_FAILURE (1)
+ * @return int Returns EXIT_OK (0) on success or EXIT_FATAL_ERROR (1)
  * on failure (write fail if possible) or if `args` is NULL (just in case)
  */
 int	echo_builtin(const char *args[])
@@ -49,23 +49,23 @@ int	echo_builtin(const char *args[])
 	bool	newline;
 
 	if (!args)
-		return (EXIT_FAILURE);
+		return (EXIT_FATAL_ERROR);
 	args = check_flag(args, &newline);
 	while (*args != NULL)
 	{
 		if (write(1, *args, ft_strlen(*args)) == -1)
-			return (EXIT_FAILURE);
+			return (EXIT_FATAL_ERROR);
 		if (*(args + 1) != NULL)
 		{
 			if (write(1, " ", 1) == -1)
-				return (EXIT_FAILURE);
+				return (EXIT_FATAL_ERROR);
 		}
 		args++;
 	}
 	if (newline)
 	{
 		if (write(1, "\n", 1) == -1)
-			return (EXIT_FAILURE);
+			return (EXIT_FATAL_ERROR);
 	}
-	return (EXIT_SUCCESS);
+	return (EXIT_OK);
 }

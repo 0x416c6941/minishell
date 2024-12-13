@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   unset_builtin.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 17:30:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 14:50:42 by root             ###   ########.fr       */
+/*   Created: 2024/12/12 19:59:34 by root              #+#    #+#             */
+/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins.h>
 
-bool	is_valid_export_arg(const char *arg)
+int	unset_builtin(t_vars *vars, const char **args)
 {
-	const char	*c;
-
-	c = arg;
-	if (!arg || ft_strchr(arg, '=') == NULL)
-		return (false);
-	if (!(arg[0] == '_' || ft_isalpha(arg[0])))
-		return (false);
-	while (*c != '=')
+	if (!vars || !args)
+		return (EXIT_FATAL_ERROR);
+	if (!args || !*args)
+		return (EXIT_OK);
+	while (*args)
 	{
-		if (!(isalnum(*c) || *c == '_'))
-			return (false);
-		c++;
+		if (!is_valid_export_arg(*args))
+		{
+			/* code */
+		}
 	}
-	return (true);
+
+	return (EXIT_OK);
 }

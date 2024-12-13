@@ -6,20 +6,26 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 14:45:01 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins.h>
+
 #define DEC_BASE 10
-#include <limits.h>
+#define NUMERIC_ERROR_CODE 2
+#define ARGUMENT_ERROR_CODE 1
+#define LONG_MAX_ERROR_MSG ": numeric argument required\n"
+#define MINI_EXIT_PREFIX "minishell : exit: "
 
 static int	ft_exit_error(const char *arg)
 {
-	ft_errmsg("exit: ");
-	ft_errmsg(arg);
-	ft_errmsg(": numeric argument required\n");
-	return (2);
+	if (write(STDERR_FILENO, EXIT_PREFIX, ft_strlen(EXIT_PREFIX)) == -1
+		|| write(STDERR_FILENO, arg, ft_strlen(arg)) == -1
+		|| write(STDERR_FILENO, LONG_MAX_ERROR_MSG,
+			ft_strlen(LONG_MAX_ERROR_MSG)) == -1)
+		return (EXIT_FATAL_ERROR);
+	return (NUMERIC_ERROR_CODE);
 }
 
 /**
@@ -29,7 +35,7 @@ static int	ft_exit_error(const char *arg)
  * @param nptr Pointer to the string to parse.
  * @param sign Pointer to an integer where the sign (+1 or -1) will be stored.
 
-	* @return const char* Pointer to the remaining part of the string after parsing.
+ * @return const char* Pointer to the remaining part of the string after parsing
  */
 static const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign)
 {
@@ -113,14 +119,11 @@ static int	extract_validate_arg(const char *arg)
 	long int	res;
 
 	if (!arg)
-		return (false);
+		return (EXIT_FATAL_ERROR);
 	if (!validate_arg(arg))
 		return (ft_exit_error(arg));
 	res = extract_arg(arg);
-	if (res < 0)
-		res = (res % 256) + 256;
-	else
-		res = res % 256;
+	res = ((res % 256) + 256) % 256;
 	return ((int)res);
 }
 
@@ -134,19 +137,22 @@ static int	extract_validate_arg(const char *arg)
 int	exit_builtin(const char *args[], int *last_exit_code)
 {
 	if (!args || !last_exit_code)
-		return (EXIT_FAILURE);
+		return (EXIT_FATAL_ERROR);
 	printf("exit\n");
 	if (args[0] != NULL && args[1] != NULL)
 	{
-		*last_exit_code = 1;
-		ft_errmsg("exit: too many arguments\n");
-		return (EXIT_SUCCESS);
+		*last_exit_code = ARGUMENT_ERROR_CODE;
+		if (ft_errmsg("exit: too many arguments\n") == -1)
+			return (EXIT_FATAL_ERROR);
+		return (EXIT_SUCC);
 	}
 	if (args[0] == NULL)
 	{
 		*last_exit_code = 0;
-		return (EXIT_SUCCESS);
+		return (EXIT_SUCC);
 	}
 	*last_exit_code = extract_validate_arg(args[0]);
-	return (EXIT_SUCCESS);
+	if (*last_exit_code == EXIT_FATAL_ERROR)
+		return (EXIT_FATAL_ERROR);
+	return (EXIT_SUCC);
 }
