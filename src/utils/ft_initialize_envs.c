@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_initialize_envs.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
+/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/02 23:01:11 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/02 23:35:57 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/13 18:47:44 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <utils.h>
 #include <libft.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <utils.h>
 
 /**
  * Initialize a single node contaning t_env with environment variable.
  * @warning	Dyamic memory allocation is used.
  * @param	env	Environment variable.
- * @return	If $status is (-1), then malloc() failed and $ret is NULL;
+ * @return (If $status is (-1), then malloc() failed and $ret is NULL);
  * 			Otherwise $status is non-negative value, and $ret
  * 				contains a t_env with environment variable.
  */
-static t_ret	ft_initialize_one_env(const char *env)
+t_ret	ft_initialize_one_env(const char *env)
 {
 	t_env	*ret;
 	size_t	key_len;

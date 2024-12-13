@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/13 17:37:37 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 19:43:12 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,20 @@
 #include <stdlib.h>
 #include <utils.h>
 
+static void	handle_builtin_error(int status, const char *builtin_name)
+{
+	if (status == EXIT_FATAL_ERROR)
+	{
+		printf("Fatal error in %s_builtin\n", builtin_name);
+	}
+}
+
 static void	test_builtin(t_list *cmds, t_vars *vars)
 {
-	t_ret	*current_node;
-	t_exec	*cmd;
-	int		status;
+	t_ret		*current_node;
+	t_exec		*cmd;
+	int			status;
+	const char	**args;
 
 	(void)ft_printf("\n");
 	(void)ft_printf("test_builtin\n");
@@ -41,67 +50,45 @@ static void	test_builtin(t_list *cmds, t_vars *vars)
 			&& current_node->status != CMD_OK)
 			continue ;
 		cmd = current_node->ret;
-		// Process `echo` built-in command
+		args = (const char **)(cmd->args_for_execve + 1);
+		// Process built-in commands
 		if (ft_strcmp(cmd->path_to_exec, "echo") == 0)
 		{
-			vars->last_exit_status = echo_builtin((const char **)(cmd->args_for_execve
-						+ 1));
+			vars->last_exit_status = echo_builtin(args);
 			printf("echo exit code: %d\n", vars->last_exit_status);
 		}
-		// Process `exit` built-in command
 		else if (ft_strcmp(cmd->path_to_exec, "exit") == 0)
 		{
-			status = exit_builtin((const char **)(cmd->args_for_execve + 1),
-					&vars->last_exit_status);
-			// Handle fatal error in `exit_builtin`
-			if (status == EXIT_FATAL_ERROR)
-			{
-				printf("Fatal error in exit_builtin\n");
-				return ;
-			}
-			// Print the exit code and stop processing commands
+			status = exit_builtin(args, &vars->last_exit_status);
+			handle_builtin_error(status, "exit");
 			printf("exit_builtin exit code: %d\n", vars->last_exit_status);
-			return ;
+			return ; // Terminate the shell on `exit`
 		}
-		// Process `exit` built-in command
 		else if (ft_strcmp(cmd->path_to_exec, "env") == 0)
 		{
 			vars->last_exit_status = env_builtin(vars);
-			// Handle fatal error in `exit_builtin`
-			if (vars->last_exit_status == EXIT_FATAL_ERROR)
-			{
-				printf("Fatal error in exit_builtin\n");
-				return ;
-			}
-			// Print the exit code and stop processing commands
+			handle_builtin_error(vars->last_exit_status, "env");
 			printf("env exit code: %d\n", vars->last_exit_status);
-			break ;
+			return ; // Return after processing `env`
 		}
 		else if (ft_strcmp(cmd->path_to_exec, "pwd") == 0)
 		{
-			vars->last_exit_status = pwd_builtin(vars,
-					(const char **)cmd->args_for_execve + 1);
-			// Handle fatal error in `exit_builtin`
-			if (vars->last_exit_status == EXIT_FATAL_ERROR)
-			{
-				printf("Fatal error in pwd_builtin\n");
-				return ;
-			}
-			// Print the exit code and stop processing commands
+			vars->last_exit_status = pwd_builtin(vars, args);
+			handle_builtin_error(vars->last_exit_status, "pwd");
 			printf("pwd exit code: %d\n", vars->last_exit_status);
 		}
 		else if (ft_strcmp(cmd->path_to_exec, "unset") == 0)
 		{
-			vars->last_exit_status = unset_builtin(&vars->envs,
-					(const char **)cmd->args_for_execve + 1);
-			// Handle fatal error in `exit_builtin`
-			if (vars->last_exit_status == EXIT_FATAL_ERROR)
-			{
-				printf("Fatal error in unset_builtin\n");
-				return ;
-			}
-			// Print the exit code and stop processing commands
+			vars->last_exit_status = unset_builtin(&vars->envs, args);
+			handle_builtin_error(vars->last_exit_status, "unset");
 			printf("unset_builtin exit code: %d\n", vars->last_exit_status);
+		}
+		else if (ft_strcmp(cmd->path_to_exec, "export") == 0)
+		{
+			vars->last_exit_status = export_builtin(&vars->envs, args);
+			// Fixed here
+			handle_builtin_error(vars->last_exit_status, "export");
+			printf("export_builtin exit code: %d\n", vars->last_exit_status);
 		}
 	}
 }

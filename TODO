@@ -2,6 +2,18 @@ BUILTINS
 	For now I'm assuming that builtin args is skipped, when passing args to the
 	builtins
 
+pwd 
+	use only getcwd command -> no need to have get_env_value (can be outdated or unsetted)
+	static buffersize = 4096. Should we make dynamic?
+
+export builtin
+	"export" without arg: Should print all envvar with prefix "declare -x "
+	"export" with valid key=value: Add/update a new key=value pair to envvar. Will be 
+			printed by export and env command. 
+	"export" with invalid key=value: Add a new key without value. Will be printed 
+			by export command, but will not env command.
+
+	In our implementation will be added only valid key=value pair
 
 exit builtin
 	In every cases it should print exit (and really exit) and than print error if

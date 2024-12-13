@@ -6,173 +6,107 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:29:58 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 19:38:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 
-bool	is_valid_export_arg(const char *arg)
+#define EXPORT_PREFIX "minishell: export: '"
+#define EXPORT_ERROR "' not a valid identifier\n"
+
+static void	export_err_msg(const char *msg)
 {
-	const char	*c;
-
-	c = arg;
-	if (!arg || ft_strchr(arg, '=') == NULL)
-		return (false);
-	if (!(arg[0] == '_' || ft_isalpha(arg[0])))
-		return (false);
-	while (*c != '=')
-	{
-		if (!(isalnum(*c) || *c == '_'))
-			return (false);
-		c++;
-	}
-	return (true);
+	if (write(2, EXPORT_PREFIX, ft_strlen(EXPORT_PREFIX)) == -1)
+		exit(EXIT_FATAL_ERROR);
+	if (write(2, msg, ft_strlen(msg)) == -1)
+		exit(EXIT_FATAL_ERROR);
+	if (write(2, EXPORT_ERROR, ft_strlen(EXPORT_ERROR)) == -1)
+		exit(EXIT_FATAL_ERROR);
 }
 
-static t_env	*create_env_variable(const char *key, const char *value)
+static int	write_env_variable(const char *prefix, t_env *env)
 {
-	t_env	*new_env;
-
-	new_env = malloc(sizeof(t_env));
-	if (!new_env)
-		return (NULL);
-	new_env->key = ft_strdup(key);
-	if (value)
-		new_env->value = ft_strdup(value);
-	else
-		new_env->value = NULL;
-	if (!new_env->key || (value && !new_env->value))
-	{
-		free(new_env->key);
-		free(new_env->value);
-		free(new_env);
-		return (NULL);
-	}
-	return (new_env);
-}
-
-static int	update_env_variable(t_env *env, const char *value)
-{
-	char	*new_value;
-
-	new_value = ft_strdup(value);
-	if (!new_value)
+	if (write(1, prefix, ft_strlen(prefix)) == -1)
 		return (EXIT_FATAL_ERROR);
-	free(env->value);
-	env->value = new_value;
+	if (write(1, env->key, ft_strlen(env->key)) == -1)
+		return (EXIT_FATAL_ERROR);
+	if (env->value)
+	{
+		if (write(1, "=\"", 2) == -1)
+			return (EXIT_FATAL_ERROR);
+		if (write(1, env->value, ft_strlen(env->value)) == -1)
+			return (EXIT_FATAL_ERROR);
+		if (write(1, "\"", 1) == -1)
+			return (EXIT_FATAL_ERROR);
+	}
+	if (write(1, "\n", 1) == -1)
+		return (EXIT_FATAL_ERROR);
 	return (EXIT_OK);
 }
 
-static int	add_env_to_list(t_vars *vars, t_env *new_env)
+static int	export_no_args_builtin(const t_list *envs)
 {
-	t_list	*new_node;
+	const char		*prefix;
+	const t_list	*current;
+	t_env			*env;
 
-	new_node = malloc(sizeof(t_list));
-	if (!new_node)
-		return (EXIT_FATAL_ERROR);
-	new_node->content = new_env;
-	new_node->next = vars->envs;
-	vars->envs = new_node;
-	return (EXIT_OK);
-}
-
-static int	parse_key_value(const char *arg, char **key, char **value)
-{
-	char	*key_end;
-	size_t	key_len;
-
-	key_end = strchr(arg, '=');
-	if (!key_end)
-		return (EXIT_FATAL_ERROR);
-	key_len = key_end - arg;
-	*key = strndup(arg, key_len);
-	*value = ft_strdup(key_end + 1);
-	if (!*key || !*value)
-	{
-		free(*key);
-		free(*value);
-		return (EXIT_FATAL_ERROR);
-	}
-	return (EXIT_OK);
-}
-
-static int	update_existing_variable(t_list *envs, const char *key,
-		const char *value)
-{
-	t_list	*current;
-	t_env	*env;
-
+	if (!envs)
+		return (EXIT_OK);
+	prefix = "declare -x ";
 	current = envs;
 	while (current)
 	{
 		env = (t_env *)current->content;
-		if (strcmp(env->key, key) == 0)
-		{
-			free(env->value);
-			env->value = ft_strdup(value);
-			if (!env->value)
-				return (EXIT_FATAL_ERROR);
-			return (EXIT_OK);
-		}
+		if (!env || !env->key)
+			return (EXIT_FATAL_ERROR);
+		if (write_env_variable(prefix, env) == EXIT_FATAL_ERROR)
+			return (EXIT_FATAL_ERROR);
 		current = current->next;
-	}
-	return (EXIT_FATAL_ERROR);
-}
-
-static int	safe_add_or_update_env(t_vars *vars, const char *arg)
-{
-	char	*key;
-	char	*value;
-	t_env	*new_env;
-
-	key = NULL;
-	value = NULL;
-	new_env = NULL;
-	if (parse_key_value(arg, &key, &value) != EXIT_OK)
-		return (EXIT_FATAL_ERROR);
-	if (update_existing_variable(vars->envs, key, value) == EXIT_OK)
-	{
-		free(key);
-		free(value);
-		return (EXIT_OK);
-	}
-	new_env = create_env_variable(key, value);
-	free(key);
-	free(value);
-	if (!new_env || add_env_to_list(vars, new_env) != EXIT_OK)
-	{
-		free_env_variable(new_env);
-		return (EXIT_FATAL_ERROR);
 	}
 	return (EXIT_OK);
 }
 
-int	export_builtin(t_vars *vars, const char **args)
+static int	add_env(t_list **env_head, const char *arg)
+{
+	t_ret		ft_initialize_one_env_status;
+	t_list		*env_node;
+	t_env		*new_env;
+	const char	*unset_args[2];
+
+	ft_initialize_one_env_status = ft_initialize_one_env(arg);
+	if (ft_initialize_one_env_status.status == (-1))
+		return (EXIT_FATAL_ERROR);
+	env_node = ft_lstnew(ft_initialize_one_env_status.ret);
+	if (env_node == NULL)
+		return (EXIT_FATAL_ERROR);
+	new_env = (t_env *)env_node->content;
+	unset_args[0] = new_env->key;
+	unset_args[1] = NULL;
+	unset_builtin(env_head, unset_args);
+	ft_lstadd_back(env_head, env_node);
+	return (EXIT_OK);
+}
+
+int	export_builtin(t_list **env_head, const char **args)
 {
 	size_t	i;
 
 	i = 0;
-	if (!vars || !args)
+	if (!env_head || !args)
 		return (EXIT_FATAL_ERROR);
 	if (!args[0])
-		return (export_no_args_builtin(vars));
+		return (export_no_args_builtin(*env_head));
 	while (args[i] != NULL)
 	{
 		if (!is_valid_export_arg(args[i]))
 		{
+			export_err_msg(args[i]);
 			i++;
 			continue ;
 		}
-		if (add_or_update_env(vars, args[i]) != EXIT_OK)
-		{
-			if (write(2, EXPORT_ERROR, ft_strlen(EXPORT_ERROR)) == -1)
-				return (EXIT_FATAL_ERROR);
+		if (add_env(env_head, args[i]) != EXIT_OK)
 			return (EXIT_FATAL_ERROR);
-		}
 		i++;
 	}
 	return (EXIT_OK);

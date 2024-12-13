@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/13 17:32:17 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 19:01:11 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define UTILS_H
 
 # include <libft.h>
+# include <stdbool.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -115,16 +116,27 @@ int			ft_errmsg(const char *msg);
 int			ft_input_issspace(const char *str);
 
 /**
- * Transforms $envp to a linked list, all nodes of which can be freed,
- * including it's content (which is of "t_env" type).
- * @brief	Transforms $envp to a linked list.
- * @warning	Dynamic memory allocation is used.
- * @param	envp	Environment pointer.
- * @return (If $status is (-1), then malloc() failed and $ret will be NULL);
- * 			in all other cases $status is a non-negative value,
- * 				and $ret contains a head of the linked list
- * 				with each environment variable saved as t_env.
+ * Initialize a single node contaning t_env with environment variable.
+ * @warning	Dyamic memory allocation is used.
+ * @param	env	Environment variable.
+ * @return (If $status is (-1), then malloc() failed and $ret is NULL);
+ * 			Otherwise $status is non-negative value, and $ret
+ * 				contains a t_env with environment variable.
  */
+t_ret		ft_initialize_one_env(const char *env);
+
+/**
+	* Transforms $envp to a linked list, all nodes of which can be freed,
+	* including it's content (which is of "t_env" type).
+	* @brief	Transforms $envp to a linked list.
+	* @warning	Dynamic memory allocation is used.
+	* @param	envp	Environment pointer.
+	* @return (If $status is (-1),
+		then malloc() failed and $ret will be NULL);
+	* 			in all other cases $status is a non-negative value,
+	* 				and $ret contains a head of the linked list
+	* 				with each environment variable saved as t_env.
+	*/
 t_ret		ft_initialize_envs(const char **envp);
 
 /**
@@ -138,5 +150,8 @@ void		ft_free_t_env(t_env *env);
 
 // Returns the value of the environment variable with the key $key.
 char		*get_env_value(t_vars *vars, const char *key);
+
+// Checks if the string is a valid export argument.(key=value)
+bool		is_valid_export_arg(const char *arg);
 
 #endif /* UTILS_H */

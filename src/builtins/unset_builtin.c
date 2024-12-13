@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:59:34 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 17:38:14 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 19:44:51 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	remove_env(t_list **envs, const char *key)
 	}
 	return (EXIT_OK);
 }
+
 /**
  * Unsets one or more environment variables.
  *
@@ -64,6 +65,11 @@ int	unset_builtin(t_list **envs, const char **args)
 	status = EXIT_OK;
 	while (*args)
 	{
+		if (!*args || ft_strlen(*args) == 0 || ft_input_issspace(*args))
+		{
+			args++;
+			continue ;
+		}
 		result = remove_env(envs, *args);
 		if (result == EXIT_FATAL_ERROR)
 			return (EXIT_FATAL_ERROR);

@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 15:37:28 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 20:03:19 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,31 +30,6 @@ static int	ft_exit_error(const char *arg)
 }
 
 /**
- * @brief Parses the sign, skips whitespace,
-	and returns a pointer to the number.
- *
- * @param nptr Pointer to the string to parse.
- * @param sign Pointer to an integer where the sign (+1 or -1) will be stored.
-
- * @return const char* Pointer to the remaining part of the string after parsing
- */
-static const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign)
-{
-	*sign = 1;
-	if (!nptr)
-		return (NULL);
-	while (ft_isspace(*nptr))
-		nptr++;
-	if (*nptr == '+' || *nptr == '-')
-	{
-		if (*nptr == '-')
-			*sign = -1;
-		nptr++;
-	}
-	return (nptr);
-}
-
-/**
  * @brief skip leading and trailing whitespaces. Check if there is any other
  * 			character than digits or +/- before the digits
  *
@@ -62,7 +37,7 @@ static const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign)
  * @return true
  * @return false ("  - 123" "+-123" "123 123" "123a123" "    " "")
  */
-static bool	validate_arg(const char *arg)
+static bool	validate_exit_arg(const char *arg)
 {
 	if (!arg || !*arg)
 		return (false);
@@ -121,7 +96,7 @@ static int	extract_validate_arg(const char *arg)
 
 	if (!arg)
 		return (EXIT_FATAL_ERROR);
-	if (!validate_arg(arg))
+	if (!validate_exit_arg(arg))
 		return (ft_exit_error(arg));
 	res = extract_arg(arg);
 	res = ((res % 256) + 256) % 256;

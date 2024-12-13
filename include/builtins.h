@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 17:36:47 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 20:02:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ and in case of failure will be negative (-1).
 # define EXIT_OK 1
 # define EXIT_FATAL_ERROR -1
 
-int	echo_builtin(const char *args[]);
-int	env_builtin(t_vars *vars);
-int	export_no_args_builtin(t_vars *vars);
-int	exit_builtin(const char *args[], int *last_exit_code);
-int	pwd_builtin(t_vars *vars, const char **args);
-int	unset_builtin(t_list **envs, const char **args);
+int			echo_builtin(const char *args[]);
+int			env_builtin(t_vars *vars);
+int			export_builtin(t_list **env_head, const char **args);
+int			exit_builtin(const char *args[], int *last_exit_code);
+const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign);
+int			pwd_builtin(t_vars *vars, const char **args);
+int			unset_builtin(t_list **envs, const char **args);
 
 #endif /* BUILTINS_H */

@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   export_utils.c                                     :+:      :+:    :+:   */
+/*   is_valid_export_arg.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/12 17:30:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 14:50:42 by root             ###   ########.fr       */
+/*   Created: 2024/12/13 18:07:18 by root              #+#    #+#             */
+/*   Updated: 2024/12/13 19:01:48 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <builtins.h>
+#include <stdbool.h>
+#include <utils.h>
 
 bool	is_valid_export_arg(const char *arg)
 {
@@ -23,7 +24,7 @@ bool	is_valid_export_arg(const char *arg)
 		return (false);
 	while (*c != '=')
 	{
-		if (!(isalnum(*c) || *c == '_'))
+		if (!(ft_isalnum(*c) || *c == '_'))
 			return (false);
 		c++;
 	}
