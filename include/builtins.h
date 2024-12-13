@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/12 17:31:07 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 14:45:37 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ and in case of failure will be negative (-1).
 
 int	echo_builtin(const char *args[]);
 int	env_builtin(t_vars *vars);
-
 int	export_no_args_builtin(t_vars *vars);
+int	exit_builtin(const char *args[], int *last_exit_code);
 
 #endif /* BUILTINS_H */
