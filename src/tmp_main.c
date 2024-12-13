@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:26:25 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/13 16:10:24 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 17:03:15 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,19 @@ static void	test_builtin(t_list *cmds, t_vars *vars)
 			// Print the exit code and stop processing commands
 			printf("env exit code: %d\n", vars->last_exit_status);
 			break ;
+		}
+		else if (ft_strcmp(cmd->path_to_exec, "pwd") == 0)
+		{
+			vars->last_exit_status = pwd_builtin(vars,
+					(const char **)cmd->args_for_execve + 1);
+			// Handle fatal error in `exit_builtin`
+			if (vars->last_exit_status == EXIT_FATAL_ERROR)
+			{
+				printf("Fatal error in pwd_builtin\n");
+				return ;
+			}
+			// Print the exit code and stop processing commands
+			printf("pwd exit code: %d\n", vars->last_exit_status);
 		}
 	}
 }

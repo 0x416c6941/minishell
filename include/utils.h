@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/13 14:35:37 by root             ###   ########.fr       */
+/*   Updated: 2024/12/13 17:00:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,5 +133,9 @@ void		ft_free_t_env(t_env *env);
 
 // // Function to calculate the number of elements in const char *args[]
 // size_t		calculate_args_count(const char *args[]);
+
+//Returns the value of the environment variable with the key $key.
+char	*get_env_value(t_vars *vars, const char *key);
+
 
 #endif /* UTILS_H */
