@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 14:16:19 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
+/*   Updated: 2024/12/14 10:29:08 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,18 @@ int	env_builtin(t_vars *vars)
 			env = (t_env *)current->content;
 			if (env->key)
 			{
-				ft_printf("%s", env->key);
+				if (write(STDOUT_FILENO, env->key, ft_strlen(env->key)) == -1)
+					return (EXIT_FATAL_ERROR);
 				if (env->value)
-					ft_printf("=%s", env->value);
-				ft_printf("\n");
+				{
+					if (write(STDOUT_FILENO, "=", 1) == -1
+						|| write(STDOUT_FILENO, env->value,
+							ft_strlen(env->value)) == -1 || write(STDOUT_FILENO,
+							"\n", 1) == -1)
+						return (EXIT_FATAL_ERROR);
+				}
+				else if (write(STDOUT_FILENO, "\n", 1) == -1)
+					return (EXIT_FATAL_ERROR);
 			}
 		}
 		current = current->next;

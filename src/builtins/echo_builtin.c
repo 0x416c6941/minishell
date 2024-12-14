@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:05 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 15:15:08 by root             ###   ########.fr       */
+/*   Updated: 2024/12/14 10:23:59 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,18 @@ int	echo_builtin(const char *args[])
 	args = check_flag(args, &newline);
 	while (*args != NULL)
 	{
-		if (write(1, *args, ft_strlen(*args)) == -1)
+		if (write(STDOUT_FILENO, *args, ft_strlen(*args)) == -1)
 			return (EXIT_FATAL_ERROR);
 		if (*(args + 1) != NULL)
 		{
-			if (write(1, " ", 1) == -1)
+			if (write(STDOUT_FILENO, " ", 1) == -1)
 				return (EXIT_FATAL_ERROR);
 		}
 		args++;
 	}
 	if (newline)
 	{
-		if (write(1, "\n", 1) == -1)
+		if (write(STDOUT_FILENO, "\n", 1) == -1)
 			return (EXIT_FATAL_ERROR);
 	}
 	return (EXIT_OK);

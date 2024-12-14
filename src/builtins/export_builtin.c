@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:29:58 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 19:38:59 by root             ###   ########.fr       */
+/*   Updated: 2024/12/14 10:32:56 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,30 +17,30 @@
 
 static void	export_err_msg(const char *msg)
 {
-	if (write(2, EXPORT_PREFIX, ft_strlen(EXPORT_PREFIX)) == -1)
+	if (write(STDERR_FILENO, EXPORT_PREFIX, ft_strlen(EXPORT_PREFIX)) == -1)
 		exit(EXIT_FATAL_ERROR);
-	if (write(2, msg, ft_strlen(msg)) == -1)
+	if (write(STDERR_FILENO, msg, ft_strlen(msg)) == -1)
 		exit(EXIT_FATAL_ERROR);
-	if (write(2, EXPORT_ERROR, ft_strlen(EXPORT_ERROR)) == -1)
+	if (write(STDERR_FILENO, EXPORT_ERROR, ft_strlen(EXPORT_ERROR)) == -1)
 		exit(EXIT_FATAL_ERROR);
 }
 
 static int	write_env_variable(const char *prefix, t_env *env)
 {
-	if (write(1, prefix, ft_strlen(prefix)) == -1)
+	if (write(STDOUT_FILENO, prefix, ft_strlen(prefix)) == -1)
 		return (EXIT_FATAL_ERROR);
-	if (write(1, env->key, ft_strlen(env->key)) == -1)
+	if (write(STDOUT_FILENO, env->key, ft_strlen(env->key)) == -1)
 		return (EXIT_FATAL_ERROR);
 	if (env->value)
 	{
-		if (write(1, "=\"", 2) == -1)
+		if (write(STDOUT_FILENO, "=\"", 2) == -1)
 			return (EXIT_FATAL_ERROR);
-		if (write(1, env->value, ft_strlen(env->value)) == -1)
+		if (write(STDOUT_FILENO, env->value, ft_strlen(env->value)) == -1)
 			return (EXIT_FATAL_ERROR);
-		if (write(1, "\"", 1) == -1)
+		if (write(STDOUT_FILENO, "\"", 1) == -1)
 			return (EXIT_FATAL_ERROR);
 	}
-	if (write(1, "\n", 1) == -1)
+	if (write(STDOUT_FILENO, "\n", 1) == -1)
 		return (EXIT_FATAL_ERROR);
 	return (EXIT_OK);
 }
