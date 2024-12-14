@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:39:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:39:01 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 23:44:36 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ typedef struct s_minishell_data
 	t_vars		vars;
 	const bool	is_interactive;
 	t_list		*parser_result;
+	/**
+	 * Since we'll overwrite STDIN_FILENO and STDOUT_FILENO
+	 * when executable builtins, we'll need to preserve real file descriptors.
+	 */
+	int			real_stdin_fd;
+	int			real_stdout_fd;
 	bool		should_leave;
 	int			with_which_code;
 }	t_minishell_data;
@@ -61,8 +67,10 @@ int		ft_init_data(const char **envp, t_minishell_data *data);
 /**
  * free()'s Minishell's data and clears readline's history.
  * @param	data	Minishell's data to free().
+ * @return	(-1), if some close() failed;
+ * 			(Some non-negative value) otherwise.
  */
-void	ft_free_data(t_minishell_data *data);
+int		ft_free_data(t_minishell_data *data);
 
 /**
  * Gets a prompt from user and divides it into execs by running parser on it.
@@ -80,5 +88,11 @@ int		ft_get_execs(t_minishell_data *data);
  * @return	Literally garbage. return()'s some data just to bypass Norminette.
  */
 int		minishell(t_minishell_data *data);
+
+/**
+ * Prepares environment (handles all stdin and stdout redirections)
+ * and executes the entered commands (t_execs).
+ */
+int		ft_prep_env_and_exec(t_minishell_data *data);
 
 #endif /* MINISHELL_H */
