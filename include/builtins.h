@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 20:02:45 by root             ###   ########.fr       */
+/*   Updated: 2024/12/14 19:28:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@
 # include <unistd.h>
 # include <utils.h>
 
-/*
-To be consistent with t_ret in case of success will be exot code positive (1)
-and in case of failure will be negative (-1).
-*/
+/**
+ * To be consistent with t_ret, in case of success
+ * 	exit code will be positive (1)
+ * and in case of failure will be negative (-1).
+ */
 # define EXIT_OK 1
 # define EXIT_FATAL_ERROR -1
 
