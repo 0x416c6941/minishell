@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:33:48 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:43:12 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:53:58 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,7 @@ int	minishell(t_minishell_data *data)
 		// handle heredocs and exec I guess?.
 		ft_lstclear((t_list **)&data->parser_result,
 			(void (*)(void *))ft_free_t_ret_with_t_exec);
+		if (data->should_leave)
+			return (0);
 	}
 }
