@@ -9,13 +9,21 @@ INC_DIR = include
 
 # Source files.
 SRC_DIR = src
-SRC_FILES = tmp_main.c utils/ft_skip_spaces.c utils/ft_handle_quotes.c		\
-			utils/ft_errmsg.c utils/ft_input_issspace.c						\
-			utils/ft_free_t_env.c utils/ft_initialize_envs.c				\
-			parse/ft_get_next_token.c parse/ft_get_next_arg.c				\
-			parse/ft_free_args_for_execve.c parse/ft_free_t_stdin_redir.c	\
-			parse/ft_free_t_stdout_redir.c parse/ft_free_t_exec.c			\
-			parse/ft_get_cmd_raw_quotes.c parse/ft_is_builtin.c				\
+SRC_FILES = tmp_main.c														\
+			utils/ft_skip_spaces.c											\
+			utils/ft_handle_quotes.c										\
+			utils/ft_errmsg.c												\
+			utils/ft_input_issspace.c										\
+			utils/ft_free_t_env.c											\
+			utils/ft_initialize_envs.c										\
+			parse/ft_get_next_token.c										\
+			parse/ft_get_next_arg.c											\
+			parse/ft_free_args_for_execve.c									\
+			parse/ft_free_t_stdin_redir.c									\
+			parse/ft_free_t_stdout_redir.c									\
+			parse/ft_free_t_exec.c											\
+			parse/ft_get_cmd_raw_quotes.c									\
+			parse/ft_is_builtin.c											\
 			parse/ft_get_pathname_for_execve.c								\
 			parse/ft_free_t_ret_with_t_exec.c								\
 			parse/ft_final_parser.c											\
