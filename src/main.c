@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:02:44 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:09:34 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:58:45 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	main(int argc, char **argv, char **envp)
 	exit_code = data.with_which_code;
 	ft_free_data(&data);
 	if (!should_have_left)
-		(void)ft_errmsg("data.should_leave is false, but leaving anyway.\n");
+		if (ft_errmsg("data.should_leave is false, but should have left.\n")
+			== -1)
+			return (MESSED_UP);
 	return (exit_code);
 }
