@@ -16,6 +16,8 @@ SRC_FILES = tmp_main.c														\
 			utils/ft_input_issspace.c										\
 			utils/ft_free_t_env.c											\
 			utils/ft_initialize_envs.c										\
+			utils/get_env_value.c											\
+			utils/is_valid_export_arg.c										\
 			parse/ft_get_next_token.c										\
 			parse/ft_get_next_arg.c											\
 			parse/ft_free_args_for_execve.c									\
@@ -49,8 +51,6 @@ SRC_FILES = tmp_main.c														\
 			builtins/pwd_builtin.c											\
 			builtins/unset_builtin.c										\
 			builtins/export_builtin.c										\
-			utils/get_env_value.c											\
-			utils/is_valid_export_arg.c										\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
