@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 11:51:34 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/10 13:27:22 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:16:24 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ typedef struct s_stdout_redir
 
 typedef struct s_fd
 {
-	int		fd;
 	bool	is_initialized;
+	int		fd;
 }	t_fd;
 
 /**

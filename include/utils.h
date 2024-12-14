@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 19:27:20 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 20:27:49 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ enum	e_quotes_type
 typedef struct s_ret
 {
 	/**
-		* $status values meaning:
-		* 	(-1): error that should lead to exit of minishell;
-		* 	Non-negative value: can proceed as normal.
-		* 		Those however can be further adjusted
-		* 		depending on the indivial functions.
-		*/
+	 * $status values meaning:
+	 * 	(-1): error that should lead to exit of minishell;
+	 * 	Non-negative value: can proceed as normal.
+	 * 		Those however can be further adjusted
+	 * 		depending on the indivial functions.
+	 */
 	int		status;
 	void	*ret;
-}		t_ret;
+}	t_ret;
 
 /**
  * Basically a map-like structure, however only for one key-value pair.
@@ -65,20 +65,31 @@ typedef struct s_env
 {
 	char	*key;
 	char	*value;
-}		t_env;
+}	t_env;
 
 /**
  * Unfortunalely, since neither $environ nor putenv() can be used,
  * we need to use an $envp, which isn't a universally accepted standard,
- * and later divide it to a structure we'd be able to manipulate with.
- * t_list *envs -> $content is a t_env in each node.
- * */
-
+ * and later split it into a structure we'd be able to manipulate with.
+ * In each node of envs, $content is a t_env.
+ */
 typedef struct s_vars
 {
 	int		last_exit_status;
 	t_list	*envs;
-}		t_vars;
+}	t_vars;
+
+/**
+ * Structure with all data Minishell would use.
+ */
+typedef struct s_minishell_data
+{
+	t_vars		vars;
+	const bool	is_interactive;
+	t_ret		parser_result;
+	bool		should_leave;
+	int			with_which_code;
+}	t_minishell_data;
 
 /**
  * ---------------------------------------------------------------------------
@@ -145,13 +156,28 @@ t_ret	ft_initialize_envs(const char **envp);
  */
 void	ft_free_t_env(t_env *env);
 
-// // Function to calculate the number of elements in const char *args[]
-// size_t		calculate_args_count(const char *args[]);
+/* Function to calculate the number of elements in const char *args[] */
+/* size_t	calculate_args_count(const char *args[]); */
 
-// Returns the value of the environment variable with the key $key.
+/* Returns the value of the environment variable with the key $key. */
 char	*get_env_value(t_vars *vars, const char *key);
 
-// Checks if the string is a valid export argument.(key=value)
+/* Checks if the string is a valid export argument.(key=value) */
 bool	is_valid_export_arg(const char *arg);
+
+/**
+ * Initializes Minishell's data.
+ * @warning	Dynamic memory allocation is used.
+ * @param	data	Where to initialize the data.
+ * @return	(-1), if some malloc() failed;
+ * 			(Some non-negative value) otherwise.
+ */
+int		ft_init_data(const char **envp, t_minishell_data *data);
+
+/**
+ * free()'s Minishell's data and clears readline's history.
+ * @param	data	Minishell's data to free().
+ */
+void	ft_free_data(t_minishell_data *data);
 
 #endif /* UTILS_H */

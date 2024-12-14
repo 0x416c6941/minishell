@@ -9,15 +9,18 @@ INC_DIR = include
 
 # Source files.
 SRC_DIR = src
-SRC_FILES = tmp_main.c														\
+SRC_FILES = main.c															\
 			utils/ft_skip_spaces.c											\
 			utils/ft_handle_quotes.c										\
 			utils/ft_errmsg.c												\
 			utils/ft_input_issspace.c										\
 			utils/ft_free_t_env.c											\
+			utils/ft_initialize_one_env.c									\
 			utils/ft_initialize_envs.c										\
 			utils/get_env_value.c											\
 			utils/is_valid_export_arg.c										\
+			utils/ft_init_data.c											\
+			utils/ft_free_data.c											\
 			parse/ft_get_next_token.c										\
 			parse/ft_get_next_arg.c											\
 			parse/ft_free_args_for_execve.c									\
