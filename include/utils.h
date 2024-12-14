@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 20:27:49 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/14 21:08:45 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,18 +78,6 @@ typedef struct s_vars
 	int		last_exit_status;
 	t_list	*envs;
 }	t_vars;
-
-/**
- * Structure with all data Minishell would use.
- */
-typedef struct s_minishell_data
-{
-	t_vars		vars;
-	const bool	is_interactive;
-	t_ret		parser_result;
-	bool		should_leave;
-	int			with_which_code;
-}	t_minishell_data;
 
 /**
  * ---------------------------------------------------------------------------
@@ -164,20 +152,5 @@ char	*get_env_value(t_vars *vars, const char *key);
 
 /* Checks if the string is a valid export argument.(key=value) */
 bool	is_valid_export_arg(const char *arg);
-
-/**
- * Initializes Minishell's data.
- * @warning	Dynamic memory allocation is used.
- * @param	data	Where to initialize the data.
- * @return	(-1), if some malloc() failed;
- * 			(Some non-negative value) otherwise.
- */
-int		ft_init_data(const char **envp, t_minishell_data *data);
-
-/**
- * free()'s Minishell's data and clears readline's history.
- * @param	data	Minishell's data to free().
- */
-void	ft_free_data(t_minishell_data *data);
 
 #endif /* UTILS_H */

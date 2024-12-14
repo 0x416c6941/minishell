@@ -19,8 +19,6 @@ SRC_FILES = main.c															\
 			utils/ft_initialize_envs.c										\
 			utils/get_env_value.c											\
 			utils/is_valid_export_arg.c										\
-			utils/ft_init_data.c											\
-			utils/ft_free_data.c											\
 			parse/ft_get_next_token.c										\
 			parse/ft_get_next_arg.c											\
 			parse/ft_free_args_for_execve.c									\
@@ -54,6 +52,10 @@ SRC_FILES = main.c															\
 			builtins/pwd_builtin.c											\
 			builtins/unset_builtin.c										\
 			builtins/export_builtin.c										\
+			minishell/ft_init_data.c										\
+			minishell/ft_free_data.c										\
+			minishell/minishell.c											\
+			minishell/ft_get_execs.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
