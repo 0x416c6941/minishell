@@ -7,7 +7,7 @@
 
 # Binary, object files, dependency files, compiled libraries.
 a.out
-minishell
+/minishell
 *.o
 *.d
 *.a
