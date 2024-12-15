@@ -30,12 +30,8 @@ exit builtin
 expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!
 
-Remaining stuff:
-	heredoc expander;
-	executioner.
-
 output file should be created before executing the command
 
-We will NOT use any global variables.
-They are allowed only for signal processing, but even for that
-they're not required.
+
+executor is started before all heredocs are handled - fix this behaviour
+	we need to handle all heredocs, stdin and stdout redirs before executing anything
