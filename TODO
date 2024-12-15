@@ -33,5 +33,54 @@ expander for ~ (home working directory)
 output file should be created before executing the command
 
 
-executor is started before all heredocs are handled - fix this behaviour
-	we need to handle all heredocs, stdin and stdout redirs before executing anything
+Make error-logging more bash-like.
+
+Known glitches:
+
+this output:
+	exit 42 world
+	exit
+Returns 0. 1 should be returned instead.
+
+this output:
+	cat < $UNEXISTING_FILE
+Sets $? to 255. 1 should be set instead.
+
+this output:
+	cat < $UNEIXSTING_FILE | cat
+Sets $? to 255. 0 should be set instead.
+	this output:
+		cat < $UNEXISTING_FILE | echo
+	Sets $? to 255. 0 should be set instead.
+
+this output:
+	$UNEXISTING_COMMAND
+Sets $? to 255. 1 should be set instead.
+
+this output:
+	echo <123 <456 hi | echo 42
+Sets $? to 255. 0 should be set instead.
+
+this output:
+	ls > /root/no_permission
+Sets $? to 255. 1 should be set instead.
+
+this output:
+	$EMPTY
+Sets $? to 1. 0 should be set instead.
+
+this output:
+	$EMPTY echo hi
+Sets $? to 1. 0 should be set instead and echo needs to be run.
+
+this output:
+	/root/no_perm
+Sets $? to 255. 126 should be used instead (no perms).
+
+this:
+	/
+Sets $? to 255. 126 should be used instead (dirs).
+
+this:
+	README.md
+Sets $? to 255. 127 should be used instead.
