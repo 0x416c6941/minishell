@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:44:17 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:49:00 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:57:46 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,33 @@ static int	ft_get_execs_stupid_norminette_bypass(char *readline_input,
 	return (MINISHELL_INPUT_INCORRECT);
 }
 
+static int	ft_get_execs_handle_redirs(t_minishell_data *data)
+{
+	t_list	*exec;
+	t_exec	*cmd;
+
+	exec = data->parser_result;
+	while (exec != NULL)
+	{
+		cmd = ((t_ret *)(exec->content))->ret;
+		if (cmd != NULL)
+		{
+			if (ft_handle_redirs(cmd) == -1)
+			{
+				ft_free_t_exec(cmd);
+				((t_ret *)(exec->content))->status = IO_FAIL;
+				((t_ret *)(exec->content))->ret = NULL;
+			}
+		}
+		exec = exec->next;
+	}
+	return (MINISHELL_INPUT_OK);
+}
+
 static int	ft_get_execs_parse_prompt(t_minishell_data *data, char *prompt)
 {
-	t_ret		pstatus;
-	int			vstatus;
+	t_ret	pstatus;
+	int		vstatus;
 
 	pstatus = ft_final_parser((const t_vars *)&data->vars, prompt);
 	free(prompt);
@@ -55,7 +78,7 @@ static int	ft_get_execs_parse_prompt(t_minishell_data *data, char *prompt)
 				(void (*)(void *))ft_free_t_ret_with_t_exec),
 			MINISHELL_INPUT_INCORRECT);
 	data->parser_result = pstatus.ret;
-	return (MINISHELL_INPUT_OK);
+	return (ft_get_execs_handle_redirs(data));
 }
 
 int	ft_get_execs(t_minishell_data *data)

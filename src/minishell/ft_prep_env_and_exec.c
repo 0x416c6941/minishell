@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:38:19 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 19:25:19 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:57:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	ft_save_pipes_and_fork(int pipes[2], pid_t *pid)
  */
 static int	ft_prep_env(t_minishell_data *data, int pipes[2], int cmd_i)
 {
+	t_exec	*cmd;
+
 	if (pipes[0] != -1)
 	{
 		if (dup2(pipes[0], STDIN_FILENO) == -1)
@@ -74,9 +76,16 @@ static int	ft_prep_env(t_minishell_data *data, int pipes[2], int cmd_i)
 			return (-1);
 		(void)close(pipes[1]);
 	}
-	if (ft_handle_redirs(((t_ret *)(ft_lstat(data->parser_result,
-					(size_t)cmd_i))->content)->ret) == -1)
-		return (-1);
+	cmd = ((t_ret *)(ft_lstat(data->parser_result,
+					(size_t)cmd_i))->content)->ret;
+	if (cmd->stdin_redir.is_initialized)
+		if (dup2(cmd->stdin_redir.fd, STDIN_FILENO) == -1
+			|| close(cmd->stdin_redir.fd) == -1)
+			return (-1);
+	if (cmd->stdout_redir.is_initialized)
+		if (dup2(cmd->stdout_redir.fd, STDOUT_FILENO) == -1
+			|| close(cmd->stdout_redir.fd) == -1)
+			return (-1);
 	return (0);
 }
 
@@ -130,7 +139,9 @@ int	ft_prep_env_and_exec(t_minishell_data *data)
 			break ;
 		i++;
 	}
-	if (ft_prep_env(data, pipes, i) == -1)
-		return (data->with_which_code = MESSED_UP, -1);
+	if (((t_ret *)(ft_lstat(data->parser_result, (size_t)i)->content))
+		->ret != NULL)
+		if (ft_prep_env(data, pipes, i) == -1)
+			return (data->with_which_code = MESSED_UP, -1);
 	return (ft_exec(data, i));
 }

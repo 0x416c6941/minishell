@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 01:20:53 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 17:14:02 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 20:59:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	ft_exec_builtin(t_minishell_data *data, t_exec *cmd)
 	else if (ft_strcmp(cmd->args_for_execve[0], "env") == 0)
 		return (env_builtin(data, (const char **)(cmd->args_for_execve + 1)));
 	else if (ft_strcmp(cmd->args_for_execve[0], "exit") == 0)
-		return (exit_builtin(data, (const char **)(cmd->args_for_execve + 1)));
+	{
+		exit_builtin(data, (const char **)(cmd->args_for_execve + 1));
+		return (data->vars.last_exit_status);
+	}
 	return (HOW_DID_WE_GET_HERE);
 }
