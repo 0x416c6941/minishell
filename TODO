@@ -82,3 +82,8 @@ Sets $? to 255. 126 should be used instead (dirs).
 this:
 	README.md
 Sets $? to 255. 127 should be used instead.
+
+
+Terminal is kinda broken?
+For example, `$ less AUTHORS.md` won't really work as expected.
+Or for example `$ vim AUTHORS.md` also won't work as expected.
