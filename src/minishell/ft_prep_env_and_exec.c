@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:38:19 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 19:14:49 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 19:25:19 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ static int	ft_save_pipes_and_fork(int pipes[2], pid_t *pid)
 		return (-1);
 	else if (*pid == 0)
 	{
-		if (pipes[1] != -1)
-			(void)close(pipes[1]);
-		pipes[1] = tmp_pipes[1];
-		(void)close(tmp_pipes[0]);
-	}
-	else
-	{
 		if (pipes[0] != -1)
 			(void)close(pipes[0]);
 		pipes[0] = tmp_pipes[0];
 		(void)close(tmp_pipes[1]);
+	}
+	else
+	{
+		if (pipes[1] != -1)
+			(void)close(pipes[1]);
+		pipes[1] = tmp_pipes[1];
+		(void)close(tmp_pipes[0]);
 	}
 	return (0);
 }
