@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 15:51:19 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:05:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,23 @@ int			unset_builtin(t_minishell_data *data, const char *args[]);
  */
 int			env_builtin(t_minishell_data *data, const char *args[]);
 
-int			exit_builtin(const char *args[], int *last_exit_code);
+/**
+ * Exits the shell. For more details, please see `$ man 1p exit`.
+ * @param	data	Minishell's data.
+ * @param	args	Array of arguments passed to the "exit" command,
+ * 					excluding the command itself.
+ *						(Please refer to args_for_execve)
+ * @return	EXIT_ERROR, if got more than one argument or write() failed:
+ * 				data->should_leave will be edited only in case
+ * 				of write() failure,
+ * 				and data->with_which_code will be set to MESSED_UP;
+ * 			EXIT_OK otherwise:
+ * 				data->should_leave will be set to true in this case,
+ * 				and data->with_which_code will be set to an exit code
+ * 					to leave the shell with.
+ */
+int			exit_builtin(t_minishell_data *data, const char *args[]);
+
 const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign);
 
 #endif /* BUILTINS_H */

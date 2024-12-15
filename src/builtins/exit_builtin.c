@@ -6,129 +6,65 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/13 20:03:19 by root             ###   ########.fr       */
+/*   Updated: 2024/12/15 16:16:11 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <builtins.h>
-#include <stdio.h>
+#include <minishell.h>
+#include <stddef.h>
+#include <stdbool.h>
+#include <utils.h>
+#include <libft.h>
 
-#define DEC_BASE 10
-#define NUMERIC_ERROR_CODE 2
-#define ARGUMENT_ERROR_CODE 1
-#define LONG_MAX_ERROR_MSG ": numeric argument required\n"
-#define EXIT_PREFIX "minishell : exit: "
-
-static int	ft_exit_error(const char *arg)
-{
-	if (write(STDERR_FILENO, EXIT_PREFIX, ft_strlen(EXIT_PREFIX)) == -1
-		|| write(STDERR_FILENO, arg, ft_strlen(arg)) == -1
-		|| write(STDERR_FILENO, LONG_MAX_ERROR_MSG,
-			ft_strlen(LONG_MAX_ERROR_MSG)) == -1)
-		return (EXIT_FATAL_ERROR);
-	return (NUMERIC_ERROR_CODE);
-}
+#define INVALID_ARG_EXIT_CODE	2
 
 /**
- * @brief skip leading and trailing whitespaces. Check if there is any other
- * 			character than digits or +/- before the digits
- *
- * @param arg
- * @return true
- * @return false ("  - 123" "+-123" "123 123" "123a123" "    " "")
+ * Checks if *arg contains only digits and optional leading '+' or '-'
+ * 	(as well as possible whitespaces).
+ * @param	arg	Argument to check.
+ * @return	(true), if yes;
+ * 			(false) otherwise.
  */
-static bool	validate_exit_arg(const char *arg)
+static bool	ft_is_exit_arg_valid(const char *arg)
 {
-	if (!arg || !*arg)
-		return (false);
 	while (ft_isspace(*arg))
 		arg++;
 	if (*arg == '+' || *arg == '-')
 		arg++;
-	if (!*arg || !ft_isdigit(*arg))
+	if (*arg == '\0' || !ft_isdigit(*arg))
 		return (false);
 	while (ft_isdigit(*arg))
 		arg++;
 	while (ft_isspace(*arg))
 		arg++;
-	if (*arg)
+	if (*arg != '\0')
 		return (false);
 	return (true);
 }
 
-/**
- * @brief Main function to extract the numeric value from a string.
- *
- * @param nptr Pointer to the input string.
- * @return long int Extracted long integer value or 2 in case of error.
- */
-static long int	extract_arg(const char *nptr)
+int	exit_builtin(t_minishell_data *data, const char *args[])
 {
-	const char	*original_arg = nptr;
-	int			sign;
-	long		ret;
-	int			digit;
-
-	nptr = parse_sign_and_skip_whitespace(nptr, &sign);
-	ret = 0;
-	if (!nptr)
-		return (0);
-	while (ft_isdigit(*nptr))
+	if (*args == NULL)
+		return (data->should_leave = true,
+			data->with_which_code = data->vars.last_exit_status, EXIT_OK);
+	else if (args[1] != NULL)
 	{
-		digit = *nptr - '0';
-		if (ret > (LONG_MAX - digit) / DEC_BASE)
-			return (ft_exit_error(original_arg));
-		ret = ret * DEC_BASE + digit;
-		nptr++;
+		if (ft_errmsg("exit: Too many arguments.\n") == -1)
+		{
+			data->should_leave = true;
+			data->with_which_code = MESSED_UP;
+		}
+		return (EXIT_ERROR);
 	}
-	return (ret * sign);
-}
-
-/**
- * @brief Validate all digits (first can be + or -)
- *
- * @param arg
- * @return int
- */
-static int	extract_validate_arg(const char *arg)
-{
-	long int	res;
-
-	if (!arg)
-		return (EXIT_FATAL_ERROR);
-	if (!validate_exit_arg(arg))
-		return (ft_exit_error(arg));
-	res = extract_arg(arg);
-	res = ((res % 256) + 256) % 256;
-	return ((int)res);
-}
-
-/**
- * @brief Exits the shell.
- * can handle long int if overvlow -> print error and set exit code to 2
- * last_exit_code modullo 256
- * if negative -> modullo 256 than +256
- * in case of exit:numeric argument required returns 2 as in bash
- */
-int	exit_builtin(const char *args[], int *last_exit_code)
-{
-	if (!args || !last_exit_code)
-		return (EXIT_FATAL_ERROR);
-	printf("exit\n");
-	if (args[0] != NULL && args[1] != NULL)
+	data->should_leave = true;
+	if (!ft_is_exit_arg_valid(*args))
 	{
-		*last_exit_code = ARGUMENT_ERROR_CODE;
-		if (ft_errmsg("exit: too many arguments\n") == -1)
-			return (EXIT_FATAL_ERROR);
+		data->with_which_code = INVALID_ARG_EXIT_CODE;
+		if (ft_errmsg("exit: numeric argument required\n") == -1)
+			return (data->with_which_code = MESSED_UP , EXIT_ERROR);
 		return (EXIT_OK);
 	}
-	if (args[0] == NULL)
-	{
-		*last_exit_code = 0;
-		return (EXIT_OK);
-	}
-	*last_exit_code = extract_validate_arg(args[0]);
-	if (*last_exit_code == EXIT_FATAL_ERROR)
-		return (EXIT_FATAL_ERROR);
+	data->with_which_code = ft_atoi(*args);
 	return (EXIT_OK);
 }

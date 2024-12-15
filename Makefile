@@ -53,6 +53,7 @@ SRC_FILES = main.c															\
 			builtins/export_builtin.c										\
 			builtins/unset_builtin.c										\
 			builtins/env_builtin.c											\
+			builtins/exit_builtin.c											\
 			minishell/ft_init_data.c										\
 			minishell/ft_free_data.c										\
 			minishell/minishell.c											\
@@ -62,8 +63,6 @@ SRC_FILES = main.c															\
 			minishell/ft_handle_redirs.c									\
 			minishell/ft_restore_stdin_stdout.c								\
 			minishell/ft_exec_builtin.c										\
-			#builtins/exit_builtin.c										\
-			builtins/exit_utils.c											\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
