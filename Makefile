@@ -49,6 +49,7 @@ SRC_FILES = main.c															\
 			input_validation/ft_gen_errmsgs.c								\
 			input_validation/ft_is_valid_export_identifier.c				\
 			builtins/echo_builtin.c											\
+			builtins/pwd_builtin.c											\
 			builtins/export_builtin.c										\
 			builtins/unset_builtin.c										\
 			builtins/env_builtin.c											\
@@ -63,7 +64,6 @@ SRC_FILES = main.c															\
 			minishell/ft_exec_builtin.c										\
 			#builtins/exit_builtin.c										\
 			builtins/exit_utils.c											\
-			builtins/pwd_builtin.c											\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 

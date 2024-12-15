@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 15:34:30 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 15:51:19 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,19 @@
  * 				and data->with_which_code will bet to MESSED_UP.
  */
 int			echo_builtin(t_minishell_data *data, const char *args[]);
+
+/**
+ * Writes the current working directory to the standard output.
+ * @param	data	Minishell's data.
+ * @param	args	Array of arguments passed to the "pwd" command,
+ *					excluding the command itself.
+ * 						(Please refer to args_for_execve)
+ * @return	EXIT_OK on success;
+ * 			EXIT_ERROR on failure (ideally should never happen: write fail);
+ * 				data->should_leave will be set to true in this case,
+ * 				and data->with_which_code will bet to MESSED_UP.
+ */
+int			pwd_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Exports all variables in $args. If argument contains a '=',
@@ -99,6 +112,5 @@ int			env_builtin(t_minishell_data *data, const char *args[]);
 
 int			exit_builtin(const char *args[], int *last_exit_code);
 const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign);
-int			pwd_builtin(t_vars *vars, const char **args);
 
 #endif /* BUILTINS_H */
