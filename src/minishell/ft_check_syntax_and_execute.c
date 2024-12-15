@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:56:12 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 13:34:31 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:39:43 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_check_syntax_and_execute(t_minishell_data *data)
 		data->should_leave = true;
 		data->with_which_code = MESSED_UP;
 	}
-	data->vars.last_exit_code = status;
+	data->vars.last_exit_status = status;
 	ft_lstclear(&data->parser_result,
 		(void (*)(void *))ft_free_t_ret_with_t_exec);
 }

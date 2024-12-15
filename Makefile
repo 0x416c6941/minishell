@@ -46,6 +46,7 @@ SRC_FILES = main.c															\
 			input_validation/ft_gen_errmsg.c								\
 			input_validation/ft_gen_errmsgs.c								\
 			builtins/echo_builtin.c											\
+			builtins/env_builtin.c											\
 			minishell/ft_init_data.c										\
 			minishell/ft_free_data.c										\
 			minishell/minishell.c											\
@@ -55,8 +56,7 @@ SRC_FILES = main.c															\
 			minishell/ft_handle_redirs.c									\
 			minishell/ft_restore_stdin_stdout.c								\
 			minishell/ft_exec_builtin.c										\
-			#builtins/env_builtin.c											\
-			builtins/exit_builtin.c											\
+			#builtins/exit_builtin.c											\
 			builtins/exit_utils.c											\
 			builtins/pwd_builtin.c											\
 			builtins/unset_builtin.c										\
