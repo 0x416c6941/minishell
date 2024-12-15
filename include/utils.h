@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 14:06:22 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:58:01 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,15 @@ t_ret	ft_initialize_envs(const char **envp);
  * @param	t_env	Pointer to t_env to free.
  */
 void	ft_free_t_env(t_env *env);
+
+/**
+ * Looks for an environment variable with key $identifier in $env
+ * 	(which is an $envs from t_vars).
+ * @param	env			Environment variables.
+ * @param	identifier	Key to look for.
+ * @return	(Found environment variable) or (NULL), if not found.
+ */
+t_env	*ft_find_env(t_list *env, const char *identifier);
 
 /* Function to calculate the number of elements in const char *args[] */
 /* size_t	calculate_args_count(const char *args[]); */

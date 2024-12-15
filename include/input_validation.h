@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 14:23:04 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:42:18 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,11 +159,11 @@ int		ft_gen_errmsg(int errcode, const t_list *next_node);
 int		ft_gen_errmsgs(const t_list *parsed_cmd);
 
 /**
- * Checks if $arg is a valid argument for export command.
+ * Checks if $arg is a valid identifier for export command.
  * @param	arg	Argument to check.
  * @return	(true), if yes;
  * 			(false) otherwise.
  */
-bool	ft_is_valid_export_arg(const char *arg);
+bool	ft_is_valid_export_identifier(const char *arg);
 
 #endif /* INPUT_VALIDATION_H */

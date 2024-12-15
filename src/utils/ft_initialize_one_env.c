@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 19:53:13 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 13:53:00 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:13:02 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_ret	ft_initialize_one_env(const char *env)
 		return (ft_free_t_env(ret), (t_ret){(-1), NULL});
 	(void)ft_strlcpy(ret->key, env, key_len + 1);
 	if (env[key_len] == '\0')
-		ret->value = ft_strdup("");
+		ret->value = NULL;
 	else
 	{
 		ret->value = ft_strdup(env + key_len + 1);
