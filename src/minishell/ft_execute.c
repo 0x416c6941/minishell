@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 21:06:52 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:19:12 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,22 @@ static int	ft_execute_norminette(t_minishell_data *data)
 
 int	ft_execute(t_minishell_data *data)
 {
-	int	ret;
+	int		ret;
+	t_exec	*cmd;
 
 	if (ft_lstsize(data->parser_result) == 1
 		&& ((t_ret *)data->parser_result->content)->status
 		== PATHNAME_IS_BUILTIN)
 	{
-		if (ft_handle_redirs(((t_ret *)data->parser_result->content)->ret)
-			== -1)
-		{
-			if (ft_restore_stdin_stdout(data) == -1)
+		cmd = ((t_ret *)data->parser_result->content)->ret;
+		if (cmd->stdin_redir.is_initialized)
+			if (dup2(cmd->stdin_redir.fd, STDIN_FILENO) == -1
+				|| close(cmd->stdin_redir.fd) == -1)
 				return (-1);
-			return (0);
-		}
+		if (cmd->stdout_redir.is_initialized)
+			if (dup2(cmd->stdout_redir.fd, STDOUT_FILENO) == -1
+				|| close(cmd->stdout_redir.fd) == -1)
+				return (-1);
 		ret = ft_exec_builtin(data,
 				((t_ret *)data->parser_result->content)->ret);
 		if (ft_restore_stdin_stdout(data) == -1)
