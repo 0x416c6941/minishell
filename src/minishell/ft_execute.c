@@ -6,12 +6,14 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 17:29:34 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:23:14 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 #include <libft.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 /**
  * No, like really, I absolutely despise Norminette.
@@ -24,8 +26,21 @@
  */
 static int	ft_execute_norminette(t_minishell_data *data)
 {
-	// TODO
-	(void)data;
+	pid_t	pid;
+	int		status;
+
+	pid = fork();
+	if (pid == -1)
+		return (data->should_leave = true,
+			data->with_which_code = MESSED_UP, -1);
+	if (pid == 0)
+		return (data->should_leave = true, ft_prep_env_and_exec(data));
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			data->vars.last_exit_status = WEXITSTATUS(status);
+	}
 	return (0);
 }
 

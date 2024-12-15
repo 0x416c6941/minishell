@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:39:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 01:24:47 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 18:17:11 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int		ft_exec_builtin(t_minishell_data *data, t_exec *cmd);
 /**
  * Prepares environment (handles all stdin and stdout redirections)
  * and executes the entered commands (t_execs).
+ * After calling this function, Minishell would exit.
  * @param	data	Minishell's data.
  * @return	(-1), if something went wrong and we should leave:
  * 				this includes really important system calls,
