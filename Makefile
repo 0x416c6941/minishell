@@ -17,8 +17,7 @@ SRC_FILES = main.c															\
 			utils/ft_free_t_env.c											\
 			utils/ft_initialize_one_env.c									\
 			utils/ft_initialize_envs.c										\
-			utils/get_env_value.c											\
-			utils/is_valid_export_arg.c										\
+			utils/ft_find_env.c												\
 			parse/ft_get_next_token.c										\
 			parse/ft_get_next_arg.c											\
 			parse/ft_free_args_for_execve.c									\
@@ -30,10 +29,13 @@ SRC_FILES = main.c															\
 			parse/ft_get_pathname_for_execve.c								\
 			parse/ft_free_t_ret_with_t_exec.c								\
 			parse/ft_final_parser.c											\
-			expander/ft_get_env_value.c expander/ft_extract_var_name.c		\
+			expander/ft_get_env_value.c										\
+			expander/ft_extract_var_name.c									\
 			expander/ft_calculate_expanded_arg_size.c						\
-			expander/ft_dup_arg_expanded.c expander/ft_is_whole_arg_var.c	\
-			expander/ft_expand_t_exec.c expander/ft_expand_heredoc_delim.c	\
+			expander/ft_dup_arg_expanded.c									\
+			expander/ft_is_whole_arg_var.c									\
+			expander/ft_expand_t_exec.c										\
+			expander/ft_expand_heredoc_delim.c								\
 			expander/ft_handle_heredoc.c									\
 			input_validation/ft_check_unsupported.c							\
 			input_validation/ft_has_invalid_pipe_position.c					\
@@ -45,7 +47,9 @@ SRC_FILES = main.c															\
 			input_validation/ft_are_there_syntax_errors_in_parsed_cmd.c		\
 			input_validation/ft_gen_errmsg.c								\
 			input_validation/ft_gen_errmsgs.c								\
+			input_validation/ft_is_valid_export_identifier.c				\
 			builtins/echo_builtin.c											\
+			builtins/export_builtin.c										\
 			builtins/env_builtin.c											\
 			minishell/ft_init_data.c										\
 			minishell/ft_free_data.c										\
@@ -56,11 +60,10 @@ SRC_FILES = main.c															\
 			minishell/ft_handle_redirs.c									\
 			minishell/ft_restore_stdin_stdout.c								\
 			minishell/ft_exec_builtin.c										\
-			#builtins/exit_builtin.c											\
+			#builtins/exit_builtin.c										\
 			builtins/exit_utils.c											\
 			builtins/pwd_builtin.c											\
 			builtins/unset_builtin.c										\
-			builtins/export_builtin.c										\
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
