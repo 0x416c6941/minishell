@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 14:16:19 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 13:40:36 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 13:44:34 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,14 @@ int	env_builtin(t_minishell_data *data, const char *args[])
 	t_env	*env;
 
 	if (*args != NULL)
+	{
+		if (ft_errmsg("env: Too many arguments\n") == -1)
+		{
+			data->should_leave = true;
+			data->with_which_code = MESSED_UP;
+		}
 		return (EXIT_ERROR);
+	}
 	node = data->vars.envs;
 	while (node != NULL)
 	{
