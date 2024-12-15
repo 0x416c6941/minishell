@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 01:17:31 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:31:56 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
  * 				and data->with_which_code will bet to MESSED_UP.
  */
 int			echo_builtin(t_minishell_data *data, const char *args[]);
+
 int			env_builtin(t_vars *vars);
 int			export_builtin(t_list **env_head, const char **args);
 int			exit_builtin(const char *args[], int *last_exit_code);
