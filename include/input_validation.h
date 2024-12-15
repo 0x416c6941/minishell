@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 11:35:47 by root              #+#    #+#             */
-/*   Updated: 2024/12/10 12:18:03 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:23:04 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <libft.h>
 # include <parse.h>
+# include <stdbool.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -54,7 +55,7 @@
  * 				written to stderr;
  * 			(-1), if write to stderr has failed.
  */
-int	ft_check_unsupported(const char *str);
+int		ft_check_unsupported(const char *str);
 
 /**
  * Check for invalid pipe positions in the beginning or in the end of $str.
@@ -63,7 +64,7 @@ int	ft_check_unsupported(const char *str);
  * 			(0) if found some invalid pipe and wrote log to stderr;
  * 			(Some positive value) otherwise;
  */
-int	ft_has_invalid_pipe_position(const char *str);
+int		ft_has_invalid_pipe_position(const char *str);
 
 /**
  * Checks if all quotes in $arg are properly closed or not.
@@ -71,7 +72,7 @@ int	ft_has_invalid_pipe_position(const char *str);
  * @return (Some non-negative value), if yes;
  * 			(-1) otherwise.
  */
-int	ft_check_arg_quotes(const char *arg);
+int		ft_check_arg_quotes(const char *arg);
 
 /**
  * Checks if $arg is a valid argument: if it's not NULL,
@@ -83,7 +84,7 @@ int	ft_check_arg_quotes(const char *arg);
  * @return (Some non-negative value), if yes;
  * 			(-1) otherwise.
  */
-int	ft_check_arg(const char *arg, enum e_arg_type arg_type);
+int		ft_check_arg(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Checks if $args, $stdin_redirs and $stdout_redirs are all NULL in $raw_cmd.
@@ -92,7 +93,7 @@ int	ft_check_arg(const char *arg, enum e_arg_type arg_type);
  * @return	(-1), if they are;
  * 			(some non-negative value) otherwise.
  */
-int	ft_check_emptiness_raw(const t_exec *raw_cmd);
+int		ft_check_emptiness_raw(const t_exec *raw_cmd);
 
 /**
  * Checks, if provided argument exists as an executable file.
@@ -101,7 +102,7 @@ int	ft_check_emptiness_raw(const t_exec *raw_cmd);
  * 			(STAT_FAIL), if stat() call failed for some reason;
  * 			some other error otherwise.
  */
-int	ft_check_pathname(const char *arg);
+int		ft_check_pathname(const char *arg);
 
 /**
  * Generates raw error code for $arg, depending on $arg_type.
@@ -122,7 +123,7 @@ int	ft_check_pathname(const char *arg);
  * 				and $arg contains stdout redirection;
  * 			(ARG_OK), if no errors mentioned above were found.
  */
-int	ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
+int		ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
 
 /**
  * Checks, if in a list of parsed commands, gotten by ft_final_parser(),
@@ -134,7 +135,7 @@ int	ft_gen_raw_errcode(const char *arg, enum e_arg_type arg_type);
  * @return	(0), if there are no mistakes;
  * 			(Some positive value) otherwise.
  */
-int	ft_are_there_syntax_errors_in_parsed_cmd(const t_list *parsed_cmd);
+int		ft_are_there_syntax_errors_in_parsed_cmd(const t_list *parsed_cmd);
 
 /**
  * Generate an error message depending on value in $errcode
@@ -145,7 +146,7 @@ int	ft_are_there_syntax_errors_in_parsed_cmd(const t_list *parsed_cmd);
  * @return	(-1), if some write() to stderr failed;
  * 			(some non-negative value) otherwise (i.e. if everything went fine).
  */
-int	ft_gen_errmsg(int errcode, const t_list *next_node);
+int		ft_gen_errmsg(int errcode, const t_list *next_node);
 
 /**
  * For every command in a list of parsed commands, gotten by ft_final_parser(),
@@ -155,6 +156,14 @@ int	ft_gen_errmsg(int errcode, const t_list *next_node);
  * @return	(-1), if some write() to stderr failed;
  * 			(some non-negative value) if everything went ok.
  */
-int	ft_gen_errmsgs(const t_list *parsed_cmd);
+int		ft_gen_errmsgs(const t_list *parsed_cmd);
+
+/**
+ * Checks if $arg is a valid argument for export command.
+ * @param	arg	Argument to check.
+ * @return	(true), if yes;
+ * 			(false) otherwise.
+ */
+bool	ft_is_valid_export_arg(const char *arg);
 
 #endif /* INPUT_VALIDATION_H */
