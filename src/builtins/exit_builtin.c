@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 16:16:11 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:46:04 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	exit_builtin(t_minishell_data *data, const char *args[])
 	{
 		data->with_which_code = INVALID_ARG_EXIT_CODE;
 		if (ft_errmsg("exit: numeric argument required\n") == -1)
-			return (data->with_which_code = MESSED_UP , EXIT_ERROR);
+			return (data->with_which_code = MESSED_UP, EXIT_ERROR);
 		return (EXIT_OK);
 	}
 	data->with_which_code = ft_atoi(*args);

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 01:20:53 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 16:18:51 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:14:02 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,14 @@
 #include <parse.h>
 #include <builtins.h>
 
+#define HOW_DID_WE_GET_HERE	2147438647
+
 int	ft_exec_builtin(t_minishell_data *data, t_exec *cmd)
 {
 	if (ft_strcmp(cmd->args_for_execve[0], "echo") == 0)
 		return (echo_builtin(data, (const char **)(cmd->args_for_execve + 1)));
+	if (ft_strcmp(cmd->args_for_execve[0], "cd") == 0)
+		return (cd_builtin(data, (const char **)(cmd->args_for_execve + 1)));
 	else if (ft_strcmp(cmd->args_for_execve[0], "pwd") == 0)
 		return (pwd_builtin(data, (const char **)(cmd->args_for_execve + 1)));
 	else if (ft_strcmp(cmd->args_for_execve[0], "export") == 0)
@@ -29,5 +33,5 @@ int	ft_exec_builtin(t_minishell_data *data, t_exec *cmd)
 		return (env_builtin(data, (const char **)(cmd->args_for_execve + 1)));
 	else if (ft_strcmp(cmd->args_for_execve[0], "exit") == 0)
 		return (exit_builtin(data, (const char **)(cmd->args_for_execve + 1)));
-	return (0);
+	return (HOW_DID_WE_GET_HERE);
 }

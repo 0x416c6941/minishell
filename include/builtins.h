@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 16:05:32 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 16:24:52 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,25 @@
  * 				data->should_leave will be set to true in this case,
  * 				and data->with_which_code will bet to MESSED_UP.
  */
-int			echo_builtin(t_minishell_data *data, const char *args[]);
+int	echo_builtin(t_minishell_data *data, const char *args[]);
+
+/**
+ * Changes working directory. No options are supported.
+ * @param	data	Minishell's data.
+ * @param	args	Array of arguments passed to the "cd" command,
+ * 					excluding the command itself.
+*						(Please refer to args_for_execve)
+ * @return	EXIT_OK on success;
+ * 			EXIT_ERROR on failure:
+ * 				If write() failed,
+ * 					data->should_leave will be set to true,
+ * 					and data->with_which_code will bet to MESSED_UP.
+ * 				Otherwise it just means that user has entered
+ * 				either non-existing directory, or the one they don't have
+ * 					access to.
+ * 				Both however should be fine.
+ */
+int	cd_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Writes the current working directory to the standard output.
@@ -60,7 +78,7 @@ int			echo_builtin(t_minishell_data *data, const char *args[]);
  * 				data->should_leave will be set to true in this case,
  * 				and data->with_which_code will bet to MESSED_UP.
  */
-int			pwd_builtin(t_minishell_data *data, const char *args[]);
+int	pwd_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Exports all variables in $args. If argument contains a '=',
@@ -76,7 +94,7 @@ int			pwd_builtin(t_minishell_data *data, const char *args[]);
  * 				data->should_leave will be set to true in this case,
  * 				and data->with_which_code will bet to MESSED_UP.
  */
-int			export_builtin(t_minishell_data *data, const char *args[]);
+int	export_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Unsets one or more environment variables.
@@ -89,7 +107,7 @@ int			export_builtin(t_minishell_data *data, const char *args[]);
  * 				data->should_leave will be set to true in this case,
  * 				and data->with_which_code will bet to MESSED_UP.
  */
-int			unset_builtin(t_minishell_data *data, const char *args[]);
+int	unset_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Prints the environment variables stored in the t_vars structure.
@@ -108,7 +126,7 @@ int			unset_builtin(t_minishell_data *data, const char *args[]);
  * 					(data->should_leave will be true in this case,
  * 					and data->with_which_code will be set to MESSED_UP).
  */
-int			env_builtin(t_minishell_data *data, const char *args[]);
+int	env_builtin(t_minishell_data *data, const char *args[]);
 
 /**
  * Exits the shell. For more details, please see `$ man 1p exit`.
@@ -125,8 +143,6 @@ int			env_builtin(t_minishell_data *data, const char *args[]);
  * 				and data->with_which_code will be set to an exit code
  * 					to leave the shell with.
  */
-int			exit_builtin(t_minishell_data *data, const char *args[]);
-
-const char	*parse_sign_and_skip_whitespace(const char *nptr, int *sign);
+int	exit_builtin(t_minishell_data *data, const char *args[]);
 
 #endif /* BUILTINS_H */

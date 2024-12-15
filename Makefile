@@ -49,6 +49,7 @@ SRC_FILES = main.c															\
 			input_validation/ft_gen_errmsgs.c								\
 			input_validation/ft_is_valid_export_identifier.c				\
 			builtins/echo_builtin.c											\
+			builtins/cd_builtin.c											\
 			builtins/pwd_builtin.c											\
 			builtins/export_builtin.c										\
 			builtins/unset_builtin.c										\
