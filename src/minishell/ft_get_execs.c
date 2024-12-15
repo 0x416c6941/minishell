@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:44:17 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 20:57:46 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:33:31 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	ft_get_execs(t_minishell_data *data)
 	if (input == NULL)
 		return (MINISHELL_INPUT_EOF);
 	else if (ft_input_issspace(input))
-		return (MINISHELL_INPUT_INCORRECT);
+		return (free(input), MINISHELL_INPUT_INCORRECT);
 	add_history(input);
 	status = ft_check_unsupported(input);
 	if (status == -1 || status == 0)

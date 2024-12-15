@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:38:19 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 20:57:32 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:31:21 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,17 @@ static int	ft_save_pipes_and_fork(int pipes[2], pid_t *pid)
 		return (-1);
 	else if (*pid == 0)
 	{
-		if (pipes[0] != -1)
-			(void)close(pipes[0]);
-		pipes[0] = tmp_pipes[0];
-		(void)close(tmp_pipes[1]);
-	}
-	else
-	{
 		if (pipes[1] != -1)
 			(void)close(pipes[1]);
 		pipes[1] = tmp_pipes[1];
 		(void)close(tmp_pipes[0]);
+	}
+	else
+	{
+		if (pipes[0] != -1)
+			(void)close(pipes[0]);
+		pipes[0] = tmp_pipes[0];
+		(void)close(tmp_pipes[1]);
 	}
 	return (0);
 }
@@ -135,7 +135,7 @@ int	ft_prep_env_and_exec(t_minishell_data *data)
 	{
 		if (ft_save_pipes_and_fork(pipes, &pid) == -1)
 			return (data->with_which_code = MESSED_UP, -1);
-		if (pid != 0)
+		if (pid == 0)
 			break ;
 		i++;
 	}
