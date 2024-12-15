@@ -6,11 +6,12 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 01:27:11 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 17:29:34 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+#include <libft.h>
 
 /**
  * No, like really, I absolutely despise Norminette.
