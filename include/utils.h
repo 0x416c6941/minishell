@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 12:20:38 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:08:45 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 14:06:22 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,9 @@ int		ft_input_issspace(const char *str);
 
 /**
  * Initialize a single node contaning t_env with environment variable.
+ * Please note, that if $env doesn't contain a '=', then $ret->value
+ * 	will be NULL (and it won't show in the `$ env` builtin,
+ * 		but only in the `$ export` one).
  * @warning	Dyamic memory allocation is used.
  * @param	env	Environment variable.
  * @return (If $status is (-1), then malloc() failed and $ret is NULL);
@@ -146,11 +149,5 @@ void	ft_free_t_env(t_env *env);
 
 /* Function to calculate the number of elements in const char *args[] */
 /* size_t	calculate_args_count(const char *args[]); */
-
-/* Returns the value of the environment variable with the key $key. */
-char	*get_env_value(t_vars *vars, const char *key);
-
-/* Checks if the string is a valid export argument.(key=value) */
-bool	is_valid_export_arg(const char *arg);
 
 #endif /* UTILS_H */
