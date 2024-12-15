@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:33:48 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 21:53:58 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 00:17:46 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@ int	minishell(t_minishell_data *data)
 	while (42)
 	{
 		if (data->is_interactive)
-		{
-			// Set interactive mode
-		}
+			(void)data; // SET INTERACTIVE MODE HERE
 		status = ft_get_execs(data);
 		if (status == -1)
 			return (data->should_leave = true,
@@ -33,11 +31,13 @@ int	minishell(t_minishell_data *data)
 		else if (status == MINISHELL_INPUT_EOF)
 			return (data->should_leave = true,
 				data->with_which_code = 0, 0);
-		// set noninteractive mode
-		// handle heredocs and exec I guess?.
-		ft_lstclear((t_list **)&data->parser_result,
-			(void (*)(void *))ft_free_t_ret_with_t_exec);
+		// SET NON-INTERACTIVE MODE HERE
+		ft_check_syntax_and_execute(data);
 		if (data->should_leave)
+		{
+			if (data->with_which_code == MESSED_UP)
+				return (1);
 			return (0);
+		}
 	}
 }

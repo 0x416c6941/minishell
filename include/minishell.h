@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:39:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 23:44:36 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:24:47 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include <utils.h>
+# include <parse.h>
 
 /**
  * ---------------------------------------------------------------------------
@@ -90,9 +91,57 @@ int		ft_get_execs(t_minishell_data *data);
 int		minishell(t_minishell_data *data);
 
 /**
+ * Handles all stdin and stdout redirections.
+ * If some redirection or I/O fails, error log will be written to stderr.
+ * @param	cmd	Command to handle redirections of.
+ * @return	(-1), if something went wrong;
+ * 			(Some non-negative value) otherwise.
+ */
+int		ft_handle_redirs(t_exec *cmd);
+
+/**
+ * Restores original stdin and stdout fds.
+ * @param	data	Minishell's data.
+ * @return	(-1), if something went wrong and we should leave;
+ * 			(Some non-negative value) otherwise.
+ */
+int		ft_restore_stdin_stdout(t_minishell_data *data);
+
+/**
+ * Executes builtin.
+ * @param	cmd	Command to execute.
+ * @return	Please refer to an individual builtin's documentation.
+ */
+int		ft_exec_builtin(t_minishell_data *data, t_exec *cmd);
+
+/**
  * Prepares environment (handles all stdin and stdout redirections)
  * and executes the entered commands (t_execs).
+ * @param	data	Minishell's data.
+ * @return	(-1), if something went wrong and we should leave:
+ * 				this includes really important system calls,
+ * 				such as fork(), pipe(), etc., which should never fail;
+ * 			(Some non-negative value) is returned otherwise.
  */
 int		ft_prep_env_and_exec(t_minishell_data *data);
+
+/**
+ * Executor.
+ * After execution is finished, original stdin and stdout fds are restored.
+ * @param	data	Minishell's data.
+ * @return	(-1), if something went wrong and we should leave;
+ * 			(Some non-negative value) is returned otherwise.
+ */
+int		ft_execute(t_minishell_data *data);
+
+/**
+ * Checks syntax and executes the parsed commands.
+ * Also frees the parser result, so that no memory leaks occur.
+ * If ft_are_there_syntax_errors_in_parsed_cmd() returns -1,
+ * 	data->should_leave will be set to true,
+ * 	and data->with_which_code will be set to MESSED_UP.
+ * @param	data	Minishell's data.
+ */
+void	ft_check_syntax_and_execute(t_minishell_data *data);
 
 #endif /* MINISHELL_H */

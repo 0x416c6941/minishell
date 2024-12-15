@@ -6,29 +6,48 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/14 19:28:18 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 01:17:31 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include <libft.h>
-# include <limits.h>
-# include <stdbool.h>
-# include <stdlib.h>
-# include <unistd.h>
+# include <minishell.h>
 # include <utils.h>
 
 /**
- * To be consistent with t_ret, in case of success
- * 	exit code will be positive (1)
- * and in case of failure will be negative (-1).
+ * ---------------------------------------------------------------------------
+ * Constants.
+ * ---------------------------------------------------------------------------
  */
-# define EXIT_OK 1
-# define EXIT_FATAL_ERROR -1
+/**
+ * In case of builtins, we'll save their exit code,
+ * which should always be in the same pattern: 0 for success,
+ * 	GENERALLY 1 for error.
+ * 		This can be potentially furtherly adjusted,
+ * 		please refer to individual builtin documentation.
+ */
+# define EXIT_OK	0
+# define EXIT_ERROR	1
 
-int			echo_builtin(const char *args[]);
+/**
+ * ---------------------------------------------------------------------------
+ * Functions.
+ * ---------------------------------------------------------------------------
+ */
+/**
+ * Please refer to `$ man 1 echo`.
+ * Only "-n" flag is implemented.
+ * @param	args	Array of arguments passed to the "echo" command,
+ *					excluding the command itself.
+ *						(Please refer to args_for_execve)
+ * @return	EXIT_OK on success;
+ * 			EXIT_ERROR on failure (ideally should never happen: write fail);
+ * 				data->should_leave will be set to true in this case,
+ * 				and data->with_which_code will bet to MESSED_UP.
+ */
+int			echo_builtin(t_minishell_data *data, const char *args[]);
 int			env_builtin(t_vars *vars);
 int			export_builtin(t_list **env_head, const char **args);
 int			exit_builtin(const char *args[], int *last_exit_code);

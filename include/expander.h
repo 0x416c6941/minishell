@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 20:28:06 by root              #+#    #+#             */
-/*   Updated: 2024/12/04 18:50:33 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/15 00:45:45 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,13 @@ int		ft_expand_t_exec(const t_vars *vars, t_exec *exec_to_expand);
  * @param	heredoc_delim	Heredoc's delimeter in which to remove all quotes.
  */
 void	ft_expand_heredoc_delim(char *heredoc_delim);
+
+/**
+ * Handles (reads and saves) heredoc content until $eof_str.
+ * @param	eof_str	Heredoc's end of file string.
+ * @return	(-1), if something went wrong;
+ * 			(Heredoc's fd), if everything went fine.
+ */
+int		ft_handle_heredoc(const char *eof_str);
 
 #endif /* EXPANDER_H */
