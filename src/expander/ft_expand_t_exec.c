@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 13:33:42 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/04 18:52:15 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:06:30 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,15 @@ static int	ft_expand_args_in_t_exec(const t_vars *vars,
 	{
 		ft_dup_arg_expanded_status = ft_dup_arg_expanded(vars,
 				(char *)arg->content);
+		arg = arg->next;
 		if (ft_dup_arg_expanded_status.status == -1)
 			return (-1);
+		else if (ft_strlen(ft_dup_arg_expanded_status.ret) == 0)
+		{
+			free(ft_dup_arg_expanded_status.ret);
+			continue ;
+		}
 		exec_to_expand->args_for_execve[i++] = ft_dup_arg_expanded_status.ret;
-		arg = arg->next;
 	}
 	return (0);
 }
