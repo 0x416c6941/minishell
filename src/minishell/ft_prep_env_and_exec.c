@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:38:19 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 21:31:21 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 01:30:57 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ static int	ft_prep_env(t_minishell_data *data, int pipes[2], int cmd_i)
 static int	ft_exec(t_minishell_data *data, int cmd_i)
 {
 	t_ret	*cmd;
+	char	**envp;
 
 	cmd = ft_lstat(data->parser_result, (size_t)cmd_i)->content;
 	if (cmd->status != PATHNAME_IS_BUILTIN && cmd->status != CMD_OK)
@@ -112,10 +113,12 @@ static int	ft_exec(t_minishell_data *data, int cmd_i)
 	}
 	else if (cmd->status == PATHNAME_IS_BUILTIN)
 		return (ft_exec_builtin(data, cmd->ret));
-	if (execve(((t_exec *)cmd->ret)->path_to_exec,
+	envp = ft_prepare_envp(data);
+	if (envp == NULL
+		|| execve(((t_exec *)cmd->ret)->path_to_exec,
 			((t_exec *)cmd->ret)->args_for_execve,
-			NULL) == -1)
-		return (data->with_which_code = MESSED_UP, -1);
+			envp) == -1)
+		return (ft_split_free(envp), data->with_which_code = MESSED_UP, -1);
 	return (-1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:39:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 18:17:11 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 01:29:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,5 +144,14 @@ int		ft_execute(t_minishell_data *data);
  * @param	data	Minishell's data.
  */
 void	ft_check_syntax_and_execute(t_minishell_data *data);
+
+/**
+ * Prepares envp for execve().
+ * Can be free()'d with ft_split_free() from Libft.
+ * @param	data	Minishell's data.
+ * @return	An array of strings for execve(),
+ * 			or NULL if malloc() failed.
+ */
+char	**ft_prepare_envp(t_minishell_data *data);
 
 #endif /* MINISHELL_H */

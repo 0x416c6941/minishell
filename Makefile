@@ -65,6 +65,7 @@ SRC_FILES = main.c															\
 			minishell/ft_restore_stdin_stdout.c								\
 			minishell/ft_exec_builtin.c										\
 			minishell/ft_prep_env_and_exec.c								\
+			minishell/ft_prepare_envp.c
 
 SRC_FILES := $(addprefix $(SRC_DIR)/,$(SRC_FILES))
 
