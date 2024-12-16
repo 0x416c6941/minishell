@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 02:28:47 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 02:43:06 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_execute(t_minishell_data *data)
 				((t_ret *)data->parser_result->content)->ret);
 		if (ft_restore_stdin_stdout(data) == -1)
 			return (-1);
-		return (ret);
+		return (data->vars.last_exit_status = ret, 0);
 	}
 	return (ft_execute_norminette(data));
 }
