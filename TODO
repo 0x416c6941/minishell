@@ -31,6 +31,8 @@ expander for ~ (home working directory)
 	UPDATE: this is not required by subject.pdf!
 
 
+executor: ENVP IS NOT USED!!!
+
 Make error-logging more bash-like.
 
 Known glitches:
