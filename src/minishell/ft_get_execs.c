@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:44:17 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 03:04:06 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:26:24 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ static int	ft_get_execs_stupid_norminette_bypass(char *readline_input,
 	return (MINISHELL_INPUT_INCORRECT);
 }
 
+/**
+ * Another continuation of ft_get_execs().
+ */
 static int	ft_get_execs_handle_redirs(t_minishell_data *data)
 {
 	t_list	*exec;
@@ -59,6 +62,9 @@ static int	ft_get_execs_handle_redirs(t_minishell_data *data)
 	return (MINISHELL_INPUT_OK);
 }
 
+/**
+ * Continuation of ft_get_execs().
+ */
 static int	ft_get_execs_parse_prompt(t_minishell_data *data, char *prompt)
 {
 	t_ret	pstatus;
