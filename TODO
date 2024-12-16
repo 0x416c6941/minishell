@@ -36,25 +36,6 @@ Make error-logging more bash-like.
 Known glitches:
 
 this output:
-	cat < $UNEXISTING_FILE
-Sets $? to 255. 1 should be set instead.
-
-this output:
-	cat < $UNEIXSTING_FILE | cat
-Sets $? to 255. 0 should be set instead.
-	this output:
-		cat < $UNEXISTING_FILE | echo
-	Sets $? to 255. 0 should be set instead.
-
-this output:
-	$UNEXISTING_COMMAND
-Sets $? to 255. 1 should be set instead.
-
-this output:
-	echo <123 <456 hi | echo 42
-Sets $? to 255. 0 should be set instead.
-
-this output:
 	ls > /root/no_permission
 Sets $? to 255. 1 should be set instead.
 
