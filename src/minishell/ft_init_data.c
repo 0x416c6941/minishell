@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 19:48:37 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/14 23:47:01 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 01:05:28 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_init_data(const char **envp, t_minishell_data *data)
 	data->real_stdin_fd = dup(STDIN_FILENO);
 	if (data->real_stdin_fd == -1)
 		return (-1);
-	data->real_stdout_fd = dup(STDIN_FILENO);
+	data->real_stdout_fd = dup(STDOUT_FILENO);
 	if (data->real_stdout_fd == -1)
 		return ((void)close(data->real_stdin_fd), data->real_stdin_fd = -1, -1);
 	data->should_leave = false;
