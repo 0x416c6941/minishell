@@ -52,6 +52,7 @@ SRC_FILES = main.c															\
 			builtins/cd_builtin.c											\
 			builtins/pwd_builtin.c											\
 			builtins/export_builtin.c										\
+			builtins/export_builtin_continuation.c							\
 			builtins/unset_builtin.c										\
 			builtins/env_builtin.c											\
 			builtins/exit_builtin.c											\

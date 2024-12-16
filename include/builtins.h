@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 13:24:29 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 16:24:52 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:18:48 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,17 @@ int	cd_builtin(t_minishell_data *data, const char *args[]);
  * 				and data->with_which_code will bet to MESSED_UP.
  */
 int	pwd_builtin(t_minishell_data *data, const char *args[]);
+
+/**
+ * Norminette bypass for export_builtin().
+ * @param	data	Minishell's data.
+ * @param	arg		Argument to check and, if everything is correct,
+ * 					add to data->vars.envs.
+ * @return	-1, if something went wrong and we should leave;
+ * 			0, if identifier was incorrect;
+ * 			Some positive value otherwise.
+ */
+int	export_builtin_continuation(t_minishell_data *data, const char *arg);
 
 /**
  * Exports all variables in $args. If argument contains a '=',
