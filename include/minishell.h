@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:39:32 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 14:46:51 by root             ###   ########.fr       */
+/*   Updated: 2024/12/16 14:59:50 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ typedef struct s_minishell_data
 	const bool	is_interactive;
 	t_list		*parser_result;
 	/**
-		* Since we'll overwrite STDIN_FILENO and STDOUT_FILENO
-		* when executable builtins,
-			we'll need to preserve real file descriptors.
-		*/
+	 * Since we'll overwrite STDIN_FILENO and STDOUT_FILENO
+	 * when executable builtins,
+	 * 	we'll need to preserve real file descriptors.
+	 */
 	int			real_stdin_fd;
 	int			real_stdout_fd;
 	bool		should_leave;
@@ -155,7 +155,29 @@ void			ft_check_syntax_and_execute(t_minishell_data *data);
  */
 char			**ft_prepare_envp(t_minishell_data *data);
 
+/**
+ * Sets handlers for SIGINT and SIGQUIT to print a newline.
+ *
+ * Configures the behavior for SIGINT and SIGQUIT signals using the
+ * sigaction system call. Both signals will trigger the
+ * sig_print_newline function when received.
+ *
+ * @return	0 on success;
+ * 			-1 on failure.
+ */
 int				handle_signal_interactive(void);
+
+/**
+ * @brief Sets a signal handler for SIGINT to reset the prompt.
+ *
+ * This function establishes a custom signal handler for the `SIGINT` signal
+ * (typically triggered by `Ctrl+C`) that calls the `sig_reset_prompt`
+ * function. It first ensures that the `SIGQUIT` signal is ignored by calling
+ * `ignore_sigquit`.
+ *
+ * @return	0 on success;
+ * 			-1 if setting the signal handler fails.
+ */
 int				handle_signal_noninteractive(void);
 
 #endif /* MINISHELL_H */
