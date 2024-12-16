@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:44:17 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/15 21:33:31 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 03:04:06 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,12 @@ static int	ft_get_execs_handle_redirs(t_minishell_data *data)
 static int	ft_get_execs_parse_prompt(t_minishell_data *data, char *prompt)
 {
 	t_ret	pstatus;
-	int		vstatus;
 
 	pstatus = ft_final_parser((const t_vars *)&data->vars, prompt);
 	free(prompt);
 	prompt = NULL;
 	if (pstatus.status == -1)
 		return (ft_errmsg(BAD_MSG), -1);
-	vstatus = ft_are_there_syntax_errors_in_parsed_cmd(pstatus.ret);
-	if (vstatus == -1)
-		return (ft_lstclear((t_list **)&pstatus.ret,
-				(void (*)(void *))ft_free_t_ret_with_t_exec), -1);
-	else if (vstatus > 0)
-		return (ft_lstclear((t_list **)&pstatus.ret,
-				(void (*)(void *))ft_free_t_ret_with_t_exec),
-			MINISHELL_INPUT_INCORRECT);
 	data->parser_result = pstatus.ret;
 	return (ft_get_execs_handle_redirs(data));
 }

@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/15 17:38:19 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 01:30:57 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 03:16:45 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ static int	ft_prep_env(t_minishell_data *data, int pipes[2], int cmd_i)
  * @param	data	Minishell's data.
  * @param	cmd_i	Index of the command to execute.
  * @return	(-1), if something went wrong;
- * 			(Some non-negative value) otherwise:
- * 				this non-negative value will be the exit code of
- * 				the program / builtin.
+ * 			(Some non-negative value) otherwise.
  */
 static int	ft_exec(t_minishell_data *data, int cmd_i)
 {
@@ -109,10 +107,10 @@ static int	ft_exec(t_minishell_data *data, int cmd_i)
 		if (ft_gen_errmsg(cmd->status, ft_lstat(data->parser_result,
 					(size_t)cmd_i + 1)) == -1)
 			return (-1);
-		return (1);
+		return (data->with_which_code = 1, 0);
 	}
 	else if (cmd->status == PATHNAME_IS_BUILTIN)
-		return (ft_exec_builtin(data, cmd->ret));
+		return (data->with_which_code = ft_exec_builtin(data, cmd->ret), 0);
 	envp = ft_prepare_envp(data);
 	if (envp == NULL
 		|| execve(((t_exec *)cmd->ret)->path_to_exec,
