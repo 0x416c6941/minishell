@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 01:31:04 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 01:41:42 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 02:18:39 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_cnt_envs(t_minishell_data *data)
 	while (env != NULL)
 	{
 		if (((t_env *)env->content)->value != NULL)
-		cnt++;
+			cnt++;
 		env = env->next;
 	}
 	return (cnt);
