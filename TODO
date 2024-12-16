@@ -36,11 +36,6 @@ Make error-logging more bash-like.
 Known glitches:
 
 this output:
-	exit 42 world
-	exit
-Returns 0. 1 should be returned instead.
-
-this output:
 	cat < $UNEXISTING_FILE
 Sets $? to 255. 1 should be set instead.
 
@@ -82,8 +77,3 @@ Sets $? to 255. 126 should be used instead (dirs).
 this:
 	README.md
 Sets $? to 255. 127 should be used instead.
-
-
-Terminal is kinda broken?
-For example, `$ less AUTHORS.md` won't really work as expected.
-Or for example `$ vim AUTHORS.md` also won't work as expected.
