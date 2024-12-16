@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:44:17 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 16:26:24 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 16:35:15 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include <utils.h>
 #include <stdlib.h>
 #include <parse.h>
+#include <expander.h>
 
 /**
  * I hate Norminette.
@@ -82,6 +83,7 @@ int	ft_get_execs(t_minishell_data *data)
 {
 	char	*input;
 	int		status;
+	t_ret	estatus;
 
 	input = readline("minishell$ ");
 	if (input == NULL)
@@ -89,6 +91,12 @@ int	ft_get_execs(t_minishell_data *data)
 	else if (ft_input_issspace(input))
 		return (free(input), MINISHELL_INPUT_INCORRECT);
 	add_history(input);
+	estatus = ft_dup_arg_expanded(&data->vars, input);
+	if (estatus.status == -1)
+		return (ft_get_execs_stupid_norminette_bypass(input, estatus.status));
+	else if (ft_input_issspace(estatus.ret))
+		return (free(estatus.ret), free(input), MINISHELL_INPUT_INCORRECT);
+	free(estatus.ret);
 	status = ft_check_unsupported(input);
 	if (status == -1 || status == 0)
 		return (ft_get_execs_stupid_norminette_bypass(input, status));
