@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 02:24:19 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 02:24:55 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	ft_execute_norminette(t_minishell_data *data)
 		return (data->should_leave = true, ft_prep_env_and_exec(data));
 	waitpid(pid, &status, 0);
 	if (WIFEXITED(status))
-		data->last_exit_status = WEXITSTATUS(status);
+		data->vars.last_exit_status = WEXITSTATUS(status);
 	return (0);
 }
 
