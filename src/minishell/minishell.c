@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:33:48 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 02:18:13 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 02:21:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	minishell(t_minishell_data *data)
 	while (42)
 	{
 		if (data->is_interactive)
-			set_signals_interactive();
+			(void)data; // SET INTERACTIVE MODE HERE
 		status = ft_get_execs(data);
 		if (status == -1)
 			return (data->should_leave = true,
@@ -31,7 +31,7 @@ int	minishell(t_minishell_data *data)
 		else if (status == MINISHELL_INPUT_EOF)
 			return (data->should_leave = true,
 				data->with_which_code = 0, 0);
-		set_signals_noninteractive();
+		// SET NONINTERACTIVE MODE HERE
 		ft_check_syntax_and_execute(data);
 		if (data->should_leave)
 		{
