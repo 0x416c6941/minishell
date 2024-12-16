@@ -40,10 +40,6 @@ this output:
 Sets $? to 255. 1 should be set instead.
 
 this output:
-	$EMPTY
-Sets $? to 1. 0 should be set instead.
-
-this output:
 	$EMPTY echo hi
 Sets $? to 1. 0 should be set instead and echo needs to be run.
 
