@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:57:25 by root              #+#    #+#             */
-/*   Updated: 2024/12/16 14:46:51 by root             ###   ########.fr       */
+/*   Updated: 2024/12/16 14:48:25 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <signal.h>
 #include <unistd.h>
 
-static void	signal_reset_prompt(int signo)
+static void	sig_reset_prompt(int signo)
 {
 	(void)signo;
 	write(1, "\n", 1);
@@ -35,7 +35,7 @@ static void	ignore_sigquit(void)
 	sigaction(SIGQUIT, &act, NULL);
 }
 
-static void	signal_print_newline(int signal)
+static void	sig_print_newline(int signal)
 {
 	(void)signal;
 	write(1, "\n", 1);
@@ -46,7 +46,7 @@ static void	signal_print_newline(int signal)
  *
  * Configures the behavior for SIGINT and SIGQUIT signals using the
  * sigaction system call. Both signals will trigger the
- * signal_print_newline function when received.
+ * sig_print_newline function when received.
  *
  * @return int Returns 0 on success, -1 on failure.
  */
@@ -55,7 +55,7 @@ int	handle_signal_noninteractive(void)
 	struct sigaction	act;
 
 	ft_memset(&act, 0, sizeof(act));
-	act.sa_handler = &signal_print_newline;
+	act.sa_handler = &sig_print_newline;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 		return (-1);
 	if (sigaction(SIGQUIT, &act, NULL) == -1)
@@ -67,7 +67,7 @@ int	handle_signal_noninteractive(void)
  * @brief Sets a signal handler for SIGINT to reset the prompt.
  *
  * This function establishes a custom signal handler for the `SIGINT` signal
- * (typically triggered by `Ctrl+C`) that calls the `signal_reset_prompt`
+ * (typically triggered by `Ctrl+C`) that calls the `sig_reset_prompt`
  * function. It first ensures that the `SIGQUIT` signal is ignored by calling
  * `ignore_sigquit`.
  *
@@ -79,7 +79,7 @@ int	handle_signal_interactive(void)
 
 	ignore_sigquit();
 	ft_memset(&act, 0, sizeof(act));
-	act.sa_handler = &signal_reset_prompt;
+	act.sa_handler = &sig_reset_prompt;
 	if (sigaction(SIGINT, &act, NULL) == -1)
 	{
 		perror("sigaction SIGINT failed");
