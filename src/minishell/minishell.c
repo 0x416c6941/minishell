@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 20:33:48 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 15:04:10 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/16 15:05:38 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,6 @@ int	minishell(t_minishell_data *data)
 				data->with_which_code = MESSED_UP, -1);
 		ft_check_syntax_and_execute(data);
 		if (data->should_leave)
-			return(BYE_BYE);
+			return (BYE_BYE);
 	}
 }
