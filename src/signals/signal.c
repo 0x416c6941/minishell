@@ -6,16 +6,16 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:57:25 by root              #+#    #+#             */
-/*   Updated: 2024/12/17 09:03:45 by root             ###   ########.fr       */
+/*   Updated: 2024/12/17 09:53:32 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <minishell.h>
+#include <stdio.h>
 #include <readline/history.h>
 #include <readline/readline.h>
 #include <signal.h>
-#include <stdio.h>
 #include <unistd.h>
 
 static void	sig_reset_prompt(int signo)
