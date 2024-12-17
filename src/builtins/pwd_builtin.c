@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 16:17:38 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 15:50:42 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:13:53 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	pwd_builtin(t_minishell_data *data, const char *args[])
 		}
 		return (EXIT_ERROR);
 	}
-	if (write(STDOUT_FILENO, buf, PATH_MAX) == -1
+	if (write(STDOUT_FILENO, buf, ft_strlen(buf)) == -1
 		|| write(STDOUT_FILENO, "\n", 1) == -1)
 		return (data->should_leave = true,
 			data->with_which_code = MESSED_UP, EXIT_ERROR);
