@@ -13,3 +13,6 @@ Things that are different from bash (however compilant with subject.pdf):
 	<li>Exit codes in case of syntax errors.</li>
 	<li>Error messages.</li>
 </ul>
+
+## Final score
+**101/100**.
