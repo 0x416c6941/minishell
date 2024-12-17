@@ -6,7 +6,7 @@
 /*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:57:25 by root              #+#    #+#             */
-/*   Updated: 2024/12/17 13:15:42 by hlyshchu         ###   ########.fr       */
+/*   Updated: 2024/12/17 20:22:16 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,6 @@ static void	sig_reset_prompt(int signo)
 	rl_redisplay();
 }
 
-static void	ignore_sigquit(void)
-{
-	struct sigaction	sa;
-
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = SIG_IGN;
-	sigaction(SIGQUIT, &sa, NULL);
-}
-
 static void	sig_print_newline(int signal)
 {
 	(void)signal;
@@ -48,20 +39,23 @@ int	handle_signal_noninteractive(void)
 
 	ft_memset(&sa, 0, sizeof(sa));
 	sa.sa_handler = &sig_print_newline;
-	if (sigaction(SIGINT, &sa, NULL) == -1 || \
-		sigaction(SIGQUIT, &sa, NULL) == -1)
+	if (sigaction(SIGINT, &sa, NULL) == -1
+		|| sigaction(SIGQUIT, &sa, NULL) == -1)
 		return (-1);
 	return (0);
 }
 
 int	handle_signal_interactive(void)
 {
-	struct sigaction	sa;
+	struct sigaction	sigint;
+	struct sigaction	sigquit;
 
-	ignore_sigquit();
-	ft_memset(&sa, 0, sizeof(sa));
-	sa.sa_handler = &sig_reset_prompt;
-	if (sigaction(SIGINT, &sa, NULL) == -1)
+	ft_memset(&sigint, 0, sizeof(sigint));
+	sigint.sa_handler = &sig_reset_prompt;
+	ft_memset(&sigquit, 0, sizeof(sigquit));
+	sigquit.sa_handler = SIG_IGN;
+	if (sigaction(SIGINT, &sigint, NULL) == -1
+		|| sigaction(SIGQUIT, &sigquit, NULL) == -1)
 		return (-1);
 	return (0);
 }
