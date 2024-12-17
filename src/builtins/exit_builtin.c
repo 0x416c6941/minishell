@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_builtin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 16:21:24 by root              #+#    #+#             */
-/*   Updated: 2024/12/15 16:46:04 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:28:13 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	exit_builtin(t_minishell_data *data, const char *args[])
 			data->with_which_code = data->vars.last_exit_status, EXIT_OK);
 	else if (args[1] != NULL)
 	{
-		if (ft_errmsg("exit: Too many arguments.\n") == -1)
+		if (ft_errmsg("exit: Too many arguments\n") == -1)
 		{
 			data->should_leave = true;
 			data->with_which_code = MESSED_UP;
