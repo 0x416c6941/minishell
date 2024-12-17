@@ -1,8 +1,8 @@
 # Compiler options.
 CC = cc
-CFLAGS = -I$(INC_DIR) -lreadline							\
+CFLAGS = -I$(INC_DIR)										\
 		 -Wall -Wextra -Wsign-conversion -pedantic -Werror	\
-		 -g -fsanitize=address -fsanitize=bounds-strict
+		 -g
 
 # Headers.
 INC_DIR = include
@@ -92,7 +92,7 @@ LIBFT_CLEAN = fclean
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_FILES)
-	$(CC) $(CFLAGS) $(OBJ_FILES) -o $@ -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(OBJ_FILES) -o $@ -L$(LIBFT_DIR) -lft -lreadline
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)			# Create the $(OBJ_DIR) if it doesn't exist.
