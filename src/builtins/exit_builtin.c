@@ -16,6 +16,7 @@
 #include <stdbool.h>
 #include <utils.h>
 #include <libft.h>
+#include <unistd.h>
 
 #define INVALID_ARG_EXIT_CODE	2
 
@@ -45,6 +46,7 @@ static bool	ft_is_exit_arg_valid(const char *arg)
 
 int	exit_builtin(t_minishell_data *data, const char *args[])
 {
+	(void)write(STDERR_FILENO, "exit\n", sizeof("exit\n") - 1);
 	if (*args == NULL)
 		return (data->should_leave = true,
 			data->with_which_code = data->vars.last_exit_status, EXIT_OK);
