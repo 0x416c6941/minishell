@@ -6,7 +6,7 @@
 /*   By: root <root@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 13:57:25 by root              #+#    #+#             */
-/*   Updated: 2024/12/17 08:57:17 by root             ###   ########.fr       */
+/*   Updated: 2024/12/17 09:03:45 by root             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	handle_signal_noninteractive(void)
 
 	ft_memset(&act, 0, sizeof(act));
 	act.sa_handler = &sig_print_newline;
-	if (sigaction(SIGINT, &act, NULL) == -1 || sigaction(SIGQUIT, &act, NULL) ==
-		-1)
+	if (sigaction(SIGINT, &act, NULL) == -1 || \
+		sigaction(SIGQUIT, &act, NULL) == -1)
 		return (-1);
 	return (0);
 }
