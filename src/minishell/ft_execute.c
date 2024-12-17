@@ -6,7 +6,7 @@
 /*   By: asagymba <asagymba@student.42prague.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 23:52:41 by asagymba          #+#    #+#             */
-/*   Updated: 2024/12/16 02:43:06 by asagymba         ###   ########.fr       */
+/*   Updated: 2024/12/17 18:15:09 by asagymba         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static int	ft_execute_norminette(t_minishell_data *data)
 	pid_t	pid;
 	int		status;
 
+	status = 0;
 	pid = fork();
 	if (pid == -1)
 		return (data->should_leave = true,
