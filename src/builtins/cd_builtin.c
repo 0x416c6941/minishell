@@ -6,7 +6,7 @@
 /*   By: hlyshchu <hlyshchu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 15:18:41 by root              #+#    #+#             */
-/*   Updated: 2024/12/17 13:30:12 by hlyshchu         ###   ########.fr       */
+/*   Updated: 2024/12/17 13:32:00 by hlyshchu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	cd_builtin(t_minishell_data *data, const char *args[])
 
 	if (args[0] != NULL && args[1] != NULL)
 	{
-		if (ft_errmsg("cd: Too many arguments\n") == -1)
+		if (ft_errmsg("cd: too many arguments\n") == -1)
 		{
 			data->should_leave = true;
 			data->with_which_code = MESSED_UP;
