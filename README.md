@@ -11,5 +11,5 @@ minishell implements only a ***subset of the POSIX shell standard***.
 Things that are different from bash (however compilant with subject.pdf):
 <ul>
 	<li>Exit codes in case of syntax errors.</li>
-	<li>Error messages.<li>
+	<li>Error messages.</li>
 </ul>
